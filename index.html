@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>理專稅務實戰神器 - 146案完整版</title>
-    <!-- 引入兩個獨立的資料庫檔案 -->
+    
+    <!-- 引入完整的資料庫檔案 -->
     <script src="data_all.js"></script>
-    <script src="data_all.js"></script>
+    
     <style>
         :root {
             --primary-color: #1A365D; --secondary-color: #2B6CB0;
@@ -42,6 +43,7 @@
     </style>
 </head>
 <body>
+
     <div class="top-navbar">
         <h1>💎 理專稅務實戰神器</h1>
         <p>雙視角篩選：遵循客戶「生命週期」與「資產屬性」精準投遞</p>
@@ -55,6 +57,8 @@
             <button class="filter-btn" data-filter="中壯年與企業經營">中壯年與企業經營</button>
             <button class="filter-btn" data-filter="屆退與安養照護">屆退與安養照護</button>
             <button class="filter-btn" data-filter="財富傳承與遺產">財富傳承與遺產</button>
+            <button class="filter-btn" data-filter="資產傳承期">資產傳承期</button>
+            <button class="filter-btn" data-filter="財富累積期">財富累積期</button>
         </div>
         <div class="filter-row" id="asset-filters">
             <div class="filter-label">依資產屬性：</div>
@@ -62,7 +66,9 @@
             <button class="filter-btn" data-filter="不動產">不動產</button>
             <button class="filter-btn" data-filter="保險與信託">保險與信託</button>
             <button class="filter-btn" data-filter="現金與有價證券">現金與有價證券</button>
+            <button class="filter-btn" data-filter="現金與金融">現金與金融</button>
             <button class="filter-btn" data-filter="海外資產與企業股權">海外資產與企業股權</button>
+            <button class="filter-btn" data-filter="海外與企業">海外與企業</button>
         </div>
     </div>
 
@@ -74,14 +80,17 @@
     </div>
 
     <script>
-        // 系統自動結合兩段資料庫
+        // 1. 一進入腳本，立刻讀取 data_all.js 裡面的資料
         let allCases = [];
-        if (typeof data_46 !== 'undefined') allCases = allCases.concat(data_46);
-        if (typeof data_100 !== 'undefined') allCases = allCases.concat(data_100);
+        if (typeof data_all !== 'undefined') {
+            allCases = data_all;
+        }
 
+        // 2. 宣告目前的篩選狀態初始值
         let currentLifecycle = 'all';
         let currentAsset = 'all';
 
+        // 3. 渲染畫面的主函數
         function renderCases() {
             const container = document.getElementById('cases-container');
             container.innerHTML = '';
@@ -95,7 +104,7 @@
             document.getElementById('result-count').innerText = `目前顯示： ${filteredData.length} 個實戰案例`;
 
             if (filteredData.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding: 50px;">查無符合條件的案例。</div>`;
+                container.innerHTML = `<div style="text-align:center; padding: 50px;">查無符合條件的案例。請確認您的 data_all.js 格式是否正確。</div>`;
                 return;
             }
             
@@ -110,12 +119,13 @@
                     <h4>${item.title}</h4>
                     <h5>情境故事與解析</h5><div class="story-section"><p>${item.story}</p></div>
                     <h5>3分鐘銷售話術</h5><div class="script-section"><p>${item.script}</p></div>
-                    <h5>合規與防護亮點</h5><div class="compliance-section"><p>${item.compliance}</p></div>
+                    <h5>合規與防護亮點</h5><div class="compliance-section"><p>${item.compliance || '無'}</p></div>
                 `;
                 container.appendChild(card);
             });
         }
 
+        // 4. 生命週期的按鈕綁定
         document.getElementById('lifecycle-filters').addEventListener('click', (e) => {
             if (e.target.classList.contains('filter-btn')) {
                 document.querySelectorAll('#lifecycle-filters .filter-btn').forEach(b => b.classList.remove('active'));
@@ -125,6 +135,7 @@
             }
         });
 
+        // 5. 資產屬性的按鈕綁定
         document.getElementById('asset-filters').addEventListener('click', (e) => {
             if (e.target.classList.contains('filter-btn')) {
                 document.querySelectorAll('#asset-filters .filter-btn').forEach(b => b.classList.remove('active'));
@@ -134,6 +145,7 @@
             }
         });
 
+        // 6. 網頁載入完成後立即執行渲染
         window.onload = renderCases;
     </script>
 </body>
