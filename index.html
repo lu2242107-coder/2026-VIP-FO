@@ -1,98 +1,134 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>理專稅務實戰神器 - 行動旗艦版</title>
+    <title>理專稅務實戰神器 - 活潑優化版</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
-        :root { --bg-color: #F8FAFC; --primary: #1E3A8A; --secondary: #3B82F6; --gold: #D4AF37; --text-dark: #1E293B; --text-gray: #64748B; --white: #FFFFFF; --danger: #E53E3E; --success: #38A169; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-dark); margin: 0; padding: 0; padding-bottom: 70px; line-height: 1.6; }
-        .hero { background: linear-gradient(135deg, var(--primary) 0%, #0F172A 100%); color: var(--white); padding: 2rem 1.5rem; text-align: center; border-bottom: 4px solid var(--gold); position: relative; }
-        .hero h1 { margin: 0; font-size: 1.5rem; font-weight: bold; }
-        .top-btns { display: flex; justify-content: center; margin-top: 15px; }
-        .icon-btn { background: rgba(255,255,255,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; }
-        .hot-section { background: #FFFBEB; padding: 10px 15px; border-bottom: 1px solid #FEF08A; font-weight: bold; color: #B45309; display: flex; align-items: center; overflow-x: auto; white-space: nowrap; font-size: 0.9rem;}
-        .hot-badge { background: var(--danger); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 10px; }
-        .container { max-width: 800px; margin: 0 auto; padding: 15px 15px 80px; }
-        .card { background: var(--white); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; padding: 15px; border: 1px solid #E2E8F0; border-left: 5px solid var(--gold); cursor: pointer; }
-        .tags { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;}
-        .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .tag-lc { background: #DBEAFE; color: #1D4ED8; }
-        .tag-as { background: #FEF9C3; color: #B45309; }
-        .card-title { margin: 0 0 8px 0; font-size: 1.1rem; color: var(--primary); font-weight: bold; line-height: 1.4; }
-        .card-quote { font-size: 0.85rem; color: var(--danger); font-weight: bold; background: #FEF2F2; padding: 6px 10px; border-radius: 6px; margin-bottom: 8px; display: inline-block;}
-        .click-hint { font-size: 0.8rem; color: var(--text-gray); text-align: right; margin: 0; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto; padding: 20px 10px; }
-        .modal-content { background: white; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
-        .modal-body { padding: 20px; }
-        .section-block { margin-bottom: 15px; }
-        .level-title { font-size: 1rem; font-weight: bold; color: var(--secondary); margin-bottom: 6px; }
-        .content-box { background: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 0.95rem; text-align: justify;}
-        .script-box { background: #EFF6FF; padding: 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; color: #1E40AF; border-left: 4px solid var(--secondary); }
-        .chart-wrap { margin: 15px 0; padding: 15px; border: 1px dashed #E2E8F0; border-radius: 8px; background: #FAFAFA; }
-        .bar-row { margin-bottom: 10px; }
-        .bar-title { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
-        .bar-track { width: 100%; background: #EDF2F7; height: 18px; border-radius: 9px; overflow: hidden; }
-        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.75rem; font-weight: bold; transition: 1s ease-out;}
-        .modal-footer { display: flex; gap: 10px; padding: 15px 20px; background: #F1F5F9; flex-wrap: wrap; }
-        .action-btn { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; border: none; min-width: 30%; }
-        .btn-link { background: var(--white); border: 1px solid var(--primary); color: var(--primary); }
-        .btn-copy { background: var(--secondary); color: white; }
-        .btn-close { background: var(--text-gray); color: white; width: 100%; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; z-index: 900; }
-        .nav-tab { flex: 1; text-align: center; padding: 15px 0; font-weight: bold; color: var(--text-gray); border-top: 3px solid transparent; cursor: pointer; }
-        .nav-tab.active { color: var(--primary); border-top-color: var(--gold); background: #F8FAFC; }
-        .filter-drawer { display: none; position: fixed; bottom: 55px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); border-top-left-radius: 16px; border-top-right-radius: 16px; z-index: 899; }
-        .filter-btn { background: #F1F5F9; border: 1px solid #CBD5E1; padding: 8px 15px; border-radius: 20px; color: var(--text-gray); font-weight: bold; margin: 5px; font-size: 0.9rem; display: inline-block; cursor: pointer;}
-        .filter-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
-        .instruction-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1001; width: 90%; max-width: 350px; text-align: center; }
-        .instruction-modal h3 { color: var(--primary); margin-top: 0; }
-        .instruction-modal p { text-align: left; font-size: 0.9rem; }
+        /* 5. 全面使用微軟正黑體 */
+        :root { 
+            --bg-color: #F3F6F9; 
+            --primary: #4A90E2; 
+            --secondary: #50E3C2; 
+            --gold: #F5A623; 
+            --text-dark: #2C3E50; 
+            --text-gray: #7F8C8D; 
+            --white: #FFFFFF; 
+            --danger: #FF6B6B; 
+            --success: #2ECC71; 
+        }
+        * { box-sizing: border-box; font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif; }
+        
+        /* 2. 整體畫面流暢度優化，色彩變輕盈 */
+        body { background-color: var(--bg-color); color: var(--text-dark); margin: 0; padding: 0; padding-bottom: 80px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        /* 頂部 Hero 區塊：輕漸層 */
+        .hero { background: linear-gradient(135deg, #4A90E2 0%, #50E3C2 100%); color: var(--white); padding: 1.5rem 1.5rem; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(74,144,226,0.2); position: relative; z-index: 10; }
+        .hero h1 { margin: 0; font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        
+        /* 1. 關鍵字搜尋列 */
+        .search-container { padding: 15px; background: var(--bg-color); position: sticky; top: 0; z-index: 99; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .search-box { display: flex; align-items: center; background: var(--white); border-radius: 25px; padding: 8px 15px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02), 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #E4E9F2; }
+        .search-box input { border: none; outline: none; width: 100%; font-size: 1rem; color: var(--text-dark); font-family: 'Microsoft JhengHei', sans-serif; }
+        .search-icon { color: var(--text-gray); margin-right: 8px; font-size: 1.1rem; }
+
+        .hot-section { background: #FFF9E6; padding: 10px 15px; font-weight: bold; color: #D48806; display: flex; align-items: center; overflow-x: auto; white-space: nowrap; font-size: 0.9rem; margin: 0 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
+        .hot-badge { background: var(--gold); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; margin-right: 10px; }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 15px 15px 20px; }
+        
+        /* 4. 每個案例框格活潑化，加入小圖貼 */
+        .card { background: var(--white); border-radius: 16px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); margin-bottom: 18px; padding: 18px; border: none; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: visible; }
+        .card:active { transform: scale(0.98); }
+        .card::before { content: ''; position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(to bottom, var(--primary), var(--secondary)); border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+        
+        /* 右上角小圖貼 */
+        .card-sticker { position: absolute; top: -10px; right: -10px; width: 35px; height: 35px; background: var(--white); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 2; border: 2px solid #F3F6F9; }
+
+        .tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;}
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: bold; }
+        .tag-lc { background: #E1F0FF; color: #2C82D9; }
+        .tag-as { background: #FFF0D4; color: #D48806; }
+        .card-title { margin: 0 0 10px 0; font-size: 1.15rem; color: var(--text-dark); font-weight: 900; line-height: 1.4; padding-right: 15px;}
+        .card-quote { font-size: 0.9rem; color: var(--danger); font-weight: bold; background: #FFF0F0; padding: 8px 12px; border-radius: 8px; margin-bottom: 10px; display: inline-block; border-left: 3px solid var(--danger);}
+        .click-hint { font-size: 0.8rem; color: var(--primary); text-align: right; margin: 0; font-weight: bold; }
+        
+        /* 3. 滑動式分類選單 (取代底部切換) */
+        .filter-section { background: var(--white); padding: 12px 0 12px 15px; margin-bottom: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: sticky; top: 65px; z-index: 98;}
+        .filter-title { font-size: 0.8rem; color: var(--text-gray); font-weight: bold; margin-bottom: 8px; padding-right: 15px; }
+        .filter-slider { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .filter-slider::-webkit-scrollbar { display: none; }
+        .filter-btn { flex: 0 0 auto; background: #F3F6F9; border: none; padding: 8px 18px; border-radius: 25px; color: var(--text-gray); font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .filter-btn.active { background: var(--primary); color: var(--white); box-shadow: 0 4px 10px rgba(74,144,226,0.3); }
+
+        /* Modal 設計輕量化 */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44,62,80,0.6); z-index: 1000; overflow-y: auto; padding: 20px 10px; backdrop-filter: blur(3px); }
+        .modal-content { background: white; max-width: 600px; margin: auto; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: slideUp 0.3s ease-out;}
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-body { padding: 25px; }
+        .section-block { margin-bottom: 18px; }
+        .level-title { font-size: 1.05rem; font-weight: 900; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .content-box { background: #F8FAFC; padding: 15px; border-radius: 12px; font-size: 0.95rem; text-align: justify; line-height: 1.7; color: #34495E;}
+        .script-box { background: #E1F0FF; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: bold; color: #1E3A8A; }
+        .chart-wrap { margin: 15px 0; padding: 18px; border: none; border-radius: 12px; background: #F8FAFC; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);}
+        .bar-row { margin-bottom: 12px; }
+        .bar-title { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 900; margin-bottom: 6px; }
+        .bar-track { width: 100%; background: #E4E9F2; height: 18px; border-radius: 10px; overflow: hidden; }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.75rem; font-weight: bold; border-radius: 10px;}
+        .modal-footer { display: flex; gap: 10px; padding: 15px 25px; background: #F8FAFC; flex-wrap: wrap; border-top: 1px solid #E4E9F2;}
+        .action-btn { flex: 1; text-align: center; padding: 12px; border-radius: 12px; font-weight: 900; font-size: 0.95rem; cursor: pointer; border: none; min-width: 30%; transition: transform 0.1s; }
+        .action-btn:active { transform: scale(0.95); }
+        .btn-link { background: #E1F0FF; color: var(--primary); }
+        .btn-copy { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(74,144,226,0.3);}
+        .btn-close { background: #E4E9F2; color: var(--text-gray); width: 100%; }
+        
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-gray); font-weight: bold; }
+        .empty-state span { font-size: 3rem; display: block; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div id="pwa-instruction" class="instruction-modal">
-        <h3>📲 如何加到手機桌面？</h3>
-        <p><b>🍎 蘋果 iPhone (Safari)：</b><br>1. 點擊「分享」圖示 (方框+向上箭頭)<br>2. 點選「加入主畫面」</p>
-        <p><b>🤖 安卓 Android (Chrome)：</b><br>1. 點擊右上角「⋮」選單<br>2. 點選「加到主畫面」</p>
-        <button onclick="document.getElementById('pwa-instruction').style.display='none'" class="action-btn btn-copy" style="width:100%; margin-top:15px;">我知道了</button>
-    </div>
 
-    <!-- 移除了登入畫面，直接顯示主程式 -->
-    <div id="main-app" style="display: block;">
+    <div id="main-app">
         <div class="hero">
-            <h1>💎 財富傳承與稅務資料庫</h1>
-            <div class="top-btns">
-                <button class="icon-btn" onclick="document.getElementById('pwa-instruction').style.display='block'">📲 加到桌面</button>
+            <h1>💎 財富傳承稅務庫</h1>
+            <p style="margin: 5px 0 0 0; font-size: 0.85rem; opacity: 0.9;">隨身攜帶的理專實戰神器</p>
+        </div>
+        
+        <!-- 1. 關鍵字搜尋 -->
+        <div class="search-container">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋案例、話術或痛點..." autocomplete="off">
             </div>
         </div>
+
         <div class="hot-section" id="hot-section"></div>
-        <div class="container" id="cases-container"></div>
         
-        <div class="bottom-nav">
-            <div class="nav-tab active" id="tab-lc" onclick="toggleDrawer('lc')">以生命週期</div>
-            <div class="nav-tab" id="tab-as" onclick="toggleDrawer('as')">以資產屬性</div>
+        <!-- 3. 滑動式分類 -->
+        <div class="filter-section">
+            <div class="filter-title">📍 生命週期分類 (左右滑動)</div>
+            <div class="filter-slider" id="drawer-lc">
+                <button class="filter-btn active" onclick="setFilter('lc', 'all')">全部</button>
+                <button class="filter-btn" onclick="setFilter('lc', '青年與成家購屋')">青年購屋</button>
+                <button class="filter-btn" onclick="setFilter('lc', '中壯年與企業經營')">企業經營</button>
+                <button class="filter-btn" onclick="setFilter('lc', '屆退與安養照護')">屆退安養</button>
+                <button class="filter-btn" onclick="setFilter('lc', '避稅失敗診斷類')">避稅地雷</button>
+                <button class="filter-btn" onclick="setFilter('lc', '個人與家庭傳承類')">家庭傳承</button>
+                <button class="filter-btn" onclick="setFilter('lc', '企業經營與節稅類')">企業節稅</button>
+                <button class="filter-btn" onclick="setFilter('lc', '數位與新制法規類')">新制法規</button>
+            </div>
+            
+            <div class="filter-title" style="margin-top: 10px;">🏷️ 資產屬性分類 (左右滑動)</div>
+            <div class="filter-slider" id="drawer-as">
+                <button class="filter-btn active" onclick="setFilter('as', 'all')">全部</button>
+                <button class="filter-btn" onclick="setFilter('as', '不動產')">不動產</button>
+                <button class="filter-btn" onclick="setFilter('as', '保險與信託')">保險信託</button>
+                <button class="filter-btn" onclick="setFilter('as', '現金與有價證券')">現金證券</button>
+                <button class="filter-btn" onclick="setFilter('as', '海外資產與企業股權')">海外股權</button>
+            </div>
         </div>
-        <div class="filter-drawer" id="drawer-lc">
-            <button class="filter-btn active" onclick="setFilter('lc', 'all')">全部</button>
-            <button class="filter-btn" onclick="setFilter('lc', '青年與成家購屋')">青年與成家購屋</button>
-            <button class="filter-btn" onclick="setFilter('lc', '中壯年與企業經營')">中壯年與企業經營</button>
-            <button class="filter-btn" onclick="setFilter('lc', '屆退與安養照護')">屆退與安養照護</button>
-            <button class="filter-btn" onclick="setFilter('lc', '財富傳承與遺產')">財富傳承與遺產</button>
-            <button class="filter-btn" onclick="setFilter('lc', '避稅失敗診斷類')">避稅失敗診斷類</button>
-            <button class="filter-btn" onclick="setFilter('lc', '個人與家庭傳承類')">個人與家庭傳承</button>
-            <button class="filter-btn" onclick="setFilter('lc', '企業經營與節稅類')">企業經營與節稅</button>
-            <button class="filter-btn" onclick="setFilter('lc', '數位與新制法規類')">數位與新制法規</button>
-        </div>
-        <div class="filter-drawer" id="drawer-as">
-            <button class="filter-btn active" onclick="setFilter('as', 'all')">全部</button>
-            <button class="filter-btn" onclick="setFilter('as', '不動產')">不動產</button>
-            <button class="filter-btn" onclick="setFilter('as', '保險與信託')">保險與信託</button>
-            <button class="filter-btn" onclick="setFilter('as', '現金與有價證券')">現金與有價證券</button>
-            <button class="filter-btn" onclick="setFilter('as', '海外資產與企業股權')">海外資產與企業股權</button>
-        </div>
+
+        <div class="container" id="cases-container"></div>
     </div>
 
     <div id="case-modal" class="modal">
@@ -103,6 +139,16 @@
     </div>
 
     <script>
+    // 取得小圖貼的判斷函數
+    function getSticker(lifecycle, asset) {
+        if (lifecycle.includes('購屋') || asset.includes('不動產')) return '🏠';
+        if (lifecycle.includes('避稅') || lifecycle.includes('法規')) return '💣';
+        if (lifecycle.includes('企業') || asset.includes('股權')) return '🏢';
+        if (lifecycle.includes('安養') || asset.includes('保險')) return '🛡️';
+        if (asset.includes('現金')) return '💰';
+        return '💎';
+    }
+
     // ==========================================
     // 全 40 筆案例資料庫
     // ==========================================
@@ -255,7 +301,7 @@
             title: "紐西蘭賣房爽賺上億 回台卻收百萬「補稅驚喜包」",
             quote: "以為天高皇帝遠？跨國大追稅讓海外獲利無所遁形！",
             layer1_story: "甲君在紐西蘭以1.1億出售房屋，僅申報海外所得200萬。國稅局透過CRS直接查獲海外交易。",
-            layer2_blindSpot: "因無法提供成本資料，國稅局直接按成交價額12%設算所得，按20%稅率計算基本稅額，慘遭補稅及重罰。",
+            layer2_blindSpot: "因無法提供成本資料，國稅局直接按成交價額12%设算所得，按20%稅率計算基本稅額，慘遭補稅及重罰。",
             layer3_script: "「張董，現在全球大追稅，有老闆賣紐西蘭房子沒誠實報，被硬用12%設算獲利重罰！不如利用『境外保單』合規遞延稅負。」",
             layer4_solution: "【境外保單與家族信託】海外所得達100萬元須納入基本所得額。應及早將資金透過境外保單或信託進行合規配置。",
             visual: { bad_label: "遭查獲設算所得", bad_val: 1320, good_label: "合法遞延免鉅額罰鍰", good_val: 0 },
@@ -551,42 +597,25 @@
 
     let currentLifecycle = 'all';
     let currentAsset = 'all';
-    let clickStats = JSON.parse(localStorage.getItem('clickStats')) || {};
-
-    const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_YOUR_SCRIPT_ID/exec"; 
-
-    // 直接啟動主程式，不再檢查 currentUser
+    
+    // 預設載入
     window.onload = () => {
         allCases = data_all;
         allCases.forEach((c, idx) => c.id = 'case_' + idx);
+        
+        // 綁定搜尋框事件
+        document.getElementById('searchInput').addEventListener('input', renderCases);
+        
         showMainApp();
     };
 
     function showMainApp() {
-        // 主畫面預設就是顯示狀態，這裡可確保介面更新
         document.getElementById('main-app').style.display = 'block';
         updateHotSection();
         renderCases();
     }
 
-    function sendTrafficLog(action, details) {
-        if(GOOGLE_APP_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) return;
-        fetch(GOOGLE_APP_SCRIPT_URL, {
-            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: "Guest", action: action, details: details, time: new Date().toLocaleString() })
-        }).catch(e => console.log('Log Error', e));
-    }
-
-    function toggleDrawer(type) {
-        document.getElementById('drawer-lc').style.display = 'none';
-        document.getElementById('drawer-as').style.display = 'none';
-        document.getElementById('tab-lc').classList.remove('active');
-        document.getElementById('tab-as').classList.remove('active');
-
-        document.getElementById('drawer-' + type).style.display = 'block';
-        document.getElementById('tab-' + type).classList.add('active');
-    }
-
+    // 橫向滑動選單的過濾功能
     function setFilter(type, val) {
         if(type === 'lc') currentLifecycle = val;
         if(type === 'as') currentAsset = val;
@@ -595,21 +624,35 @@
             b.classList.remove('active');
             if(b.innerText.includes(val) || (val==='all' && b.innerText==='全部')) b.classList.add('active');
         });
-        document.getElementById('drawer-' + type).style.display = 'none';
+        
+        // 將點擊的按鈕滾動到可視區域中心
+        const activeBtn = document.querySelector(`#drawer-${type} .filter-btn.active`);
+        if (activeBtn) {
+            activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+        
         renderCases();
     }
 
+    // 渲染卡片並加上搜尋邏輯
     function renderCases() {
         const container = document.getElementById('cases-container');
         container.innerHTML = '';
+        
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
 
-        const filtered = allCases.filter(c => 
-            (currentLifecycle === 'all' || c.lifecycle === currentLifecycle) &&
-            (currentAsset === 'all' || c.asset === currentAsset)
-        );
+        const filtered = allCases.filter(c => {
+            const matchLife = currentLifecycle === 'all' || c.lifecycle === currentLifecycle;
+            const matchAsset = currentAsset === 'all' || c.asset === currentAsset;
+            const matchQuery = !query || 
+                               c.title.toLowerCase().includes(query) || 
+                               (c.quote && c.quote.toLowerCase().includes(query)) || 
+                               (c.layer1_story && c.layer1_story.toLowerCase().includes(query));
+            return matchLife && matchAsset && matchQuery;
+        });
 
         if(filtered.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:40px;">此分類目前無資料</div>';
+            container.innerHTML = '<div class="empty-state"><span>🔍</span>找不到相符的案例，換個關鍵字試試看吧！</div>';
             return;
         }
 
@@ -617,7 +660,12 @@
             const card = document.createElement('div');
             card.className = 'card';
             card.onclick = () => openCaseModal(item);
+            
+            // 右上角小貼圖
+            const sticker = getSticker(item.lifecycle, item.asset);
+
             card.innerHTML = `
+                <div class="card-sticker">${sticker}</div>
                 <div class="tags">
                     <span class="tag tag-lc">${item.lifecycle}</span>
                     <span class="tag tag-as">${item.asset}</span>
@@ -631,51 +679,41 @@
     }
 
     function updateHotSection() {
-        const sorted = [...allCases].sort((a,b) => (clickStats[b.id]||0) - (clickStats[a.id]||0));
-        const topCase = sorted;
-        if(topCase && clickStats[topCase.id] > 0) {
-            document.getElementById('hot-section').innerHTML = `<span class="hot-badge">今日熱門</span> ${topCase.title} (點閱: ${clickStats[topCase.id]})`;
-        } else {
-            document.getElementById('hot-section').innerHTML = `<span class="hot-badge">最新上架</span> ${allCases?.title || '尚無資料'}`;
-        }
+        // 隨機選一個或固定顯示最新
+        document.getElementById('hot-section').innerHTML = `<span class="hot-badge">今日精選</span> ${allCases[allCases.length-1].title}`;
     }
 
     function openCaseModal(item) {
-        clickStats[item.id] = (clickStats[item.id] || 0) + 1;
-        localStorage.setItem('clickStats', JSON.stringify(clickStats));
-        updateHotSection();
-        sendTrafficLog("View_Case", item.title);
-
         const maxVal = Math.max(item.visual?.bad_val || 1, item.visual?.good_val || 1);
         const badPct = ((item.visual?.bad_val || 0) / maxVal) * 100;
         const goodPct = ((item.visual?.good_val || 0) / maxVal) * 100;
 
         const body = document.getElementById('modal-content-body');
         body.innerHTML = `
-            <div class="tags">
+            <div class="tags" style="margin-bottom:15px;">
                 <span class="tag tag-lc">${item.lifecycle}</span>
                 <span class="tag tag-as">${item.asset}</span>
             </div>
-            <h2 style="color:var(--primary); margin: 5px 0 10px;">${item.title}</h2>
-            <div style="font-size:0.95rem; color:var(--danger); font-weight:bold; margin-bottom:15px; background:#FEF2F2; padding:10px; border-radius:8px;">💡 ${item.quote || ''}</div>
+            <h2 style="color:var(--text-dark); margin: 5px 0 15px; font-weight: 900; line-height: 1.4;">${item.title}</h2>
+            <div style="font-size:0.95rem; color:var(--danger); font-weight:bold; margin-bottom:20px; background:#FFF0F0; padding:12px 15px; border-radius:12px; border-left: 4px solid var(--danger);">💡 ${item.quote || ''}</div>
             
             <div class="section-block">
                 <div class="level-title">📖 破冰故事</div>
-                <div class="content-box" style="border-left:4px solid #94A3B8;">${item.layer1_story || ''}</div>
+                <div class="content-box">${item.layer1_story || ''}</div>
             </div>
             <div class="section-block">
                 <div class="level-title">⚠️ 點出盲點</div>
-                <div class="content-box" style="border-left:4px solid var(--danger); background:#FFF5F5; color:#B91C1C;">${item.layer2_blindSpot || ''}</div>
+                <div class="content-box" style="background:#FFF5F5; color:#B91C1C;">${item.layer2_blindSpot || ''}</div>
             </div>
             
             <div class="chart-wrap">
                 <div class="bar-row">
-                    <div class="bar-title"><span style="color:var(--danger)">❌ ${item.visual?.bad_label || '踩雷代價'}</span> <span>${item.visual?.bad_val || 0}</span></div>
-                    <div class="bar-track"><div class="bar-fill" style="width: ${badPct}%; background:var(--danger);"></div></div>
+                    <div class="bar-title"><span style="color:var(--danger)">❌ ${item.visual?.bad_label || '踩雷代價'}</span> <span style="color:var(--danger)">${item.visual?.bad_val || 0}</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="width: ${badPct}%; background:linear-gradient(90deg, #FF6B6B, #FF8E8E);"></div></div>
                 </div>
                 <div class="bar-row">
-                    <div class="bar-title"><span style="color:var(--success)">✅ ${item.visual?.good_label || '妥善規劃'}</span> <span>${item.visual?.good_val || 0}</span></div>
-                    <div class="bar-track"><div class="bar-fill" style="width: ${goodPct}%; background:var(--success);"></div></div>
+                    <div class="bar-title"><span style="color:var(--success)">✅ ${item.visual?.good_label || '妥善規劃'}</span> <span style="color:var(--success)">${item.visual?.good_val || 0}</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="width: ${goodPct}%; background:linear-gradient(90deg, #2ECC71, #58D68D);"></div></div>
                 </div>
             </div>
 
@@ -685,12 +723,12 @@
             </div>
             <div class="section-block">
                 <div class="level-title">🛡️ 引導解方 (守門員)</div>
-                <div class="content-box" style="border-left:4px solid var(--success); background:#F0FDF4; color:#15803D;">${item.layer4_solution || ''}</div>
+                <div class="content-box" style="background:#F0FDF4; color:#15803D;">${item.layer4_solution || ''}</div>
             </div>
         `;
 
         const footer = document.getElementById('modal-footer-btns');
-        let linkBtn = item.link ? `<button class="action-btn btn-link" onclick="window.open('${item.link}', '_blank'); sendTrafficLog('Click_Link', '${item.title}')">🔗 閱讀原文</button>` : '';
+        let linkBtn = item.link ? `<button class="action-btn btn-link" onclick="window.open('${item.link}', '_blank')">🔗 閱讀原文</button>` : '';
         footer.innerHTML = `
             ${linkBtn}
             <button class="action-btn btn-copy" onclick="copyScript('${item.id}')">📋 複製話術</button>
@@ -707,10 +745,9 @@
     function copyScript(id) {
         const text = document.getElementById('script-' + id).innerText;
         navigator.clipboard.writeText(text).then(() => {
-            alert('話術已成功複製！可以貼給客戶囉！');
-            sendTrafficLog("Copy_Script", "Copied script for " + id);
+            alert('✅ 話術已成功複製！可以貼給客戶囉！');
         }).catch(err => {
-            alert('複製失敗，請手動選取複製');
+            alert('❌ 複製失敗，請手動選取複製');
         });
     }
     </script>
