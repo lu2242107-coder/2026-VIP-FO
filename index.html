@@ -3,183 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>理專稅務實戰 App - 觀念行銷版</title>
-    <!-- 引入升級版資料庫 -->
+    <title>理專稅務實戰神器 - 觀念行銷旗艦版</title>
+    
+    <!-- 載入資料庫檔案 -->
     <script src="data_all.js"></script>
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
         :root {
-            --primary: #0F4C81; --secondary: #E2E8F0; --accent: #D69E2E;
-            --bg: #F0F4F8; --card-bg: #FFFFFF; --text-dark: #1A202C;
-            --text-gray: #4A5568; --danger: #E53E3E; --success: #38A169;
-            --line-color: #00B900;
+            --bg-color: #F4F7F6;
+            --primary-dark: #0B2447;
+            --primary-light: #19376D;
+            --gold: #D69E2E;
+            --gold-light: #F6E0B5;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --danger: #E53E3E;
+            --success: #38A169;
+            --white: #FFFFFF;
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text-dark); margin: 0; padding: 0; line-height: 1.6; }
-        
-        /* 沉浸式頭條動態牆 */
-        .hero { background: linear-gradient(135deg, var(--primary) 0%, #2A4365 100%); color: white; padding: 2rem 1.5rem; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .hero h1 { margin: 0; font-size: 1.8rem; }
-        .hero p { color: #A0AEC0; margin-top: 8px; font-size: 1rem; }
-        .hero-quote { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; display: inline-block; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); font-weight: bold; color: #FBD38D; }
 
-        /* 痛點標籤搜尋 (Hashtags) */
-        .hashtag-container { padding: 20px 15px; background: white; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; }
-        .hashtag-label { font-weight: bold; color: var(--primary); margin-right: 10px; font-size: 0.9rem; }
-        .hashtag-btn { background: #EDF2F7; border: none; padding: 6px 15px; border-radius: 20px; color: var(--text-gray); font-weight: 600; cursor: pointer; margin-right: 8px; transition: 0.2s; font-size: 0.85rem; }
-        .hashtag-btn.active, .hashtag-btn:hover { background: var(--primary); color: white; }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 0 15px 30px 15px; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; }
         
-        /* 案例卡片設計 */
-        .card { background: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--secondary); position: relative; }
-        .card-header { border-bottom: 2px solid var(--bg); padding-bottom: 15px; margin-bottom: 15px; }
-        .card-title { font-size: 1.3rem; color: var(--primary); margin: 0 0 10px 0; font-weight: bold; line-height: 1.4; }
-        .card-quote { font-size: 1.05rem; color: var(--danger); font-weight: bold; display: flex; align-items: flex-start; }
-        .card-quote::before { content: "💡"; margin-right: 5px; }
+        /* 頂部旗艦視覺 */
+        .hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%); color: var(--white); padding: 3rem 2rem; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-bottom: 4px solid var(--gold); }
+        .hero h1 { margin: 0; font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero p { color: var(--gold-light); margin-top: 10px; font-size: 1.1rem; font-weight: 500; }
+        .daily-quote { display: inline-block; margin-top: 20px; padding: 12px 25px; background: rgba(255,255,255,0.1); border: 1px solid var(--gold); border-radius: 30px; color: var(--gold-light); font-weight: 700; backdrop-filter: blur(5px); }
 
-        /* 四層漏斗區塊 */
-        .funnel-layer { margin-bottom: 15px; border-radius: 8px; padding: 12px 15px; }
-        .layer-1 { background: #F7FAFC; border-left: 4px solid #718096; } /* 故事 */
-        .layer-2 { background: #FFF5F5; border-left: 4px solid var(--danger); } /* 盲點 */
-        .layer-3 { background: #FFFFF0; border-left: 4px solid var(--accent); font-style: italic; font-weight: 500; color: #975A16; } /* 話術 */
-        .layer-4 { background: #F0FFF4; border-left: 4px solid var(--success); } /* 解方 */
+        /* 雙視角導航列 */
+        .nav-container { max-width: 1100px; margin: -20px auto 30px; background: var(--white); border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; z-index: 10; display: flex; flex-wrap: wrap; gap: 20px; }
+        .nav-group { flex: 1; min-width: 300px; }
+        .nav-title { font-size: 0.9rem; font-weight: 700; color: var(--primary-light); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #EDF2F7; padding-bottom: 5px; }
+        .filter-btn { background: #F7FAFC; border: 1px solid #E2E8F0; padding: 8px 16px; border-radius: 20px; color: var(--text-muted); font-weight: 600; cursor: pointer; margin: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .filter-btn:hover { background: var(--gold-light); color: var(--primary-dark); border-color: var(--gold); }
+        .filter-btn.active { background: var(--primary-dark); color: var(--gold-light); border-color: var(--primary-dark); box-shadow: 0 4px 6px rgba(11, 36, 71, 0.2); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 40px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 25px; }
+
+        /* 卡片精緻化 */
+        .card { background: var(--white); border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #E2E8F0; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .card-header { padding: 25px 25px 15px; border-bottom: 1px solid #EDF2F7; position: relative; }
+        .card-header::before { content: ''; position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--gold); }
+        .card-tags { margin-bottom: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; font-weight: 700; }
+        .tag-lc { background: #EBF8FF; color: #2B6CB0; }
+        .tag-as { background: #FEFCBF; color: #B7791F; }
         
-        .layer-title { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; opacity: 0.8; }
+        .card-title { font-size: 1.3rem; color: var(--primary-dark); margin: 0 0 12px 0; line-height: 1.4; font-weight: 900; }
+        .card-quote { font-size: 1rem; color: var(--danger); font-weight: 700; background: #FFF5F5; padding: 8px 12px; border-radius: 6px; display: inline-block; }
+
+        /* 四層漏斗設計 */
+        .card-body { padding: 20px 25px; flex-grow: 1; }
+        .funnel-step { margin-bottom: 15px; }
+        .step-label { font-size: 0.8rem; font-weight: 900; color: var(--primary-light); margin-bottom: 6px; display: flex; align-items: center; }
+        .step-label i { margin-right: 6px; font-style: normal; }
+        
+        .box-story { background: #F8FAFC; padding: 12px 15px; border-radius: 8px; border-left: 3px solid #CBD5E0; color: var(--text-main); font-size: 0.95rem; text-align: justify; }
+        .box-blind { background: #FFF5F5; padding: 12px 15px; border-radius: 8px; border-left: 3px solid var(--danger); color: #C53030; font-size: 0.95rem; font-weight: 500; }
+        .box-pitch { background: var(--primary-dark); color: var(--white); padding: 15px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .box-pitch::before { content: '💬 銷售金句：'; display: block; color: var(--gold); font-weight: 900; margin-bottom: 5px; }
+        .box-solution { background: #F0FFF4; padding: 12px 15px; border-radius: 8px; border-left: 3px solid var(--success); color: #276749; font-size: 0.95rem; font-weight: 700; }
 
         /* 視覺化圖表 */
-        .chart-box { margin: 15px 0; padding: 15px; background: white; border: 1px solid #E2E8F0; border-radius: 8px; }
-        .bar-wrap { margin-bottom: 10px; }
-        .bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; }
-        .bar-bg { width: 100%; background: #EDF2F7; height: 20px; border-radius: 10px; overflow: hidden; }
-        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.75rem; font-weight: bold; }
-        .bg-red { background: var(--danger); }
-        .bg-green { background: var(--success); }
+        .chart-wrap { margin: 20px 0; padding: 15px; border: 1px dashed #E2E8F0; border-radius: 8px; background: #FAFAFA; }
+        .bar-row { margin-bottom: 10px; }
+        .bar-row:last-child { margin-bottom: 0; }
+        .bar-title { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
+        .bar-track { width: 100%; background: #EDF2F7; height: 18px; border-radius: 9px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.75rem; font-weight: bold; transition: width 1s ease-in-out; }
+        
+        .btn-share { display: block; width: 100%; background: #00B900; color: white; text-align: center; padding: 12px; font-weight: 900; font-size: 1rem; border: none; cursor: pointer; transition: 0.2s; }
+        .btn-share:hover { background: #009900; }
 
-        /* 一鍵分享按鈕 */
-        .share-btn { display: flex; align-items: center; justify-content: center; width: 100%; background: var(--line-color); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.2s; }
-        .share-btn:hover { filter: brightness(0.9); }
-        .share-btn img { width: 20px; margin-right: 8px; }
-
-        .no-data { text-align: center; padding: 40px 20px; color: var(--text-gray); }
+        .error-msg { text-align: center; padding: 40px; background: #FFF5F5; color: var(--danger); border-radius: 12px; border: 2px dashed var(--danger); font-size: 1.2rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="hero">
-        <h1>💎 稅務實戰故事庫</h1>
-        <p>一秒吸睛 × 三分鐘成交的觀念行銷神器</p>
-        <div class="hero-quote" id="daily-quote">今日金句：爭產是從失智開始，不是從過世開始！</div>
+        <h1>💎 稅務實戰兵工廠</h1>
+        <p>為理專打造的「一秒吸睛、三分鐘成交」觀念行銷利器</p>
+        <div class="daily-quote">今日金句：爭產往往不是從過世開始，而是從失智開始！</div>
     </div>
 
-    <!-- 實戰痛點 Hashtag 搜尋區 -->
-    <div class="hashtag-container" id="hashtag-filters">
-        <span class="hashtag-label">雷達快搜：</span>
-        <button class="hashtag-btn active" data-tag="all">#全部案例</button>
-        <button class="hashtag-btn" data-tag="#假買賣真贈與">#假買賣真贈與</button>
-        <button class="hashtag-btn" data-tag="#特留分">#特留分</button>
-        <button class="hashtag-btn" data-tag="#遺囑信託">#遺囑信託</button>
-        <button class="hashtag-btn" data-tag="#海外資產">#海外資產</button>
-        <button class="hashtag-btn" data-tag="#保險金免稅">#保險金免稅</button>
-        <button class="hashtag-btn" data-tag="#安養信託">#安養信託</button>
+    <div class="nav-container">
+        <div class="nav-group" id="lifecycle-filters">
+            <div class="nav-title">按 客戶生命週期 篩選</div>
+            <button class="filter-btn active" data-filter="all">全階段</button>
+            <button class="filter-btn" data-filter="青年與成家購屋">青年與成家購屋</button>
+            <button class="filter-btn" data-filter="中壯年與企業經營">中壯年與企業經營</button>
+            <button class="filter-btn" data-filter="屆退與安養照護">屆退與安養照護</button>
+            <button class="filter-btn" data-filter="財富傳承與遺產">財富傳承與遺產</button>
+        </div>
+        <div class="nav-group" id="asset-filters">
+            <div class="nav-title">按 客戶資產屬性 篩選</div>
+            <button class="filter-btn active" data-filter="all">全資產</button>
+            <button class="filter-btn" data-filter="不動產">不動產</button>
+            <button class="filter-btn" data-filter="保險與信託">保險與信託</button>
+            <button class="filter-btn" data-filter="現金與有價證券">現金與有價證券</button>
+            <button class="filter-btn" data-filter="海外資產與企業股權">海外與企業</button>
+        </div>
     </div>
 
-    <div class="container" id="app-content">
-        <!-- 卡片將由 JS 渲染 -->
+    <div class="container">
+        <div id="cases-container" class="grid-layout">
+            <!-- 卡片由腳本生成 -->
+        </div>
     </div>
 
     <script>
-        let currentTag = 'all';
+        let currentLifecycle = 'all';
+        let currentAsset = 'all';
 
         function shareToLine(title, quote) {
-            const text = encodeURIComponent(`🔥 稅務頭條：${title}\n💡 痛點金句：${quote}\n\n👉 想了解如何避開稅務地雷與資產保全規劃？請聯繫您的專屬理財顧問！`);
+            const text = encodeURIComponent(`🔥 稅務頭條：${title}\n💡 痛點金句：${quote}\n\n👉 傳承不是有交代就好，稅金可能吃掉大半資產！請聯繫您的專屬理財顧問做免費檢視。`);
             window.open(`https://line.me/R/msg/text/?${text}`, '_blank');
         }
 
-        function renderApp() {
-            const container = document.getElementById('app-content');
+        function renderCases() {
+            const container = document.getElementById('cases-container');
             container.innerHTML = '';
-            
-            if (typeof data_all === 'undefined' || data_all.length === 0) {
-                container.innerHTML = `<div class="no-data">尚未載入資料，請確認 data_all.js 檔案正確。</div>`;
+
+            // 防呆機制：檢查資料檔是否正確載入
+            if (typeof data_all === 'undefined' || !Array.isArray(data_all)) {
+                container.style.display = 'block';
+                container.innerHTML = `
+                    <div class="error-msg">
+                        ⚠️ 系統讀取不到資料庫！<br><br>
+                        請確認：<br>
+                        1. 您的資料檔名必須為 data_all.js<br>
+                        2. 該檔案必須與本網頁(index.html)放在「同一個資料夾」內。<br>
+                        3. data_all.js 內容沒有語法錯誤。
+                    </div>`;
                 return;
             }
 
-            const filteredData = currentTag === 'all' 
-                ? data_all 
-                : data_all.filter(item => item.hashtags.includes(currentTag));
+            const filteredData = data_all.filter(item => {
+                const matchLifecycle = currentLifecycle === 'all' || item.lifecycle === currentLifecycle;
+                const matchAsset = currentAsset === 'all' || item.asset === currentAsset;
+                return matchLifecycle && matchAsset;
+            });
 
             if (filteredData.length === 0) {
-                container.innerHTML = `<div class="no-data">目前沒有符合 ${currentTag} 的案例。</div>`;
+                container.style.display = 'block';
+                container.innerHTML = `<div style="text-align:center; padding: 40px; color:#718096; font-weight:bold;">查無符合條件的案例，請更換上方篩選條件。</div>`;
                 return;
             }
+
+            container.style.display = 'grid'; // 恢復網格排版
 
             filteredData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 
-                // 計算視覺化長條圖的百分比
                 const maxVal = Math.max(item.visual.bad_val, item.visual.good_val) || 1;
                 const badPct = (item.visual.bad_val / maxVal) * 100;
                 const goodPct = (item.visual.good_val / maxVal) * 100;
 
                 card.innerHTML = `
                     <div class="card-header">
-                        <div style="margin-bottom:8px;">
-                            ${item.hashtags.map(tag => `<span style="color:#3182CE; font-size:0.85rem; font-weight:bold; margin-right:5px;">${tag}</span>`).join('')}
+                        <div class="card-tags">
+                            <span class="tag tag-lc">${item.lifecycle}</span>
+                            <span class="tag tag-as">${item.asset}</span>
                         </div>
                         <h2 class="card-title">${item.title}</h2>
-                        <div class="card-quote">${item.quote}</div>
+                        <div class="card-quote">🚨 ${item.quote}</div>
                     </div>
-
-                    <div class="funnel-layer layer-1">
-                        <div class="layer-title">📖 破冰故事</div>
-                        ${item.layer1_story}
-                    </div>
-
-                    <div class="funnel-layer layer-2">
-                        <div class="layer-title">⚠️ 點出盲點</div>
-                        ${item.layer2_blindSpot}
-                    </div>
-
-                    <div class="chart-box">
-                        <div class="bar-wrap">
-                            <div class="bar-label"><span style="color:var(--danger)">❌ 踩雷代價 (${item.visual.bad_label})</span> <span>${item.visual.bad_val} 萬</span></div>
-                            <div class="bar-bg"><div class="bar-fill bg-red" style="width: ${badPct}%"></div></div>
+                    <div class="card-body">
+                        <div class="funnel-step">
+                            <div class="step-label"><i>📖</i> 新聞情境還原</div>
+                            <div class="box-story">${item.layer1_story}</div>
                         </div>
-                        <div class="bar-wrap">
-                            <div class="bar-label"><span style="color:var(--success)">✅ 妥善規劃 (${item.visual.good_label})</span> <span>${item.visual.good_val} 萬</span></div>
-                            <div class="bar-bg"><div class="bar-fill bg-green" style="width: ${goodPct}%"></div></div>
+                        <div class="funnel-step">
+                            <div class="step-label"><i>⚠️</i> 客戶致命盲點</div>
+                            <div class="box-blind">${item.layer2_blindSpot}</div>
+                        </div>
+                        
+                        <div class="chart-wrap">
+                            <div class="bar-row">
+                                <div class="bar-title"><span style="color:var(--danger)">❌ ${item.visual.bad_label}</span> <span>${item.visual.bad_val} 萬</span></div>
+                                <div class="bar-track"><div class="bar-fill" style="width: ${badPct}%; background:var(--danger);"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-title"><span style="color:var(--success)">✅ ${item.visual.good_label}</span> <span>${item.visual.good_val} 萬</span></div>
+                                <div class="bar-track"><div class="bar-fill" style="width: ${goodPct}%; background:var(--success);"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="funnel-step">
+                            <div class="step-label"><i>🛡️</i> 金融解方 (保險/信託)</div>
+                            <div class="box-solution">${item.layer4_solution}</div>
+                        </div>
+                        <div class="funnel-step">
+                            <div class="box-pitch">${item.layer3_script}</div>
                         </div>
                     </div>
-
-                    <div class="funnel-layer layer-3">
-                        <div class="layer-title">🗣️ 三分鐘話術</div>
-                        ${item.layer3_script}
-                    </div>
-
-                    <div class="funnel-layer layer-4">
-                        <div class="layer-title">🛡️ 引導解方 (保險/信託)</div>
-                        ${item.layer4_solution}
-                    </div>
-
-                    <button class="share-btn" onclick="shareToLine('${item.title}', '${item.quote}')">
-                        <span style="font-size:1.2rem; margin-right:8px;">💬</span> 一鍵發送 LINE 關懷客戶
+                    <button class="btn-share" onclick="shareToLine('${item.title}', '${item.quote}')">
+                        分享至 LINE 敲門破冰 ➜
                     </button>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // Hashtag 點擊事件
-        document.getElementById('hashtag-filters').addEventListener('click', (e) => {
-            if (e.target.classList.contains('hashtag-btn')) {
-                document.querySelectorAll('.hashtag-btn').forEach(b => b.classList.remove('active'));
+        // 綁定點擊事件
+        document.getElementById('lifecycle-filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#lifecycle-filters .filter-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                currentTag = e.target.getAttribute('data-tag');
-                renderApp();
+                currentLifecycle = e.target.getAttribute('data-filter');
+                renderCases();
             }
         });
 
-        window.onload = renderApp;
+        document.getElementById('asset-filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#asset-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentAsset = e.target.getAttribute('data-filter');
+                renderCases();
+            }
+        });
+
+        window.onload = renderCases;
     </script>
 </body>
 </html>
