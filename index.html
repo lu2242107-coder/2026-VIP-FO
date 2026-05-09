@@ -1,116 +1,4 @@
-    <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>理專稅務實戰神器 - 行動旗艦版</title>
-    
-    <!-- 載入外部資料庫 -->
-        
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
-        
-        :root {
-            --bg-color: #F8FAFC; --primary: #1E3A8A; --secondary: #3B82F6;
-            --gold: #D4AF37; --text-dark: #1E293B; --text-gray: #64748B;
-            --white: #FFFFFF; --danger: #E53E3E; --success: #38A169;
-        }
-
-        * { box-sizing: border-box; }
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-dark); margin: 0; padding: 0; padding-bottom: 70px; line-height: 1.6; }
-        
-        /* 登入與密碼畫面 */
-        .fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 20px; }
-        .auth-box { background: white; color: var(--text-dark); padding: 30px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-top: 5px solid var(--gold); }
-        .auth-box h2 { margin-top: 0; color: var(--primary); text-align: center; }
-        .auth-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 1rem; }
-        .auth-box button { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .auth-box p.note { font-size: 0.85rem; color: var(--danger); font-weight: bold; text-align: center; background: #FEF2F2; padding: 10px; border-radius: 6px; }
-
-        /* 頂部橫幅 */
-        .hero { background: linear-gradient(135deg, var(--primary) 0%, #0F172A 100%); color: var(--white); padding: 2rem 1.5rem; text-align: center; border-bottom: 4px solid var(--gold); position: relative; }
-        .hero h1 { margin: 0; font-size: 1.5rem; font-weight: bold; }
-        .top-btns { display: flex; justify-content: space-between; margin-top: 15px; }
-        .icon-btn { background: rgba(255,255,255,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; }
-
-        /* 熱門統計列 */
-        .hot-section { background: #FFFBEB; padding: 10px 15px; border-bottom: 1px solid #FEF08A; font-weight: bold; color: #B45309; display: flex; align-items: center; overflow-x: auto; white-space: nowrap; font-size: 0.9rem;}
-        .hot-badge { background: var(--danger); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 10px; }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 15px 15px 80px; }
-        
-        /* 首頁列表卡片 (包含金句) */
-        .card { background: var(--white); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; padding: 15px; border: 1px solid #E2E8F0; border-left: 5px solid var(--gold); cursor: pointer; }
-        .tags { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;}
-        .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .tag-lc { background: #DBEAFE; color: #1D4ED8; }
-        .tag-as { background: #FEF9C3; color: #B45309; }
-        .card-title { margin: 0 0 8px 0; font-size: 1.1rem; color: var(--primary); font-weight: bold; line-height: 1.4; }
-        .card-quote { font-size: 0.85rem; color: var(--danger); font-weight: bold; background: #FEF2F2; padding: 6px 10px; border-radius: 6px; margin-bottom: 8px; display: inline-block;}
-        .click-hint { font-size: 0.8rem; color: var(--text-gray); text-align: right; margin: 0; }
-
-        /* 展開彈窗 Modal 與四層漏斗 */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto; padding: 20px 10px; }
-        .modal-content { background: white; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
-        .modal-body { padding: 20px; }
-        .section-block { margin-bottom: 15px; }
-        .level-title { font-size: 1rem; font-weight: bold; color: var(--secondary); margin-bottom: 6px; }
-        .content-box { background: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 0.95rem; text-align: justify;}
-        .script-box { background: #EFF6FF; padding: 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; color: #1E40AF; border-left: 4px solid var(--secondary); }
-        
-        /* 視覺化圖表 CSS */
-        .chart-wrap { margin: 15px 0; padding: 15px; border: 1px dashed #E2E8F0; border-radius: 8px; background: #FAFAFA; }
-        .bar-row { margin-bottom: 10px; }
-        .bar-title { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
-        .bar-track { width: 100%; background: #EDF2F7; height: 18px; border-radius: 9px; overflow: hidden; }
-        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 10px; color: white; font-size: 0.75rem; font-weight: bold; transition: 1s ease-out;}
-
-        /* 按鈕區 */
-        .modal-footer { display: flex; gap: 10px; padding: 15px 20px; background: #F1F5F9; flex-wrap: wrap; }
-        .action-btn { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; border: none; min-width: 30%; }
-        .btn-link { background: var(--white); border: 1px solid var(--primary); color: var(--primary); }
-        .btn-copy { background: var(--secondary); color: white; }
-        .btn-close { background: var(--text-gray); color: white; width: 100%; }
-
-        /* 手機底部導覽列 */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; z-index: 900; }
-        .nav-tab { flex: 1; text-align: center; padding: 15px 0; font-weight: bold; color: var(--text-gray); border-top: 3px solid transparent; cursor: pointer; }
-        .nav-tab.active { color: var(--primary); border-top-color: var(--gold); background: #F8FAFC; }
-
-        /* 篩選抽屜 */
-        .filter-drawer { display: none; position: fixed; bottom: 55px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); border-top-left-radius: 16px; border-top-right-radius: 16px; z-index: 899; }
-        .filter-btn { background: #F1F5F9; border: 1px solid #CBD5E1; padding: 8px 15px; border-radius: 20px; color: var(--text-gray); font-weight: bold; margin: 5px; font-size: 0.9rem; }
-        .filter-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
-
-        /* 教學彈窗 */
-        .instruction-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1001; width: 90%; max-width: 350px; text-align: center; }
-        .instruction-modal h3 { color: var(--primary); margin-top: 0; }
-        .instruction-modal p { text-align: left; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-
-    <!-- 1. 登入畫面 -->
-    <div id="login-screen" class="fullscreen-overlay">
-        <div class="auth-box">
-            <h2>理專稅務實戰神器</h2>
-            <p class="note">首次登入：使用者名稱與密碼相同<br>進入後可自行更改密碼</p>
-            <input type="text" id="username" placeholder="請輸入使用者名稱" autocomplete="off">
-            <input type="password" id="password" placeholder="請輸入密碼">
-            <button onclick="handleLogin()">登入</button>
-        </div>
-    </div>
-
-    <!-- 2. 修改密碼畫面 -->
-    <div id="change-pw-screen" class="fullscreen-overlay" style="display:none;">
-        <div class="auth-box">
-            <h2>設定專屬密碼</h2>
-            <p style="font-size:0.9rem; color:gray; text-align:center;">為了您的安全，請設定新的密碼</p>
-            <input type="password" id="new-password" placeholder="請輸入新密碼">
-            <button onclick="handleChangePassword()">確認修改</button>
-            <button onclick="skipChangePassword()" style="background:#E2E8F0; color:#1E293B; margin-top:10px;">稍後再說</button>
-        </div>
-    </div><!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -121,15 +9,9 @@
         :root { --bg-color: #F8FAFC; --primary: #1E3A8A; --secondary: #3B82F6; --gold: #D4AF37; --text-dark: #1E293B; --text-gray: #64748B; --white: #FFFFFF; --danger: #E53E3E; --success: #38A169; }
         * { box-sizing: border-box; }
         body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-color); color: var(--text-dark); margin: 0; padding: 0; padding-bottom: 70px; line-height: 1.6; }
-        .fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 20px; }
-        .auth-box { background: white; color: var(--text-dark); padding: 30px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-top: 5px solid var(--gold); }
-        .auth-box h2 { margin-top: 0; color: var(--primary); text-align: center; }
-        .auth-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 1rem; }
-        .auth-box button { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .auth-box p.note { font-size: 0.85rem; color: var(--danger); font-weight: bold; text-align: center; background: #FEF2F2; padding: 10px; border-radius: 6px; }
         .hero { background: linear-gradient(135deg, var(--primary) 0%, #0F172A 100%); color: var(--white); padding: 2rem 1.5rem; text-align: center; border-bottom: 4px solid var(--gold); position: relative; }
         .hero h1 { margin: 0; font-size: 1.5rem; font-weight: bold; }
-        .top-btns { display: flex; justify-content: space-between; margin-top: 15px; }
+        .top-btns { display: flex; justify-content: center; margin-top: 15px; }
         .icon-btn { background: rgba(255,255,255,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; }
         .hot-section { background: #FFFBEB; padding: 10px 15px; border-bottom: 1px solid #FEF08A; font-weight: bold; color: #B45309; display: flex; align-items: center; overflow-x: auto; white-space: nowrap; font-size: 0.9rem;}
         .hot-badge { background: var(--danger); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 10px; }
@@ -171,23 +53,6 @@
     </style>
 </head>
 <body>
-    <div id="login-screen" class="fullscreen-overlay">
-        <div class="auth-box">
-            <h2>理專稅務實戰神器</h2>
-            <p class="note">首次登入：密碼同帳號<br>進入後可自行更改密碼</p>
-            <input type="text" id="username" placeholder="請輸入使用者名稱" autocomplete="off">
-            <input type="password" id="password" placeholder="請輸入密碼">
-            <button onclick="handleLogin()">登入</button>
-        </div>
-    </div>
-    <div id="change-pw-screen" class="fullscreen-overlay" style="display:none;">
-        <div class="auth-box">
-            <h2>設定專屬密碼</h2>
-            <input type="password" id="new-password" placeholder="請輸入新密碼">
-            <button onclick="handleChangePassword()">確認修改</button>
-            <button onclick="skipChangePassword()" style="background:#E2E8F0; color:#1E293B; margin-top:10px;">稍後再說</button>
-        </div>
-    </div>
     <div id="pwa-instruction" class="instruction-modal">
         <h3>📲 如何加到手機桌面？</h3>
         <p><b>🍎 蘋果 iPhone (Safari)：</b><br>1. 點擊「分享」圖示 (方框+向上箭頭)<br>2. 點選「加入主畫面」</p>
@@ -195,13 +60,12 @@
         <button onclick="document.getElementById('pwa-instruction').style.display='none'" class="action-btn btn-copy" style="width:100%; margin-top:15px;">我知道了</button>
     </div>
 
-    <div id="main-app" style="display: none;">
+    <!-- 移除了登入畫面，直接顯示主程式 -->
+    <div id="main-app" style="display: block;">
         <div class="hero">
             <h1>💎 財富傳承與稅務資料庫</h1>
             <div class="top-btns">
                 <button class="icon-btn" onclick="document.getElementById('pwa-instruction').style.display='block'">📲 加到桌面</button>
-                <button class="icon-btn" onclick="document.getElementById('change-pw-screen').style.display='flex'">🔑 更改密碼</button>
-                <button class="icon-btn" id="admin-btn" style="display:none;" onclick="openAdmin()">📊 後台</button>
             </div>
         </div>
         <div class="hot-section" id="hot-section"></div>
@@ -240,7 +104,7 @@
 
     <script>
     // ==========================================
-    // 這裡直接將 40 筆案例寫入，保證手機可離線讀取
+    // 全 40 筆案例資料庫
     // ==========================================
     const data_all = [
         {
@@ -599,10 +463,10 @@
             lifecycle: "企業經營與節稅類", asset: "海外資產與企業股權",
             title: "企業賣地算錯土地漲價總數額，慘遭補稅80萬！",
             quote: "公司賣地以為沒賺錢不用繳稅？用錯『公告現值』，國稅局立馬找上門補稅！",
-            layer1_story: "公司賣地自行用成交價減成本計算土地漲價總數額申報為0，被國稅局糾正補徵80.5萬房地合一稅。",
-            layer2_blindSpot: "企業計算土地漲價總數額不能隨便用成交價減成本，必須嚴格依據政府公告土地現值計算，否則產生巨大誤差。",
-            layer3_script: "「陳總，公司賣地用成交價扣成本以為沒賺錢，結果國稅局用公告現值算直接補徵百萬！資產處分建議搭配團隊把關。」",
-            layer4_solution: "【企業不動產處分稅務精算】出售不動產適用房地合一稅，應由專業稅務顧問精算土地漲價總數額避免計算錯誤補稅。",
+            layer1_story: "甲公司賣地，售價1800萬，成本1400萬。公司自行計算土地漲價總數額為400萬，申報課稅所得為0。結果被國稅局糾正，核定有課稅所得，補徵80.5萬房地合一稅。",
+            layer2_blindSpot: "企業計算房地合一稅可減除的「土地漲價總數額」時，不能隨便用成交價減成本，必須嚴格依據「政府公告土地現值」來計算，否則會導致課稅所得產生巨大誤差。",
+            layer3_script: "「陳總，公司最近賣廠房土地，申報時千萬小心！有公司用成交價扣成本，以為沒賺錢，結果國稅局規定要用『公告現值』算，直接補徵快百萬！企業資產處分建議搭配我們團隊幫您把關。」",
+            layer4_solution: "【企業不動產處分稅務精算】營利事業出售不動產適用房地合一稅2.0，應由專業會計師或稅務顧問精算土地漲價總數額與可扣抵之土增稅，避免因計算基準錯誤遭補稅。",
             visual: { bad_label: "誤用市價致補稅額(萬)", bad_val: 80, good_label: "專業精算合規申報(萬)", good_val: 0 },
             link: "https://money.udn.com/money/story/6710/8707143"
         },
@@ -610,10 +474,10 @@
             lifecycle: "屆退與安養照護", asset: "保險與信託",
             title: "廖峻中風爆爭產風波！預開型安養信託成護身符",
             quote: "病倒了才發現身邊人各懷鬼胎？提早設定安養信託，自己的老本自己做主！",
-            layer1_story: "藝人廖峻中風，身邊紅粉知己與獨子爆發衝突爭奪財產主導權。凸顯長者未提早建立保障極易引爆紛爭。",
-            layer2_blindSpot: "長者以為把存摺交親近人代管安全，一旦失能代管者極易因利益衝突爆發爭產甚至挪用救命錢。",
-            layer3_script: "「李大哥，中風後身邊人為了錢吵成一團！趁健康設立預開型安養信託，錢鎖在銀行誰都搶不走！」",
-            layer4_solution: "【預開型安養信託+意定監護】簽訂信託當達成條件時自動啟動專款專用支付照護費，搭配意定監護人保障尊嚴。",
+            layer1_story: "資深藝人廖峻第3度中風，身邊照顧他的紅粉知己與獨子卻爆發激烈衝突，各執一詞爭奪醫療與財產主導權。凸顯長者若未提早建立保障，病倒後極易引爆紛爭。",
+            layer2_blindSpot: "長者常以為把存摺交給親近的人代管最安全。一旦失能失智，代管者極易因利益衝突爆發爭產，甚至挪用救命錢，讓長者晚景淒涼。",
+            layer3_script: "「李大哥，看新聞廖峻中風後，身邊的人為了錢吵成一團真的很心酸！其實我們可以趁健康設立『預開型安養信託』，錢鎖在銀行，誰都搶不走，這才是真正的護身符！」",
+            layer4_solution: "【預開型安養信託+意定監護】在健康時與銀行簽訂信託，當達成條件（如罹病）時自動啟動，專款專用支付照護費，並搭配「意定監護人」制度，保障晚年尊嚴。",
             visual: { bad_label: "無信託引發親友爭產(%)", bad_val: 100, good_label: "安養信託專款專用(%)", good_val: 100 },
             link: "https://money.udn.com/money/story/12040/8701042"
         },
@@ -621,10 +485,10 @@
             lifecycle: "企業經營與節稅類", asset: "海外資產與企業股權",
             title: "跨國投資被剝兩層皮？善用租稅協定合法節稅",
             quote: "海外賺的錢被當地扣重稅？用對『租稅協定』，股利扣繳稅率直接腰斬！",
-            layer1_story: "台灣甲公司投資日本A公司按規定須扣繳20%稅款。但申請適用台日租稅協定扣繳稅率降至10%。",
-            layer2_blindSpot: "企業不知道台灣與35國簽有租稅協定，任由海外所得被扣高額稅款，回台又面臨稅務檢視形同剝兩層皮。",
-            layer3_script: "「王董，海外投資收股息被扣重稅？只要申請居住者證明，租稅協定稅率直接降到10%！讓專家幫您討回冤枉錢。」",
-            layer4_solution: "【申請適用租稅協定】跨國投資者應申請稅務居民證明，主張適用租稅協定優惠稅率大幅降低海外扣繳稅負。",
+            layer1_story: "台灣甲公司投資日本A公司，分配股利時按日本規定須扣繳20.42%稅款。但若向日本稅務局申請適用「台日租稅協定」，扣繳稅率可降至10%，省下超過一半稅金。",
+            layer2_blindSpot: "許多企業進行跨國投資時，不知道台灣與35國簽有全面性租稅協定，任由海外所得被當地扣高額稅款，回台又要面臨稅務檢視，形同一頭牛剝兩層皮。",
+            layer3_script: "「王董，您在日本投資收股息，是不是被扣了20%以上的重稅？其實台灣有『租稅協定』，只要申請居住者證明，扣繳稅率可直接降到10%！請讓我們的專家幫您討回冤枉錢。」",
+            layer4_solution: "【申請適用租稅協定】跨國投資者應申請「稅務居民證明」，向所得來源國主張適用租稅協定之優惠稅率，大幅降低海外扣繳稅負，實現合法節稅。",
             visual: { bad_label: "未申請協定扣繳率(%)", bad_val: 20, good_label: "適用租稅協定扣繳率(%)", good_val: 10 },
             link: "https://money.udn.com/money/story/6710/8586012"
         },
@@ -632,10 +496,10 @@
             lifecycle: "企業經營與節稅類", asset: "現金與有價證券",
             title: "公司幫房東代繳稅金？國稅局：未算入租金總額恐挨罰！",
             quote: "公司租房幫房東負擔稅款？當心『代繳金額』也要算進租金，算錯直接受罰！",
-            layer1_story: "甲公司租屋由公司負擔扣繳稅款。只用實收租金算扣繳遭國稅局認定錯誤，推算總租金少報遭罰。",
-            layer2_blindSpot: "房東實拿租金稅費企業吸收，但代繳稅費視同租金總額一部份，必須以含稅總額計算扣繳否則短漏報。",
-            layer3_script: "「林總，租辦公室稅金我們出，國稅局規定代繳的錢要加回總額重算。算錯會被開單！讓團隊為您財務健診。」",
-            layer4_solution: "【租金總額還原計算】由承租人負擔扣繳稅款時，財務端必須將實付租金還原成包含稅費的總額再計算據實申報。",
+            layer1_story: "甲公司租屋約定實收租金4萬元，10%扣繳稅款由甲公司負擔。甲公司只用4萬元算扣繳稅款，結果遭國稅局認定錯誤，推算總租金應為45,511元，扣繳稅款少報遭罰。",
+            layer2_blindSpot: "實務常見房東要求「實拿」租金，稅費由企業吸收。但企業常忘記，這些代繳稅費在稅法上「視同租金總額的一部分」，必須以「含稅總額」計算扣繳，否則就是短漏扣繳。",
+            layer3_script: "「林總，公司租辦公室合約寫房東實拿、稅金我們出，申報時千萬要小心！國稅局規定代繳的錢都要『加回租金總額』重算稅率。算錯會被開罰單的！讓我們團隊為您提供財務健診。」",
+            layer4_solution: "【租金總額還原計算】當合約約定由承租人負擔扣繳稅款時，企業財務端必須將實付租金「還原」成包含稅費的總額，再計算10%扣繳稅款，並據實申報。",
             visual: { bad_label: "錯誤未還原租金計稅", bad_val: 4000, good_label: "正確還原總租金計稅", good_val: 4551 },
             link: "https://money.udn.com/money/story/6710/8542132"
         },
@@ -645,7 +509,7 @@
             quote: "夫妻只能有一間房享自住地價稅？錯！把『這個人』的戶籍遷進去，兩間房都能打2折！",
             layer1_story: "林先生婚後買新房，妻子婚前套房已申請自住優惠。以為夫妻只能共用一處，新房繳一般地價稅。",
             layer2_blindSpot: "夫妻地價稅以一處為限，但只要在第二處房屋將成年直系親屬辦竣戶籍登記即可突破限制。",
-            layer3_script: "「林先生，只要把您爸爸或岳母的戶籍遷到另一間房子裡，兩間房子都能省下4倍的地價稅金！」",
+            layer3_script: "「林先生，別擔心夫妻只能有一間房享千分之2的地價稅優惠，只要把您爸爸或岳母的戶籍遷到另一間房子裡，兩間房子都能省下4倍的稅金！」",
             layer4_solution: "【成年直系親屬設籍解套】妥善安排戶籍，夫妻雙方父母皆為直系親屬，分別設籍即可同時適用特別稅率。",
             visual: { bad_label: "未設籍一般地價稅(倍)", bad_val: 4, good_label: "直系設籍自用地價稅(倍)", good_val: 1 },
             link: "https://money.udn.com/money/story/6710/8560057"
@@ -667,8 +531,8 @@
             quote: "房子提早過戶給兒子，老了卻被趕出門？沒有「信託」護體，愛只會變成未來的淚！",
             layer1_story: "老夫妻為避稅早早把房產贈與獨子，兒子做生意失敗法拍無家可歸。直接給錢拿到手不聞不問。",
             layer2_blindSpot: "生前贈與會讓父母失去資產控制權，面臨子女不孝或敗光的風險；死後繼承則缺乏彈性。",
-            layer3_script: "「李媽媽，房子提早過戶千萬三思！成立安養傳承信託，房子安心住到老掌控權在手，小孩沒法拿去抵押！」",
-            layer4_solution: "【信託2.0：控制與傳承並重】將資產置入信託架構，父母保有控制權與收益權，設定條件讓子女未來取得資產。",
+            layer3_script: "「李媽媽，房子提早過戶千萬三思！聰明的做法是成立『安養傳承信託』，房子您安心住到老，掌控權在您手上，小孩也沒辦法拿去抵押借錢！」",
+            layer4_solution: "【信託2.0：控制與傳承並重】結合贈與、保險與遺囑，將資產置入「信託」架構。父母保有生前的控制權與收益權，並設定條件讓子女未來才能完全取得資產。",
             visual: { bad_label: "提早過戶喪失控制權(%)", bad_val: 100, good_label: "信託保有資產控制權(%)", good_val: 100 },
             link: "https://www.businessweekly.com.tw/business/blog/3017638"
         },
@@ -676,106 +540,40 @@
             lifecycle: "個人與家庭傳承類", asset: "不動產",
             title: "大S猝逝留數億遺產！名下豪宅恐生天價遺產稅",
             quote: "留下幾億房產很風光？小孩拿不出半毛現金繳遺產稅，豪宅只能被國稅局便宜抵稅！",
-            layer1_story: "女星大S猝逝留數億豪宅，遺產稅高達數千萬。子女未成年若無足夠現金繳稅將面臨困境。",
-            layer2_blindSpot: "富人資產押在不動產忽略遺產稅必須先繳現金才能過戶。申請實物抵繳國稅局只認定遠低於市價的公告現值。",
-            layer3_script: "「王董，幾億房地產遺產稅要幾千萬！拿不出現金房子會被低價抵稅。一定要規劃高額壽險理賠金預留稅源！」",
-            layer4_solution: "【預留稅源之保險規劃】高不動產比例務必搭配足額人壽保單預留稅源，提供即時免稅現金流繳稅。",
+            layer1_story: "女星大S猝逝，留下市價超過數億的豪宅。地政士試算，其遺產稅高達4,500萬至6,500萬。由於子女未成年，若手邊無足夠現金繳稅，將面臨極大困境。",
+            layer2_blindSpot: "許多富人將資產全數押在不動產，忽略了遺產稅必須「先繳現金才能過戶」。若申請「實物抵繳」，國稅局只認定遠低於市價的「公告現值」，資產價值大幅縮水。",
+            layer3_script: "「王董，您名下幾億的房地產，光遺產稅可能就要繳幾千萬！如果拿不出這麼多現金，房子可能會被拿去低價抵稅。我們一定要幫您規劃高額的『壽險理賠金』預留稅源！」",
+            layer4_solution: "【預留稅源之保險規劃】高不動產比例的資產結構，務必搭配足額的「人壽保單」預留稅源。身故理賠金能提供即時免稅的現金流，避免資產被迫低價變賣。",
             visual: { bad_label: "實物抵繳依公告現值計(成)", bad_val: 30, good_label: "保險現金繳稅保全市價(成)", good_val: 100 },
             link: "https://www.setn.com/News.aspx?NewsID=1605519"
         }
     ];
 
-    // 以下為主要系統邏輯
-    let currentUser = localStorage.getItem('currentUser');
     let currentLifecycle = 'all';
     let currentAsset = 'all';
     let clickStats = JSON.parse(localStorage.getItem('clickStats')) || {};
 
     const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_YOUR_SCRIPT_ID/exec"; 
 
+    // 直接啟動主程式，不再檢查 currentUser
     window.onload = () => {
         allCases = data_all;
         allCases.forEach((c, idx) => c.id = 'case_' + idx);
-        
-        if (currentUser) {
-            showMainApp();
-        } else {
-            document.getElementById('login-screen').style.display = 'flex';
-        }
+        showMainApp();
     };
 
-    function handleLogin() {
-        const user = document.getElementById('username').value.trim();
-        const pass = document.getElementById('password').value.trim();
-        if(!user || !pass) return alert('請輸入帳號密碼');
-
-        if(user === 'tony' && pass === '661001') {
-            loginSuccess('tony', true);
-            return;
-        }
-
-        const savedPass = localStorage.getItem('pw_' + user);
-        if (!savedPass) {
-            if (user === pass) {
-                loginSuccess(user, false, true); 
-            } else {
-                alert('首次登入，密碼必須與使用者名稱相同！');
-            }
-        } else {
-            if (pass === savedPass) {
-                loginSuccess(user, false);
-            } else {
-                alert('密碼錯誤！');
-            }
-        }
-    }
-
-    function loginSuccess(user, isAdmin, isFirstTime = false) {
-        currentUser = user;
-        localStorage.setItem('currentUser', user);
-        sendTrafficLog("Login", "User logged in");
-
-        document.getElementById('login-screen').style.display = 'none';
-        if (isAdmin) {
-            document.getElementById('admin-btn').style.display = 'inline-block';
-            showMainApp();
-        } else if (isFirstTime) {
-            document.getElementById('change-pw-screen').style.display = 'flex';
-        } else {
-            showMainApp();
-        }
-    }
-
-    function handleChangePassword() {
-        const newPw = document.getElementById('new-password').value.trim();
-        if(!newPw) return alert('請輸入新密碼');
-        localStorage.setItem('pw_' + currentUser, newPw);
-        alert('密碼修改成功！');
-        document.getElementById('change-pw-screen').style.display = 'none';
-        showMainApp();
-    }
-
-    function skipChangePassword() {
-        document.getElementById('change-pw-screen').style.display = 'none';
-        showMainApp();
-    }
-
     function showMainApp() {
+        // 主畫面預設就是顯示狀態，這裡可確保介面更新
         document.getElementById('main-app').style.display = 'block';
-        if(currentUser === 'tony') document.getElementById('admin-btn').style.display = 'inline-block';
         updateHotSection();
         renderCases();
-    }
-
-    function openAdmin() {
-        alert('管理者 Tony 您好：\n系統流量與點閱數據已自動同步至您的 Google 雲端試算表中，請登入 Google Drive 檢視後台報表。');
     }
 
     function sendTrafficLog(action, details) {
         if(GOOGLE_APP_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) return;
         fetch(GOOGLE_APP_SCRIPT_URL, {
             method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: currentUser, action: action, details: details, time: new Date().toLocaleString() })
+            body: JSON.stringify({ user: "Guest", action: action, details: details, time: new Date().toLocaleString() })
         }).catch(e => console.log('Log Error', e));
     }
 
