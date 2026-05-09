@@ -1,12 +1,140 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>遠銀稅務實戰App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>理專稅務實戰神器 - 146案完整版</title>
+    <!-- 引入兩個獨立的資料庫檔案 -->
     <script src="data_all.js"></script>
+    <script src="data_all.js"></script>
+    <style>
+        :root {
+            --primary-color: #1A365D; --secondary-color: #2B6CB0;
+            --accent-color: #D69E2E; --bg-color: #F7FAFC;
+            --card-bg: #FFFFFF; --text-main: #2D3748;
+            --text-light: #4A5568; --border-color: #E2E8F0;
+            --highlight-bg: #EBF8FF;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; margin: 0; padding: 0; }
+        .top-navbar { background-color: var(--primary-color); color: white; padding: 2rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .top-navbar h1 { margin: 0; font-size: 2rem; letter-spacing: 1px; }
+        .top-navbar p { margin: 10px 0 0 0; color: #E2E8F0; font-size: 1.1rem; }
+        .filter-container { background-color: white; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
+        .filter-row { max-width: 1000px; margin: 0 auto 15px auto; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .filter-label { font-weight: bold; color: var(--primary-color); min-width: 100px; }
+        .filter-btn { background-color: #EDF2F7; border: 1px solid transparent; padding: 6px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; color: var(--text-light); transition: all 0.2s; font-size: 0.95rem; }
+        .filter-btn:hover { background-color: #E2E8F0; }
+        .filter-btn.active { background-color: var(--secondary-color); color: white; box-shadow: 0 2px 4px rgba(43, 108, 176, 0.3); }
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
+        .summary-header { font-size: 1.2rem; font-weight: bold; color: var(--accent-color); margin-bottom: 20px; }
+        .case-card { background-color: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px; margin-bottom: 30px; border-top: 5px solid var(--secondary-color); }
+        .tags { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tag { font-size: 0.85rem; padding: 4px 10px; border-radius: 6px; font-weight: bold; }
+        .tag-lifecycle { background-color: #FEFCBF; color: #B7791F; }
+        .tag-asset { background-color: #EBF8FF; color: #2B6CB0; }
+        h4 { color: var(--primary-color); font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; border-bottom: 1px dashed var(--border-color); padding-bottom: 15px; }
+        h5 { color: #2C5282; font-size: 1.15rem; margin-top: 25px; margin-bottom: 10px; display: flex; align-items: center; }
+        h5::before { content: '📌'; margin-right: 8px; }
+        p { color: var(--text-light); margin: 0 0 15px 0; text-align: justify; }
+        .story-section { background-color: #FAFAFA; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #A0AEC0; }
+        .script-section { background-color: var(--highlight-bg); padding: 15px 20px; border-radius: 8px; font-weight: 500; color: #2B6CB0; border-left: 4px solid var(--secondary-color); font-style: italic; }
+        .compliance-section { background-color: #F0FFF4; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #48BB78; }
+    </style>
 </head>
 <body>
-    <h1>稅務實戰案例庫</h1>
-    <div id="display-area">案例載入中...</div>
-    </body>
+    <div class="top-navbar">
+        <h1>💎 理專稅務實戰神器</h1>
+        <p>雙視角篩選：遵循客戶「生命週期」與「資產屬性」精準投遞</p>
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-row" id="lifecycle-filters">
+            <div class="filter-label">依生命週期：</div>
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="青年與成家購屋">青年與成家購屋</button>
+            <button class="filter-btn" data-filter="中壯年與企業經營">中壯年與企業經營</button>
+            <button class="filter-btn" data-filter="屆退與安養照護">屆退與安養照護</button>
+            <button class="filter-btn" data-filter="財富傳承與遺產">財富傳承與遺產</button>
+        </div>
+        <div class="filter-row" id="asset-filters">
+            <div class="filter-label">依資產屬性：</div>
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="不動產">不動產</button>
+            <button class="filter-btn" data-filter="保險與信託">保險與信託</button>
+            <button class="filter-btn" data-filter="現金與有價證券">現金與有價證券</button>
+            <button class="filter-btn" data-filter="海外資產與企業股權">海外資產與企業股權</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="summary-header">
+            <span id="result-count">載入中...</span>
+        </div>
+        <div id="cases-container"></div>
+    </div>
+
+    <script>
+        // 系統自動結合兩段資料庫
+        let allCases = [];
+        if (typeof data_46 !== 'undefined') allCases = allCases.concat(data_46);
+        if (typeof data_100 !== 'undefined') allCases = allCases.concat(data_100);
+
+        let currentLifecycle = 'all';
+        let currentAsset = 'all';
+
+        function renderCases() {
+            const container = document.getElementById('cases-container');
+            container.innerHTML = '';
+            
+            const filteredData = allCases.filter(item => {
+                const matchLifecycle = currentLifecycle === 'all' || item.lifecycle === currentLifecycle;
+                const matchAsset = currentAsset === 'all' || item.asset === currentAsset;
+                return matchLifecycle && matchAsset;
+            });
+
+            document.getElementById('result-count').innerText = `目前顯示： ${filteredData.length} 個實戰案例`;
+
+            if (filteredData.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 50px;">查無符合條件的案例。</div>`;
+                return;
+            }
+            
+            filteredData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'case-card';
+                card.innerHTML = `
+                    <div class="tags">
+                        <span class="tag tag-lifecycle">生：${item.lifecycle}</span>
+                        <span class="tag tag-asset">資：${item.asset}</span>
+                    </div>
+                    <h4>${item.title}</h4>
+                    <h5>情境故事與解析</h5><div class="story-section"><p>${item.story}</p></div>
+                    <h5>3分鐘銷售話術</h5><div class="script-section"><p>${item.script}</p></div>
+                    <h5>合規與防護亮點</h5><div class="compliance-section"><p>${item.compliance}</p></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        document.getElementById('lifecycle-filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#lifecycle-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentLifecycle = e.target.getAttribute('data-filter');
+                renderCases();
+            }
+        });
+
+        document.getElementById('asset-filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#asset-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentAsset = e.target.getAttribute('data-filter');
+                renderCases();
+            }
+        });
+
+        window.onload = renderCases;
+    </script>
+</body>
 </html>
