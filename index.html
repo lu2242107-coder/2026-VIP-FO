@@ -91,22 +91,19 @@
             <div class="filter-title">📍 生命週期分類 (左右滑動)</div>
             <div class="filter-slider" id="drawer-lc">
                 <button class="filter-btn active" onclick="setFilter('lc', 'all')">全部</button>
-                <button class="filter-btn" onclick="setFilter('lc', '青年與成家購屋')">青年購屋</button>
-                <button class="filter-btn" onclick="setFilter('lc', '中壯年與企業經營')">企業經營</button>
-                <button class="filter-btn" onclick="setFilter('lc', '屆退與安養照護')">屆退安養</button>
-                <button class="filter-btn" onclick="setFilter('lc', '避稅失敗診斷類')">避稅地雷</button>
-                <button class="filter-btn" onclick="setFilter('lc', '個人與家庭傳承類')">家庭傳承</button>
-                <button class="filter-btn" onclick="setFilter('lc', '企業經營與節稅類')">企業節稅</button>
-                <button class="filter-btn" onclick="setFilter('lc', '數位與新制法規類')">新制法規</button>
+                <button class="filter-btn" onclick="setFilter('lc', '成家立業期')">成家立業期</button>
+                <button class="filter-btn" onclick="setFilter('lc', '財富累積期')">財富累積期</button>
+                <button class="filter-btn" onclick="setFilter('lc', '退休安養期')">退休安養期</button>
+                <button class="filter-btn" onclick="setFilter('lc', '資產傳承期')">資產傳承期</button>
             </div>
             
             <div class="filter-title" style="margin-top: 10px;">🏷️ 資產屬性分類 (左右滑動)</div>
             <div class="filter-slider" id="drawer-as">
                 <button class="filter-btn active" onclick="setFilter('as', 'all')">全部</button>
                 <button class="filter-btn" onclick="setFilter('as', '不動產')">不動產</button>
-                <button class="filter-btn" onclick="setFilter('as', '保險與信託')">保險信託</button>
-                <button class="filter-btn" onclick="setFilter('as', '現金與有價證券')">現金證券</button>
-                <button class="filter-btn" onclick="setFilter('as', '海外資產與企業股權')">海外股權</button>
+                <button class="filter-btn" onclick="setFilter('as', '保險與信託')">保險與信託</button>
+                <button class="filter-btn" onclick="setFilter('as', '現金與有價證券')">現金與有價證券</button>
+                <button class="filter-btn" onclick="setFilter('as', '海外資產與企業股權')">海外資產與企業股權</button>
             </div>
         </div>
 
@@ -122,20 +119,19 @@
 
     <script>
     function getSticker(lifecycle, asset) {
-        if (lifecycle.includes('購屋') || asset.includes('不動產')) return '🏠';
-        if (lifecycle.includes('避稅') || lifecycle.includes('法規')) return '💣';
-        if (lifecycle.includes('企業') || asset.includes('股權')) return '🏢';
+        if (asset.includes('不動產') || lifecycle.includes('成家')) return '🏠';
+        if (lifecycle.includes('累積') || asset.includes('股權')) return '🏢';
         if (lifecycle.includes('安養') || asset.includes('保險')) return '🛡️';
         if (asset.includes('現金')) return '💰';
         return '💎';
     }
 
     // ==========================================
-    // 完整版案例資料庫：1 到 40 筆
+    // 完整版案例資料庫：1 到 40 筆 (全新5大分類對應)
     // ==========================================
     const data_all = [
         {
-            lifecycle: "個人與家庭傳承類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "現金與有價證券",
             title: "死亡前2年內贈與特定親屬，拋棄繼承也逃不掉遺產稅",
             quote: "死前轉帳以為神不知鬼不覺？國稅局連拋棄繼承的人都不放過！",
             layer1_story: "甲先生死亡前2年內，轉帳20萬給弟媳、10萬給朋友。他以為合計未達免稅額244萬就沒事，結果過世後，國稅局認定送給弟媳的20萬必須併入遺產總額核課遺產稅。",
@@ -146,7 +142,7 @@
             link: "https://news.housefun.com.tw/news/article/111978484452.html"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "現金與有價證券",
             title: "繼承存款利息藏陷阱！課稅三情境不可不知",
             quote: "長輩留下的利息，是遺產還是你的所得？報錯稅小心連補帶罰！",
             layer1_story: "親人過世後，銀行存款持續產生利息，許多家屬在辦理遺產及報稅時搞不清楚，這筆利息到底該申報「綜合所得稅」還是「遺產稅」，一不小心就報錯受罰。",
@@ -157,7 +153,7 @@
             link: "https://money.udn.com/money/story/6710/9472615"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "海外資產與企業股權",
+            lifecycle: "財富累積期", asset: "海外資產與企業股權",
             title: "基金投資課稅眉角大揭密！境內外大不同",
             quote: "買基金賺錢很開心？小心註冊地選錯，海外所得讓你補稅補到哭！",
             layer1_story: "投資人開心賺取基金買賣價差與配息。但若買到「註冊地」在海外的境外基金，其獲利屬海外所得，若未申報遭查獲，不僅要補最低稅負還要重罰。",
@@ -168,7 +164,7 @@
             link: "https://money.udn.com/money/story/6710/9472209"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
+            lifecycle: "資產傳承期", asset: "不動產",
             title: "拋棄繼承給孫子能省稅？遺產稅扣除額計算藏陷阱",
             quote: "以為兒子全拋棄讓孫子繼承能多扣稅？國稅局算得比你還精！",
             layer1_story: "乙君為了增加「直系血親卑親屬扣除額」，辦理拋棄繼承讓自己的3個小孩（孫輩）繼承，以為扣除額可以從56萬倍增變成168萬。",
@@ -179,7 +175,7 @@
             link: "https://news.housefun.com.tw/news/article/147578484108.html"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "土地買了還沒登記就轉賣！面臨現值2%重罰",
             quote: "買地賺差價還沒過戶就急著賣？最高2%罰款直接讓你做白工！",
             layer1_story: "A先生購入1筆土地，還沒向地政機關辦理移轉登記，就急著以120萬轉售給C小姐，想大賺過手差價。",
@@ -190,7 +186,7 @@
             link: "https://estate.ltn.com.tw/article/27601"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "現金與有價證券",
+            lifecycle: "成家立業期", asset: "現金與有價證券",
             title: "報稅列報扶養有地雷！錯列免稅額連補帶罰",
             quote: "今年剛出生的金孫不能報去年扶養？搞錯『所得年度』當心被罰款！",
             layer1_story: "報稅季，民眾常把今年剛出生的小孩，或今年剛滿70歲的長輩，列入「去年」的綜所稅申報扶養企圖多扣免稅額。",
@@ -201,7 +197,7 @@
             link: "https://money.udn.com/money/story/6710/9465643"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "不動產",
+            lifecycle: "成家立業期", asset: "不動產",
             title: "一個設籍觀念弄錯虧大了！多繳4倍地價稅",
             quote: "房子沒人住也能算自住？把岳父戶籍遷過去，地價稅現省4倍！",
             layer1_story: "張先生擁有多間房產，以為自己沒子女、父母已過世，第二間房子只能繳一般地價稅，白白多繳了鉅額稅款。",
@@ -212,7 +208,7 @@
             link: "https://money.udn.com/money/story/6710/9444947"
         },
         {
-            lifecycle: "屆退與安養照護", asset: "保險與信託",
+            lifecycle: "退休安養期", asset: "保險與信託",
             title: "爭產是從失智開始！李鍾桂案看安養信託防線",
             quote: "爭產不是從過世才開始，失智那一刻起，你的老本就成了別人的提款機！",
             layer1_story: "知名人士李鍾桂失智後，高達4,500萬存款被轉入「他益信託」實質贈與親戚，房產被監護人變賣，晚年只能待在陌生環境。",
@@ -223,7 +219,7 @@
             link: "https://money.udn.com/money/story/12040/9421340"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "不動產",
+            lifecycle: "成家立業期", asset: "不動產",
             title: "父母贊助子女購屋，送現金還是送房子稅金大不同",
             quote: "直接買房送小孩最霸氣？當心未來的『房地合一稅』讓他繳到哭！",
             layer1_story: "父親想幫兒子買1,800萬房子，如果直接貸款買下登記兒子名下，視為贈與不動產，贈與稅高達55.6萬。",
@@ -234,7 +230,7 @@
             link: "https://ec.ltn.com.tw/article/breakingnews/5360184"
         },
         {
-            lifecycle: "企業經營與節稅類", asset: "海外資產與企業股權",
+            lifecycle: "財富累積期", asset: "海外資產與企業股權",
             title: "海外所得大追稅！課最低稅負留意門檻",
             quote: "以為天高皇帝遠？跨國大追稅讓海外獲利無所遁形！",
             layer1_story: "投資人以為海外投資所得不會出現在國稅局清單，心存僥倖不申報，結果遭查獲面臨補稅加罰。",
@@ -245,7 +241,7 @@
             link: "https://udn.com/news/story/7243/9441739"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "保險與信託",
+            lifecycle: "資產傳承期", asset: "保險與信託",
             title: "財產從6千萬變1億！沈殿霞遺囑信託的傳承大智慧",
             quote: "真正的富有，不是留下多少財產，而是留下多少愛與智慧！",
             layer1_story: "港星沈殿霞留下6,000萬港幣給21歲女兒。她沒有直接給現金，而是設立遺囑信託，規定35歲前每月只能領2萬生活費。",
@@ -256,7 +252,7 @@
             link: "https://money.udn.com/money/story/12040/9421350"
         },
         {
-            lifecycle: "企業經營與節稅類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "賣老屋遭課「豪宅稅」！3大報稅地雷大拆解",
             quote: "老公寓也能變豪宅？單價門檻一踩到，稅金瞬間暴增數十萬！",
             layer1_story: "民眾出售舊制房屋，因近年房價大漲，許多老公寓意外踩到財政部新增的「單價門檻」而被認定為豪宅。",
@@ -267,7 +263,7 @@
             link: "https://www.ctee.com.tw/news/20260401701508-430601"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "海外資產與企業股權",
+            lifecycle: "財富累積期", asset: "海外資產與企業股權",
             title: "紐西蘭賣房爽賺上億，未報海外所得遭補稅重罰",
             quote: "以為天高皇帝遠？跨國大追稅讓海外獲利無所遁形！",
             layer1_story: "甲君在紐西蘭以1.1億出售房屋，僅申報海外所得200萬。國稅局透過CRS跨國資訊交換直接查獲海外交易。",
@@ -278,7 +274,7 @@
             link: "https://udn.com/news/story/7243/9441739"
         },
         {
-            lifecycle: "屆退與安養照護", asset: "保險與信託",
+            lifecycle: "退休安養期", asset: "保險與信託",
             title: "失智父親房產轉移遭告無效，提早信託防爭產",
             quote: "生病了才移轉財產？小心被認定無效，手足法庭相見！",
             layer1_story: "父親患嚴重失智症，生前把動產轉給二兒子，不動產轉給母親。過世後，老四把三個哥哥告上法院，主張父親失智轉移無效。",
@@ -289,7 +285,7 @@
             link: "https://money.udn.com/money/story/12040/9421340"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "房屋賠售也要報稅！忽略申報恐遭國稅局開罰",
             quote: "以為沒賺錢就不用報稅？漏報房地合一稅，連賠錢都要被罰款！",
             layer1_story: "民眾賣房出現「賠售」，誤以為「沒有賺錢就不用報稅」，結果發生買賣移轉後未在期限內申報，面臨漏報罰鍰。",
@@ -300,7 +296,7 @@
             link: "https://www.ctee.com.tw/news/20260402701395-430601"
         },
         {
-            lifecycle: "屆退與安養照護", asset: "保險與信託",
+            lifecycle: "退休安養期", asset: "保險與信託",
             title: "保險理賠結合安養信託，建構退休資金防護網",
             quote: "保險理賠金一下來就被親戚騙光？結合信託讓保命錢真正用在自己身上！",
             layer1_story: "許多長者單純購買保險，但當事故發生理賠金一大筆匯入帳戶時，失智或年邁長者極易遭身邊親友挪用或遭詐騙。",
@@ -311,7 +307,7 @@
             link: "https://money.udn.com/money/story/10664/9410356"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
+            lifecycle: "資產傳承期", asset: "不動產",
             title: "賣繼承屋忽略「取得日期」，漏報房地合一稅遭重罰",
             quote: "賣掉繼承的房子以為是舊制？搞錯父母取得時間，補稅十多萬還要加罰！",
             layer1_story: "甲君繼承父母房產後出售，以為全部適用舊制免繳房地合一稅，未申報遭查獲，因其中一半持分屬新制，遭補稅11萬及罰鍰。",
@@ -322,7 +318,7 @@
             link: "https://news.housefun.com.tw/news/article/968435483006.html"
         },
         {
-            lifecycle: "企業經營與節稅類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "持有40年土增稅達百萬！公設保留地免稅解套",
             quote: "土地放了40年要賣，土增稅破百萬？查一下是否為公設保留地，稅金直接歸零！",
             layer1_story: "民眾欲出售持有40年的土地，一般稅率計算土增稅高達百萬元。經輔導發現該地屬公共設施保留地，申請後成功免徵。",
@@ -333,7 +329,7 @@
             link: "https://news.housefun.com.tw/news/article/129499482308.html"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
+            lifecycle: "資產傳承期", asset: "不動產",
             title: "弄錯連續繼承規定，賣房未報房地合一稅遭補罰",
             quote: "聽說繼承房子賣掉不用繳稅？沒弄懂『連續繼承』讓你連補帶罰！",
             layer1_story: "兄弟賣掉相繼過世父母留下的房子，聽信非專業建議以為免繳房地合一稅而未申報，結果被補稅18萬並裁罰3萬元。",
@@ -344,7 +340,7 @@
             link: "https://money.udn.com/money/story/11994/9399472"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "保險與信託",
+            lifecycle: "資產傳承期", asset: "保險與信託",
             title: "頂客族立遺囑留產給配偶，手足仍可討特留分",
             quote: "沒生小孩，遺產還要分給早就沒聯絡的兄弟姊妹？4招教你破解特留分！",
             layer1_story: "頂客族老張以為立遺囑就能把財產全留給愛妻。沒想到過世後，沒聯絡的兄弟姊妹主張特留分硬是分走財產。",
@@ -355,7 +351,7 @@
             link: "https://money.udn.com/money/story/12040/9022298"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "不動產",
+            lifecycle: "資產傳承期", asset: "不動產",
             title: "兒女爭產喬不攏？先辦公同共有以拖待變免稅金",
             quote: "遺產談不攏快告上法院？先辦『公同共有』，用時間換空間還能免稅！",
             layer1_story: "父親過世留3間房屋，3位成年兒女對分配無共識瀕臨訴訟。若無法如期申辦繼承，將面臨地政機關高額罰鍰。",
@@ -366,7 +362,7 @@
             link: "https://news.housefun.com.tw/news/article/129499482308.html"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "現金與有價證券",
             title: "父母代繳過戶稅金，視同贈與再剝一層皮",
             quote: "順便幫小孩繳土地增值稅？國稅局笑納你的『第二筆贈與稅』！",
             layer1_story: "黃先生將房地贈與兒子，並順便幫忙代繳了129萬的土增稅與契稅，結果國稅局認定代墊稅金也是額外贈與，補徵贈與稅。",
@@ -377,7 +373,7 @@
             link: "https://money.udn.com/money/story/6710/9359848"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "現金與有價證券",
+            lifecycle: "財富累積期", asset: "現金與有價證券",
             title: "死亡前二年內贈與特定親屬，修法後受贈人需按比例繳稅",
             quote: "修法防『大老婆復仇』！生前贈與財產，受贈人拋棄繼承也得乖乖繳遺產稅！",
             layer1_story: "男子死前兩年贈與配偶高額股票，死後元配和子女拋棄繼承，讓非婚生子女獨自承擔巨額遺產稅，引發釋憲與修法。",
@@ -388,7 +384,7 @@
             link: "https://money.udn.com/money/story/6710/9283219"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "保險與信託",
             title: "頂客族大哥往生，驚見失聯父親二婚的5位手足來分產",
             quote: "以為父母都不在了，財產只剩兩兄弟分？失聯老爸的5個私生子女全跑出來要錢！",
             layer1_story: "未婚無子的大哥往生，兩位親弟弟辦繼承時發現，早年失聯的父親後來二婚生了5個小孩，這5位同父異母弟妹依法全有繼承權。",
@@ -399,7 +395,7 @@
             link: "https://wealth.businessweekly.com.tw/GArticle.aspx?id=ARTL003017912"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "舊制房屋交易所得稅調高！13區升5個百分點",
             quote: "以為老房子適用舊制隨便報？國稅局調高所得標準，稅金默默漲了！",
             layer1_story: "財政部公布114年度個人出售房屋的財交所得計算規定，提高舊制房屋交易的所得課稅標準，全台177區調高，近半落在新北市。",
@@ -410,7 +406,7 @@
             link: "https://www.ctee.com.tw/news/20260305700122-439901"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "現金與有價證券",
             title: "生前重病賣股變現千萬，無法交代流向慘遭計入遺產",
             quote: "病危急賣股票變現金想避稅？提不出醫藥費證明，國稅局照樣當遺產課稅！",
             layer1_story: "被繼承人重病期間出售千萬股票換現金，家屬聲稱用於支付醫藥費，但無法提供相關單據與資金流向證明。",
@@ -421,18 +417,7 @@
             link: "https://www.chinatimes.com/newspapers/20211230000211-260205"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "不動產",
-            title: "兄弟各登記一半房產，日後移轉多繳鉅額稅金",
-            quote: "買房登記兄弟各一半最公平？未來弟弟想出國定居，過戶給你還要多繳20萬稅！",
-            layer1_story: "媽媽出資買預售屋，為求公平登記兩兄弟各一半。多年後弟弟定居美國想把產權轉給哥哥，才發現需繳納高昂的移轉稅負。",
-            layer2_blindSpot: "兄弟間移轉屬二親等，若用「買賣」需金流且繳土增稅、契稅、房地合一稅；若用「贈與」雖無金流，但需繳贈與稅及土增稅、契稅。",
-            layer3_script: "「陳媽媽，房子登記兩兄弟各一半看起來公平，但以後他們要處分或互相過戶，稅金會多繳好幾十萬！不如用信託統一管理。」",
-            layer4_solution: "【產權獨立或信託管理】購屋時應盡量避免共同登記，宜各自獨立產權；或成立不動產信託，由父母掌控管理權避免日後處分爭議。",
-            visual: { bad_label: "持分移轉產生多重稅負", bad_val: 20, good_label: "獨立產權或信託免紛爭", good_val: 0 },
-            link: "https://news.housefun.com.tw/news/article/129499482308.html"
-        },
-        {
-            lifecycle: "數位與新制法規類", asset: "現金與有價證券",
+            lifecycle: "財富累積期", asset: "現金與有價證券",
             title: "集資中獎發紅包？小心踩到贈與稅地雷",
             quote: "集資中大獎發紅包好開心？國稅局：無償分錢超過244萬要繳贈與稅！",
             layer1_story: "民眾集資買彩券幸運中大獎，若未依出資比例分配，而是由一人領獎後無償分發大紅包給親友，恐涉及贈與稅。",
@@ -443,7 +428,7 @@
             link: "https://money.udn.com/money/story/6710/9332410"
         },
         {
-            lifecycle: "企業經營與節稅類", asset: "海外資產與企業股權",
+            lifecycle: "資產傳承期", asset: "海外資產與企業股權",
             title: "家族企業防爭產，無表決權特別股與信託保經營權",
             quote: "傳產給兒子怕他亂搞，給女兒又怕被外人拿走？這招讓他們拿股息但不干涉經營！",
             layer1_story: "企業主想傳承公司，但子女接班意願不一，擔心分股權後非接班子女干預營運，或導致股權外流引發經營權之爭。",
@@ -454,7 +439,7 @@
             link: "https://www.businessweekly.com.tw/management/blog/3017849"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "不動產",
+            lifecycle: "成家立業期", asset: "不動產",
             title: "父母贊助子女購屋，付頭期款與送成屋贈與稅差很大",
             quote: "買房送小孩最霸氣？登記在他名下，小心贈與稅爆表，以後賣房還要繳重稅！",
             layer1_story: "父親想買1800萬房子給兒子。若自己貸款買下登記兒子名下，視為贈與不動產(現值800萬計算)，贈與稅55.6萬。",
@@ -465,7 +450,7 @@
             link: "https://news.housefun.com.tw/news/article/170060482110.html"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "現金與有價證券",
+            lifecycle: "財富累積期", asset: "現金與有價證券",
             title: "節稅爭報扶養父母？國稅局4大順序判斷誰得利",
             quote: "兄弟姊妹搶著報父母扶養節稅？國稅局只認『這4個順序』，沒協調好小心白忙一場！",
             layer1_story: "報稅季常發生晚輩為了節稅，重複申報扶養同一位長輩，導致國稅局必須介入仲裁，引發家庭不睦。",
@@ -476,7 +461,7 @@
             link: "https://money.udn.com/money/story/6710/9346981"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "保險與信託",
+            lifecycle: "資產傳承期", asset: "保險與信託",
             title: "遺囑信託防揮霍，四大關鍵確保財富安穩傳承",
             quote: "遺產留給年輕孩子怕他敗光？『遺囑信託』設好條件，讓錢陪著孩子慢慢長大！",
             layer1_story: "富裕家庭若一次將鉅額遺產留給年輕或無理財能力的子女，常引發揮霍或遭人騙取，導致財富迅速歸零。",
@@ -487,7 +472,29 @@
             link: "https://money.udn.com/money/story/12040/9421350"
         },
         {
-            lifecycle: "數位與新制法規類", asset: "現金與有價證券",
+            lifecycle: "退休安養期", asset: "不動產",
+            title: "重病期間賣房避稅？小心國稅局補稅加罰款",
+            quote: "病危急賣房換現金以為好分產？國稅局『這招』讓你稅金補不完！",
+            layer1_story: "78歲父親癌末，家屬擔心遺產稅沉重，急將其名下透天厝以市價售出。半年後父親過世，賣房所得被認定為現金遺產，慘遭重稅補罰。",
+            layer2_blindSpot: "許多人誤以為將不動產轉為現金可避稅，殊不知不動產是以「公告現值」計稅，轉成現金後反而以「實際金額」課稅，稅金暴增數倍。",
+            layer3_script: "「張先生，長輩生病千萬別急著賣房子！房子用公告現值算遺產稅最省，賣掉換現金反而會被國稅局用全額課稅，得不償失！」",
+            layer4_solution: "【保留不動產繼承】高資產族群面臨重病期間，應盡量保留不動產現狀，以繼承方式適用較低的公告現值課稅，避免弄巧成拙。",
+            visual: { bad_label: "轉現金依市價課稅", bad_val: 100, good_label: "留不動產依公告現值課稅", good_val: 30 },
+            link: "https://news.housefun.com.tw/news/article/263074481300.html"
+        },
+        {
+            lifecycle: "成家立業期", asset: "不動產",
+            title: "一年竟要繳16個月房屋稅？稅務新制藏陷阱",
+            quote: "剛買新房以為稅金很省？沒算好『按年計徵』，一次收到16個月房屋稅單！",
+            layer1_story: "房屋稅新制改為按年計徵。部分新建房屋因課稅期間併計規定，買家交屋後首年度實際繳納的房屋稅月數可能高達16個月。",
+            layer2_blindSpot: "新制房屋稅課稅期間為前一年7月1日至當年6月30日。若交屋時間剛好跨越特定計徵區間，會導致次期帳單併徵超過12個月的稅額。",
+            layer3_script: "「陳小姐，買新房子交屋時間要算好！新制房屋稅會把之前的月數併在一起收，有人一次繳了16個月。交屋前我們先幫您試算稅金。」",
+            layer4_solution: "【精算交屋時點與稅務預備】購屋前應了解新制房屋稅的計徵區間，妥善規劃交屋時點，並預留足夠的稅款準備金避免資金吃緊。",
+            visual: { bad_label: "跨期併徵最多月數", bad_val: 16, good_label: "常規年度課徵月數", good_val: 12 },
+            link: "https://estate.ltn.com.tw/article/26956"
+        },
+        {
+            lifecycle: "成家立業期", asset: "現金與有價證券",
             title: "夫妻分居或隱私考量，所得扣除額可申請分開查調",
             quote: "不想讓另一半知道你有多少私房錢？報稅前快申請『這個』，守住你的財產隱私！",
             layer1_story: "5月報稅季，部分納稅人因夫妻分居、準備離婚或純粹隱私考量，不希望配偶查調到自己的所得與財產明細。",
@@ -498,7 +505,7 @@
             link: "https://money.udn.com/money/story/6710/9319527"
         },
         {
-            lifecycle: "屆退與安養照護", asset: "保險與信託",
+            lifecycle: "退休安養期", asset: "保險與信託",
             title: "防失智遭詐騙，安養信託建構老後三道防線",
             quote: "老本存在銀行最安全？遇到詐騙集團或失智，千萬積蓄瞬間化為烏有！",
             layer1_story: "高齡長者獨居，因失智判斷力下降，遭詐騙集團騙走畢生積蓄，或遭熟悉照顧者挪用財產，晚景淒涼。",
@@ -509,7 +516,7 @@
             link: "https://udn.com/news/story/7239/9302443"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
+            lifecycle: "財富累積期", asset: "不動產",
             title: "透天厝空置或營業，分層算帳重課房屋稅",
             quote: "透天厝一樓借人做生意，二樓空著，以為全棟都能用自住稅率？稅局直接分層重罰！",
             layer1_story: "屋主將四層透天厝戶籍遷入申請自住，但一樓出租營業、二樓空置，僅三四樓自住。稅務局查核後「分層算帳」，一二樓皆不給自住優惠。",
@@ -520,18 +527,7 @@
             link: "https://news.housefun.com.tw/news/article/180840481320.html"
         },
         {
-            lifecycle: "青年與成家購屋", asset: "不動產",
-            title: "擁多屋如何避囤房稅？岳父母、媳婦設籍也能享優稅",
-            quote: "名下房子多怕被課囤房重稅？把『親家』戶籍遷進去，輕鬆破解稅率魔咒！",
-            layer1_story: "民眾擁有多間房屋，擔心未設籍被課徵囤房稅(最高4.8%)。但夫妻與未成年子女數量有限，無法每間都設籍。",
-            layer2_blindSpot: "自用住宅設籍規定中，「直系親屬」不僅限於父母子女，還包含岳父母、公婆、媳婦與女婿等直系姻親。",
-            layer3_script: "「林先生，新買的房子沒人掛戶籍會被課囤房重稅！只要請岳父或媳婦把戶籍遷進去，馬上享有1.2%自用優惠稅率喔！」",
-            layer4_solution: "【善用直系姻親設籍】全面盤點家族成員(含直系血親與姻親)的戶籍配置，確保名下房產皆能適用自住房屋稅優惠，遠離囤房重稅。",
-            visual: { bad_label: "未設戶籍囤房稅率(%)", bad_val: 4.8, good_label: "姻親設籍自住稅率(%)", good_val: 1.2 },
-            link: "https://udn.com/news/story/7243/8533816"
-        },
-        {
-            lifecycle: "避稅失敗診斷類", asset: "現金與有價證券",
+            lifecycle: "資產傳承期", asset: "現金與有價證券",
             title: "銀行保管箱藏黃金珠寶，猝逝開箱全變遺產課稅！",
             quote: "幫老婆保管嫁妝？放進同個保管箱，小心過世全變遺產被課重稅！",
             layer1_story: "國稅局打開死者保管箱，發現裡面有母親嫁妝與孫子彌月金飾，因家屬無法舉證，一律認定為死者遺產課徵高額遺產稅。",
@@ -542,7 +538,7 @@
             link: "https://udn.com/news/story/7243/8848401"
         },
         {
-            lifecycle: "個人與家庭傳承類", asset: "保險與信託",
+            lifecycle: "資產傳承期", asset: "保險與信託",
             title: "癌末父設遺囑信託護女，女兒為奪房產告上法院",
             quote: "癌父苦心設信託護孤女，女兒卻覺得被剝奪財產告上法院？",
             layer1_story: "癌末父親擔心年幼女兒繼承房產遭前妻或外人謀奪，設立遺囑信託交由叔叔管理40年。14歲女兒不滿無法自由處分房產，竟提告遺囑無效。",
@@ -553,7 +549,7 @@
             link: "https://wealth.businessweekly.com.tw/GArticle.aspx?id=ARTL003017885"
         },
         {
-            lifecycle: "青年與成家購屋", asset: "不動產",
+            lifecycle: "成家立業期", asset: "不動產",
             title: "換屋族必看！房地合一重購退稅三大注意事項",
             quote: "小換大想全額退稅？沒搞懂這三大規定，房地合一稅一毛都退不了！",
             layer1_story: "民眾賣屋換新房，以為只要是自住就能重購退稅。結果因戶籍遷出、或新屋買入後出租，遭國稅局剔除退稅資格甚至追繳。",
@@ -564,15 +560,26 @@
             link: "https://estate.ltn.com.tw/article/26611"
         },
         {
-            lifecycle: "避稅失敗診斷類", asset: "不動產",
-            title: "富爸出資買豪宅登記子名下，漏報贈與稅連補帶罰",
-            quote: "幫小孩全額付清買5千萬豪宅？忘了報贈與稅，國稅局連補帶罰要你百萬！",
-            layer1_story: "甲君花5000萬買房直接登記兒子名下，以為沒直接轉帳就不用繳贈與稅。被國稅局發函通知仍不理會，結果遭補稅107萬並重罰53萬。",
-            layer2_blindSpot: "以自己資金無償為他人購置不動產，依法視同贈與。接獲通知仍不申報，不僅以房屋現值計稅，更將面臨最高3倍罰鍰。",
-            layer3_script: "「陳董，買房子直接掛小孩名字，千萬別裝死不報稅！國稅局查到會連補帶罰。而且這樣做會把高額房地合一稅留給小孩！」",
-            layer4_solution: "【贈與現金取代贈與不動產】分年贈與現金讓子女自行購屋，不但免贈與稅，未來子女出售成本以實際買價計算，合法省下鉅額房地合一稅。",
-            visual: { bad_label: "漏報贈與稅連補帶罰(萬)", bad_val: 160, good_label: "合法分年贈與規劃(萬)", good_val: 0 },
-            link: "https://www.ctee.com.tw/news/20250725700363-430103"
+            lifecycle: "成家立業期", asset: "不動產",
+            title: "大樓加買同地號車位沒重申請，地價稅瞬間暴增4倍！",
+            quote: "以為房子有自住優惠，加買車位就自動適用？漏申請地價稅秒翻4倍！",
+            layer1_story: "民眾原有房地適用自住稅率，後來加購同地號車位，以為會自動適用優惠，結果車位被課一般用地稅率。",
+            layer2_blindSpot: "只要是「新取得」的土地面積，即使地號相同也必須重新申請自用住宅優惠。未及時申請稅金相差至少4倍。",
+            layer3_script: "「林先生，千萬別以為房子有自用稅率車位就自動打折！沒去重新申請地價稅貴4倍！交給我們團隊幫您全盤檢視。」",
+            layer4_solution: "【資產配置與稅務健診】購置車位時應同時辦理自用住宅申請，透過專業顧問進行年度稅務健診確保最低稅率優惠。",
+            visual: { bad_label: "未申請一般用地稅率(倍)", bad_val: 4, good_label: "重新申請自用稅率(倍)", good_val: 1 },
+            link: "https://udn.com/news/story/7243/8887165"
+        },
+        {
+            lifecycle: "資產傳承期", asset: "不動產",
+            title: "繼承農地免遺產稅有條件！5年內未農用慘遭追稅",
+            quote: "以為繼承農地全免稅？5年內鋪個水泥、沒種田，國稅局立馬連本帶利追回遺產稅！",
+            layer1_story: "民眾繼承農地免徵遺產稅，卻在5年列管期內鋪設水泥，遭國稅局空拍查獲要求限期恢復，逾期即被追繳稅款。",
+            layer2_blindSpot: "繼承農地有嚴格的5年列管期。期間內若移轉、變更用途或未繼續農用，免稅資格瞬間蒸發。",
+            layer3_script: "「王大哥，繼承農地免稅但國稅局用空拍機監控5年喔！只要鋪水泥馬上面臨追稅。不如將資產轉化為保險理賠金更靈活！」",
+            layer4_solution: "【保險預留稅源與資產活化】提早規劃壽險預留遺產稅源，讓子女有充裕現金繳納遺產稅，進而自由處分資產。",
+            visual: { bad_label: "違反農用遭追徵遺產稅", bad_val: 100, good_label: "維持農用或保險傳承", good_val: 0 },
+            link: "https://money.udn.com/money/story/6710/8872041"
         }
     ];
 
@@ -651,7 +658,7 @@
     }
 
     function updateHotSection() {
-        document.getElementById('hot-section').innerHTML = `<span class="hot-badge">今日精選</span> ${allCases.title}`;
+        document.getElementById('hot-section').innerHTML = `<span class="hot-badge">今日精選</span> ${allCases[allCases.length-1].title}`;
     }
 
     function openCaseModal(item) {
