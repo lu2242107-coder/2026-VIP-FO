@@ -62,6 +62,27 @@
         .btn-copy { background: var(--primary); color: white; }
         .btn-close { background: #E2E8F0; color: var(--text-gray); width: 100%; }
         .empty-state { text-align: center; padding: 50px 20px; color: var(--text-gray); font-weight: bold; }
+ /* ===== 新增：加到桌面按鈕與教學視窗樣式 ===== */
+        .add-home-btn {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .add-home-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .instruction-step { margin-bottom: 15px; }
+        .instruction-step h4 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.05rem; }
+        .instruction-step ol { margin: 0; padding-left: 22px; color: var(--text-dark); font-size: 0.95rem; line-height: 1.7; }
+        .instruction-step li { margin-bottom: 6px; }
     </style>
 </head>
 <body>
@@ -69,6 +90,7 @@
         <div class="hero">
             <h1>💎 財富傳承稅務庫</h1>
             <p style="margin: 6px 0 0 0; font-size: 0.9rem; font-weight:bold;">稅稅平安《理財最錢線》app</p>
+            <button class="add-home-btn" onclick="openPwaModal()">📱 將本系統加到手機桌面</button>
         </div>
         
         <div class="search-container">
@@ -107,7 +129,42 @@
             <div class="modal-footer" id="modal-footer-btns"></div>
         </div>
     </div>
+<!-- ===== 新增：加到桌面教學彈跳視窗 ===== -->
+        <div id="pwa-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="level-title" style="font-size:1.2rem; margin-bottom: 15px;">📱 如何將系統設定在手機桌面？</div>
+                    <div class="content-box" style="background:#FFF; border:2px solid #E2E8F0;">
+                        
+                        <div class="instruction-step">
+                            <h4>🍎 蘋果 iOS 手機 (請使用 Safari 瀏覽器)</h4>
+                            <ol>
+                                <li>開啟 <strong>Safari</strong> 瀏覽器並進入本網頁。</li>
+                                <li>點擊畫面正下方工具列的 <strong>「分享」圖示</strong>（一個向上箭頭的方塊）。</li>
+                                <li>在跳出的選單中往下滑，找到並點擊 <strong>「加入主畫面」</strong>。</li>
+                                <li>點擊右上角的 <strong>「新增」</strong>，即可在桌面看到專屬 APP 捷徑！</li>
+                            </ol>
+                        </div>
 
+                        <hr style="border:0; border-top:1px dashed #CBD5E1; margin: 18px 0;">
+                        
+                        <div class="instruction-step">
+                            <h4>🤖 Android 安卓手機 (請使用 Chrome 瀏覽器)</h4>
+                            <ol>
+                                <li>開啟 <strong>Chrome</strong> 瀏覽器並進入本網頁。</li>
+                                <li>點擊畫面右上角的 <strong>「⋮」</strong>（三個點的設定選單）。</li>
+                                <li>在選單中尋找並點擊 <strong>「加到主畫面」</strong>。</li>
+                                <li>點擊 <strong>「新增」</strong>（部分手機需再次點擊「自動新增」），即可在桌面看見捷徑圖示！</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn btn-close" onclick="closePwaModal()">✖️ 我知道了，關閉視窗</button>
+                </div>
+            </div>
+        </div>
     <script>
     function getSticker(asset) {
         if (asset === '不動產') return '🏠';
@@ -4876,7 +4933,26 @@
             .then(() => alert('✅ 話術已成功複製！'))
             .catch(() => alert('❌ 複製失敗，請手動複製'));
     }
-    window.onclick = function(e) { if (e.target == document.getElementById('case-modal')) closeModal(); }
+   
+// ===== 新增：加到桌面視窗控制與點擊空白處關閉邏輯 =====
+        function openPwaModal() {
+            document.getElementById('pwa-modal').style.display = 'block';
+        }
+
+        function closePwaModal() {
+            document.getElementById('pwa-modal').style.display = 'none';
+        }
+
+        window.onclick = function(e) { 
+            // 點擊空白處關閉案例視窗
+            if (e.target == document.getElementById('case-modal')) {
+                closeModal(); 
+            }
+            // 點擊空白處關閉教學視窗
+            if (e.target == document.getElementById('pwa-modal')) {
+                closePwaModal(); 
+            }
+        }
     </script>
 </body>
 </html>
