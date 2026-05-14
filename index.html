@@ -207,31 +207,163 @@
 .admin-table { width: 100%; border-collapse: collapse; }
 .admin-table th, .admin-table td { padding: 12px; border-bottom: 1px solid #F1F5F9; text-align: left; }
 .admin-table th { background: #F8FAFC; color: var(--text-gray); }
-    </style>
+     /* ===== 韓系時尚封面感：漂浮面板與莫蘭迪色系覆蓋 ===== */
+        :root {
+            --bg-color: #F5F7F7;  /* 質感銀灰白底色 */
+            --primary: #9BB8A9;   /* 韓系莫蘭迪淡綠 */
+            --secondary: #E3EBE6; /* 極淺柔綠 */
+            --text-dark: #374151; /* 質感深灰 (取代死黑) */
+            --text-gray: #9CA3AF; /* 銀灰色 */
+        }
+        
+        body { background-color: var(--bg-color); }
+        
+        /* 首頁版頭改為漂浮面板 */
+        .hero {
+            background: var(--white);
+            color: var(--text-dark);
+            margin: 20px 15px; /* 創造不貼邊的漂浮感 */
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.8);
+            background-image: none; /* 移除原本生硬的漸層 */
+        }
+        .hero h1 { color: var(--text-dark); letter-spacing: 1px; font-weight: 900; }
+        .hero p { color: var(--text-gray); }
+        
+        /* 修正小按鈕與看板在白底上的質感 */
+        .traffic-badge { background: var(--secondary); border: none; color: var(--text-dark); box-shadow: none; }
+        .traffic-badge span { color: #5B8B76; }
+        .add-home-btn { background: var(--bg-color); color: var(--text-dark); border: 1px solid var(--secondary); box-shadow:none;}
+        .add-home-btn:hover { background: var(--secondary); }
+
+        /* 登入與後台：玻璃擬態背景 (Glassmorphism) */
+        #login-overlay, #admin-modal { 
+            background: rgba(245, 247, 247, 0.75); 
+            backdrop-filter: blur(12px); 
+        }
+        
+        /* 漂浮對話框 */
+        .login-box, .admin-content { 
+            background: var(--white); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06); 
+            border: 1px solid rgba(255,255,255,1); 
+            border-radius: 24px; 
+            padding: 45px 35px; 
+        }
+        .admin-content { padding: 35px; }
+        
+        /* 極簡字體設計 */
+        .elegant-title { font-size: 1.5rem; font-weight: 900; color: var(--text-dark); margin: 0; letter-spacing: 1.5px; }
+        .elegant-subtitle { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 25px; letter-spacing: 1px; text-transform: uppercase; margin-top: 5px;}
+        
+        /* 輸入框美化 */
+        .login-input { 
+            background: #F9FAFB; 
+            border: 1px solid transparent; 
+            border-radius: 12px; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); 
+            transition: all 0.3s;
+        }
+        .login-input:focus { 
+            background: var(--white); 
+            box-shadow: 0 0 0 3px var(--secondary); 
+        }
+        
+        /* 韓系質感按鈕 (深灰變淡綠) */
+        .login-btn { 
+            background: var(--text-dark); 
+            border-radius: 30px; 
+            letter-spacing: 2px; 
+            transition: all 0.3s; 
+        }
+        .login-btn:hover { 
+            background: var(--primary); 
+            box-shadow: 0 8px 20px rgba(155, 184, 169, 0.4); 
+            transform: translateY(-2px); 
+        }
+        
+        /* 線條感按鈕 (取代原本色塊) */
+        .elegant-btn-outline { 
+            background: transparent; 
+            border: 1px solid var(--text-gray); 
+            color: var(--text-gray); 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .elegant-btn-outline:hover { 
+            background: var(--text-gray); 
+            color: var(--white); 
+        }
+        
+        /* 懸浮切換按鈕 */
+        #btn-admin-panel { 
+            background: var(--white); 
+            color: var(--text-dark); 
+            border: 1px solid var(--secondary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            font-size: 0.85rem; 
+        }
+        
+        /* 表格極簡化 */
+        .admin-header { border-bottom: none; margin-bottom: 15px; }
+        .admin-table th { 
+            background: var(--white); 
+            border-bottom: 2px solid var(--secondary); 
+            color: var(--text-gray); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+          </style>
 </head>
 <body>
   <!-- ===== 新增：強制登入畫面與 Tony 雙棲管理台 ===== -->
+<!-- ===== 更新：韓系極簡登入畫面 ===== -->
 <div id="login-overlay">
     <div class="login-box">
-        <h2 style="color:var(--primary); margin-top:0;">🔒 系統登入</h2>
-        <p style="color:var(--text-gray); font-size:0.9rem; margin-bottom:20px;">僅限授權之 VIP 帳號登入</p>
-        <input type="text" id="login-username" class="login-input" placeholder="請輸入帳號" autocomplete="off">
-        <input type="password" id="login-password" class="login-input" placeholder="請輸入密碼">
-        <button class="login-btn" onclick="verifyLogin()">登 入</button>
+        <h2 class="elegant-title">Sign In</h2>
+        <p class="elegant-subtitle">Member Access</p>
+        <input type="text" id="login-username" class="login-input" placeholder="Username" autocomplete="off">
+        <input type="password" id="login-password" class="login-input" placeholder="Password">
+        <button class="login-btn" onclick="verifyLogin()">LOGIN</button>
     </div>
 </div>
 
-<!-- Tony 專屬：主系統上的「進入後台」按鈕 -->
-<button id="btn-admin-panel" onclick="openAdminModal()">⚙️ 管理後台</button>
+<!-- 韓系極簡切換按鈕 -->
+<button id="btn-admin-panel" onclick="openAdminModal()">Dashboard</button>
 
-<!-- Tony 專屬：管理者後台面板 -->
+<!-- ===== 更新：韓系極簡後台面板 ===== -->
 <div id="admin-modal">
     <div class="admin-content">
         <div class="admin-header">
-            <button style="background:var(--primary); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="closeAdminModal()">🏠 使用主系統</button>
-            <h2 style="margin:0; color:var(--text-dark);">📊 Tony 管理者監控台</h2>
-            <button style="background:#E2E8F0; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;" onclick="renderAdminLogs()">🔄 重新整理</button>
+            <button class="elegant-btn-outline" onclick="closeAdminModal()">Main Site</button>
+            <h2 class="elegant-title">Analytics</h2>
+            <button class="elegant-btn-outline" onclick="renderAdminLogs()">Sync</button>
         </div>
+        <!-- 乾淨無干擾的數據區塊 -->
+        <div style="max-height: 500px; overflow-y: auto; margin-top: 15px;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>IP Address</th>
+                        <th>Time</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-log-body">
+                    <!-- 動態載入 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
         <p style="color:var(--danger); font-size:0.9rem;">提示：除了下方本機記錄外，資料也已同步傳送至您的 Google 雲端 Excel 表單。</p>
         <div style="max-height: 500px; overflow-y: auto;">
             <table class="admin-table">
