@@ -195,9 +195,52 @@
             font-weight: 900;
             color: #FFD700; /* 金黃色數字 */
             margin: 0 6px;
+          /* ===== 新增：登入與雙棲管理台樣式 ===== */
+#login-overlay { position: fixed; inset: 0; background: linear-gradient(135deg, #1E293B, #0F172A); z-index: 99999; display: flex; justify-content: center; align-items: center; }
+.login-box { background: white; padding: 40px 30px; border-radius: 16px; width: 90%; max-width: 350px; text-align: center; }
+.login-input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 1rem; }
+.login-btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+#btn-admin-panel { position: fixed; top: 20px; right: 20px; z-index: 100; background: #1E293B; color: #F8FAFC; border: 2px solid #38BDF8; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: none; }
+#admin-modal { display: none; position: fixed; inset: 0; background: #0F172A; z-index: 100000; overflow-y: auto; padding: 40px 10px; }
+.admin-content { background: white; max-width: 800px; margin: auto; border-radius: 16px; padding: 25px; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 15px; margin-bottom: 15px; }
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th, .admin-table td { padding: 12px; border-bottom: 1px solid #F1F5F9; text-align: left; }
+.admin-table th { background: #F8FAFC; color: var(--text-gray); }
     </style>
 </head>
 <body>
+  <!-- ===== 新增：強制登入畫面與 Tony 雙棲管理台 ===== -->
+<div id="login-overlay">
+    <div class="login-box">
+        <h2 style="color:var(--primary); margin-top:0;">🔒 系統登入</h2>
+        <p style="color:var(--text-gray); font-size:0.9rem; margin-bottom:20px;">僅限授權之 VIP 帳號登入</p>
+        <input type="text" id="login-username" class="login-input" placeholder="請輸入帳號" autocomplete="off">
+        <input type="password" id="login-password" class="login-input" placeholder="請輸入密碼">
+        <button class="login-btn" onclick="verifyLogin()">登 入</button>
+    </div>
+</div>
+
+<!-- Tony 專屬：主系統上的「進入後台」按鈕 -->
+<button id="btn-admin-panel" onclick="openAdminModal()">⚙️ 管理後台</button>
+
+<!-- Tony 專屬：管理者後台面板 -->
+<div id="admin-modal">
+    <div class="admin-content">
+        <div class="admin-header">
+            <button style="background:var(--primary); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="closeAdminModal()">🏠 使用主系統</button>
+            <h2 style="margin:0; color:var(--text-dark);">📊 Tony 管理者監控台</h2>
+            <button style="background:#E2E8F0; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;" onclick="renderAdminLogs()">🔄 重新整理</button>
+        </div>
+        <p style="color:var(--danger); font-size:0.9rem;">提示：除了下方本機記錄外，資料也已同步傳送至您的 Google 雲端 Excel 表單。</p>
+        <div style="max-height: 500px; overflow-y: auto;">
+            <table class="admin-table">
+                <thead><tr><th>帳號</th><th>登入 IP</th><th>登入時間</th><th>停留時間</th></tr></thead>
+                <tbody id="admin-log-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
     <div id="main-app">
         <div class="hero">
             <h1>💎 財富傳承稅務庫</h1>
