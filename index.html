@@ -5094,25 +5094,5 @@ function toggleFaq(element) {
     }
 }
     </script>
-   // ===== 新增：網站點閱流量計算功能 =====
-        function updateTrafficCounter() {
-            // 1. 從瀏覽器記憶體讀取目前的點閱數，如果沒有紀錄就從 0 開始
-            let currentVisits = localStorage.getItem('sys_site_traffic');
-            if (!currentVisits) {
-                currentVisits = 0;
-            }
-            
-            // 2. 將點閱數加 1
-            currentVisits = parseInt(currentVisits) + 1;
-            
-            // 3. 把最新的數字存回瀏覽器記憶體中
-            localStorage.setItem('sys_site_traffic', currentVisits);
-            
-            // 4. 將數字推送到網頁的看板畫面上
-            const counterElement = document.getElementById('visit-counter');
-            if (counterElement) {
-                counterElement.innerText = currentVisits;
-            }
-        }
 </body>
 </html>
