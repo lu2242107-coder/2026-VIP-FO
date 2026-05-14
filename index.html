@@ -5132,6 +5132,72 @@ function toggleFaq(element) {
         icon.innerText = '➖';
     }
 }
+    // ===== 新增/更新：登入與權限驗證系統 =====
+function verifyLogin() {
+    // 將輸入的帳號一律自動轉為小寫，達成「大小寫皆可登入」
+    const user = document.getElementById('login-username').value.trim().toLowerCase();
+    const pass = document.getElementById('login-password').value.trim();
+
+    // 🟢 這裡已經為您更新好 3 組帳密
+    const validAccounts = {
+        'vip66': '123',
+        'vip10': '321',
+        'vip01': '661001' // 此為管理者專屬帳密
+    };
+
+    if (validAccounts[user] && validAccounts[user] === pass) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', user);
+        
+        document.getElementById('login-overlay').style.display = 'none';
+
+        // 🟢 判斷：如果是管理者 VIP01 登入，顯示後台按鈕並進入後台
+        if (user === 'vip01') {
+            document.getElementById('btn-admin-panel').style.display = 'block';
+            if (typeof openAdminModal === "function") openAdminModal();
+        } else {
+            // 一般 VIP：開始計算停留時間並傳送資料給 Google 表單
+            if (typeof startSessionTracking === "function") {
+                startSessionTracking(user);
+            }
+        }
+    } else {
+        alert("帳號或密碼錯誤！您無權限進入本系統。");
+    }
+}
+
+function checkAuth() {
+    const loggedIn = localStorage.getItem('isLoggedIn');
+    const user = localStorage.getItem('currentUser');
+    
+    if (loggedIn === 'true' && user) {
+        // 如果已經登入過，隱藏登入畫面
+        const overlay = document.getElementById('login-overlay');
+        if (overlay) overlay.style.display = 'none';
+        
+        // 🟢 判斷管理者改為 vip01
+        if (user === 'vip01') {
+            const adminBtn = document.getElementById('btn-admin-panel');
+            if (adminBtn) adminBtn.style.display = 'block';
+        } else {
+            if (typeof startSessionTracking === "function") {
+                startSessionTracking(user);
+            }
+        }
+    }
+}
+
+// 關閉網頁時發送總停留時間
+window.addEventListener('beforeunload', () => {
+    const u = localStorage.getItem('currentUser');
+    // 🟢 管理者 vip01 離開時，不列入流量統計
+    if (u && u !== 'vip01' && typeof sessionStart !== 'undefined' && sessionStart > 0) {
+        const dur = Math.floor((Date.now() - sessionStart) / 1000);
+        if (typeof sendToGoogleForm === "function") {
+            sendToGoogleForm(u, typeof currentIP !== 'undefined' ? currentIP : "未知IP", "離開系統", dur);
+        }
+    }
+});  
     </script>
 </body>
 </html>
