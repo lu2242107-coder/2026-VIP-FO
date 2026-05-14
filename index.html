@@ -1,5 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+<!-- ===== 新增：FAQ Schema 結構化標記 (提升 SEO 點擊率) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "子女拋棄繼承讓孫子繼承，遺產稅的免稅扣除額會變多嗎？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不會的。稅法明文防堵此漏洞，當親等近者（如子女）全部拋棄繼承時，扣除額上限仍以原拋棄前為準，額度會被依法鎖死，並不會因為孫子人數較多而倍增。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "買高額人壽保單並指定受益人，就一定能免繳遺產稅嗎？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不一定。保險金要免繳遺產稅，必須同時符合『要保人與被保險人為同一人』。若安排錯誤形成交叉關係，或是在長輩重病期間才密集躉繳投保，國稅局仍會依『實質課稅原則』將保單價值拉回遺產課徵重稅。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "繼承房產後繳不出房貸被迫賣屋，會被課徵 45% 的房地合一重稅嗎？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不需要。若因無力償還繼承房屋的抵押貸款而被迫出售，只要備妥收入證明向國稅局主張，可適用財政部公告的『非自願因素』，合法適用 20% 的優惠稅率，省下鉅額稅金。"
+      }
+    }
+  ]
+}
+</script>    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -83,6 +116,49 @@
         .instruction-step h4 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.05rem; }
         .instruction-step ol { margin: 0; padding-left: 22px; color: var(--text-dark); font-size: 0.95rem; line-height: 1.7; }
         .instruction-step li { margin-bottom: 6px; }
+        /* ===== 新增：FAQ 區塊與手風琴互動樣式 ===== */
+.faq-section {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    margin: 20px auto 40px;
+    padding: 25px;
+    border: 1px solid rgba(0,0,0,0.02);
+    border-top: 5px solid var(--secondary);
+}
+.faq-title {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 900;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.faq-item {
+    border-bottom: 1px solid #F1F5F9;
+    padding: 12px 0;
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-question {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+}
+.faq-question:hover { color: #1D4ED8; }
+.faq-answer {
+    display: none;
+    padding-top: 10px;
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    animation: fadeIn 0.3s ease-in-out;
+}
     </style>
 </head>
 <body>
@@ -121,6 +197,27 @@
         </div>
 
         <div class="container" id="cases-container"></div>
+           <!-- ===== 新增：網頁底部的 FAQ 互動區塊 ===== -->
+        <div class="container">
+            <div class="faq-section">
+                <div class="faq-title"><span>💡</span> 財富傳承常見問題 (FAQ)</div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Q1：子女拋棄繼承讓孫子繼承，遺產稅的免稅扣除額會變多嗎？ <span>➕</span></div>
+                    <div class="faq-answer">不會的。稅法明文防堵此漏洞，當親等近者（如子女）全部拋棄繼承時，扣除額上限仍以原拋棄前為準，額度會被依法鎖死，並不會因為孫子人數較多而倍增 [1]。若欲隔代傳承，建議採正常繼承後再運用免稅額分年贈與，或以保單指定受益人。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Q2：買高額人壽保單並指定受益人，就一定能免繳遺產稅嗎？ <span>➕</span></div>
+                    <div class="faq-answer">不一定。保險金要免繳遺產稅，必須同時符合「要保人與被保險人為同一人」[2]。若安排錯誤形成交叉關係，或是在長輩重病期間才密集躉繳投保，國稅局仍會依「實質課稅原則」將保單價值拉回遺產課徵重稅 [3]。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Q3：繼承房產後繳不出房貸被迫賣屋，會被課徵 45% 的房地合一重稅嗎？ <span>➕</span></div>
+                    <div class="faq-answer">不需要。若因無力償還繼承房屋的抵押貸款而被迫出售，只要備妥收入證明向國稅局主張，可適用財政部公告的「非自願因素」，合法適用 20% 的優惠稅率，省下鉅額稅金 [4]。</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="case-modal" class="modal">
@@ -4953,6 +5050,25 @@
                 closePwaModal(); 
             }
         }
+        // ===== 新增：FAQ 手風琴展開收合控制邏輯 =====
+function toggleFaq(element) {
+    const answer = element.nextElementSibling;
+    const icon = element.querySelector('span');
+    
+    // 如果點擊的是已經打開的，就關閉它
+    if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        icon.innerText = '➕';
+    } else {
+        // 關閉其他所有的 FAQ（保持畫面簡潔）
+        document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
+        document.querySelectorAll('.faq-question span').forEach(icn => icn.innerText = '➕');
+        
+        // 打開目前點擊的這一個
+        answer.style.display = 'block';
+        icon.innerText = '➖';
+    }
+}
     </script>
 </body>
 </html>
