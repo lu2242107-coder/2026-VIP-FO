@@ -32,6 +32,25 @@
     }
   ]
 }
+ // ===== 新增：傳送數據到您的 Google 表單 =====
+        function sendToGoogleForm(username, ip, action, durationSec) {
+            // ⚠️ 替換點 1：貼上您剛剛在步驟 2 準備好的 formResponse 網址
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSd78XBwrQB_aIRHYEm7-B-v12OsNNZhEcUr1w_I16OzRBeizA/formResponse?usp=publish-editor";
+            
+            const formData = new FormData();
+            // ⚠️ 替換點 2：貼上您在步驟 3 找到的 4 組 entry 數字
+            formData.append('entry.1247608539', username);    
+            formData.append('entry.281505170', ip);          
+            formData.append('entry.248574915', action);      
+            formData.append('entry.580437955', durationSec); 
+
+            // 使用 fetch 在背景悄悄送出表單
+            fetch(formUrl, { 
+                method: 'POST', 
+                mode: 'no-cors', // 強制背景送出，不跳轉頁面
+                body: formData 
+            }).catch(err => console.log("Google表單傳送失敗", err));
+        }  
 </script>    
 <head>
     <meta charset="UTF-8">
