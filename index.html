@@ -188,27 +188,49 @@
             </div>
         </div>
         
-        <div class="filter-section">
-            <div class="filter-title">📍 生命週期分類 (左右滑動)</div>
-            <div class="filter-slider" id="drawer-lc">
-                <button class="filter-btn active" data-val="all" onclick="setFilter('lc', 'all')">全部 (0)</button>
-                <button class="filter-btn" data-val="成家立業期" onclick="setFilter('lc', '成家立業期')">成家立業期 (0)</button>
-                <button class="filter-btn" data-val="財富累積期" onclick="setFilter('lc', '財富累積期')">財富累積期 (0)</button>
-                <button class="filter-btn" data-val="退休安養期" onclick="setFilter('lc', '退休安養期')">退休安養期 (0)</button>
-                <button class="filter-btn" data-val="資產傳承期" onclick="setFilter('lc', '資產傳承期')">資產傳承期 (0)</button>
-            </div>
+         <!-- ===== 全新首頁：飄浮方塊與滑出視窗 ===== -->
+        <div class="filter-section" style="padding: 15px; border-bottom: none; background: transparent; box-shadow: none;">
             
-            <div class="filter-title" style="margin-top: 12px;">🏷️ 資產屬性分類 (左右滑動)</div>
-            <div class="filter-slider" id="drawer-as">
-                <button class="filter-btn active" data-val="all" onclick="setFilter('as', 'all')">全部 (0)</button>
-                <button class="filter-btn" data-val="不動產" onclick="setFilter('as', '不動產')">不動產 (0)</button>
-                <button class="filter-btn" data-val="保險與信託" onclick="setFilter('as', '保險與信託')">保險與信託 (0)</button>
-                <button class="filter-btn" data-val="現金與有價證券" onclick="setFilter('as', '現金與有價證券')">現金與有價證券 (0)</button>
-                <button class="filter-btn" data-val="海外資產與企業股權" onclick="setFilter('as', '海外資產與企業股權')">海外資產與企業股權 (0)</button>
+            <!-- 展開區 1：生命週期 -->
+            <div class="category-header header-lc" onclick="toggleOptions('lc-options')">
+                <span>⏳ 生命週期分類</span>
+                <span id="lc-icon">▼</span>
+            </div>
+            <div class="options-container" id="lc-options">
+                <div class="floating-block" onclick="openBottomSheet('lc', 'all')">全部 <span class="cnt-lc-all">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '成家立業期')">成家立業期 <span class="cnt-lc-1">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '財富累積期')">財富累積期 <span class="cnt-lc-2">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '退休安養期')">退休安養期 <span class="cnt-lc-3">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '資產傳承期')">資產傳承期 <span class="cnt-lc-4">(0)</span></div>
+            </div>
+
+            <!-- 展開區 2：資產屬性 -->
+            <div class="category-header header-as" onclick="toggleOptions('as-options')">
+                <span>💰 資產屬性</span>
+                <span id="as-icon">▼</span>
+            </div>
+            <div class="options-container" id="as-options">
+                <div class="floating-block" onclick="openBottomSheet('as', 'all')">全部 <span class="cnt-as-all">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '不動產')">不動產 <span class="cnt-as-1">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '保險與信託')">保險與信託 <span class="cnt-as-2">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '現金與有價證券')">現金與有價 <span class="cnt-as-3">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '海外資產與企業股權')">海外與股權 <span class="cnt-as-4">(0)</span></div>
             </div>
         </div>
 
-        <div class="container" id="cases-container"></div>
+        <!-- 隱藏在下方的專屬資訊方塊 (Bottom Sheet) -->
+        <div id="bs-overlay" onclick="closeBottomSheet()"></div>
+        <div id="bottom-sheet">
+            <div class="bs-header">
+                <div class="bs-drag-handle"></div>
+                <h3 class="bs-title" id="bs-title">分類名稱</h3>
+                <button class="bs-close" onclick="closeBottomSheet()">✕</button>
+            </div>
+            <!-- 原本的案例容器被「包裝」進來這裡了 -->
+            <div class="bs-content">
+                <div class="container" id="cases-container"></div>
+            </div>
+        </div>
     </div>
 
     <div id="case-modal" class="modal">
@@ -5233,18 +5255,7 @@
     ];
 
     // 動態計算按鈕數量
-    function updateButtonCounts() {
-        document.querySelectorAll('#drawer-lc .filter-btn').forEach(btn => {
-            const val = btn.dataset.val;
-            let count = (val === 'all') ? data_all.length : data_all.filter(c => c.lifecycle === val).length;
-            btn.innerText = btn.innerText.replace(/\(\d+\)/, `(${count})`);
-        });
-        document.querySelectorAll('#drawer-as .filter-btn').forEach(btn => {
-            const val = btn.dataset.val;
-            let count = (val === 'all') ? data_all.length : data_all.filter(c => c.asset === val).length;
-            btn.innerText = btn.innerText.replace(/\(\d+\)/, `(${count})`);
-        });
-    }
+
 
     let currentLifecycle = 'all';
     let currentAsset = 'all';
@@ -5288,23 +5299,87 @@ window.onload = () => {
         }
     };
 
-    function setFilter(type, val) {
-        if(type === 'lc') {
-            currentLifecycle = val;
-            currentAsset = 'all';
-            document.querySelectorAll('#drawer-as .filter-btn').forEach(b => {
-                b.classList.remove('active');
-                if(b.dataset.val === 'all') b.classList.add('active');
-            });
+     // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 =====
+        
+        // 1. 點擊大標題展開/收合五個飄浮方塊
+        function toggleOptions(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id.replace('-options', '-icon'));
+            if (el.style.display === 'flex') {
+                el.style.display = 'none';
+                icon.innerText = '▼';
+            } else {
+                el.style.display = 'flex';
+                icon.innerText = '▲';
+            }
         }
-        if(type === 'as') {
-            currentAsset = val;
-            currentLifecycle = 'all';
-            document.querySelectorAll('#drawer-lc .filter-btn').forEach(b => {
-                b.classList.remove('active');
-                if(b.dataset.val === 'all') b.classList.add('active');
-            });
+
+        // 2. 點擊飄浮方塊，由下方滑出專屬資訊方塊
+        function openBottomSheet(type, val) {
+            // 設定過濾條件與標題
+            if (type === 'lc') {
+                currentLifecycle = val; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `⏳ ${val === 'all' ? '全部生命週期' : val}`;
+            } else if (type === 'as') {
+                currentAsset = val; currentLifecycle = 'all';
+                document.getElementById('bs-title').innerText = `💰 ${val === 'all' ? '全部資產屬性' : val}`;
+            } else if (type === 'search') {
+                currentLifecycle = 'all'; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `🔍 搜尋結果`;
+            }
+
+            // 讓點擊的飄浮方塊亮起紅金光芒
+            document.querySelectorAll('.floating-block').forEach(b => b.classList.remove('active'));
+            if (val !== 'all' && type !== 'search') {
+                Array.from(document.querySelectorAll('.floating-block'))
+                     .filter(b => b.innerText.includes(val))
+                     .forEach(b => b.classList.add('active'));
+            }
+
+            // 渲染出對應的案例內容
+            if (typeof renderCases === "function") renderCases();
+
+            // 觸發由下往上滑出的優雅動畫
+            document.getElementById('bs-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('bottom-sheet').classList.add('open');
+            }, 10);
         }
+
+        // 3. 關閉下方資訊方塊
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('bs-overlay').style.display = 'none';
+            }, 500); // 等待滑落動畫結束
+        }
+
+        // 4. 精準更新每一個飄浮方塊裡面的數字
+        function updateButtonCounts() {
+            document.querySelector('.cnt-lc-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-lc-1').innerText = `(${data_all.filter(c => c.lifecycle === '成家立業期').length})`;
+            document.querySelector('.cnt-lc-2').innerText = `(${data_all.filter(c => c.lifecycle === '財富累積期').length})`;
+            document.querySelector('.cnt-lc-3').innerText = `(${data_all.filter(c => c.lifecycle === '退休安養期').length})`;
+            document.querySelector('.cnt-lc-4').innerText = `(${data_all.filter(c => c.lifecycle === '資產傳承期').length})`;
+            
+            document.querySelector('.cnt-as-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-as-1').innerText = `(${data_all.filter(c => c.asset === '不動產').length})`;
+            document.querySelector('.cnt-as-2').innerText = `(${data_all.filter(c => c.asset === '保險與信託').length})`;
+            document.querySelector('.cnt-as-3').innerText = `(${data_all.filter(c => c.asset === '現金與有價證券').length})`;
+            document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
+        }
+
+        // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    }
+                });
+            }
+        }, 500);
         
         document.querySelectorAll(`#drawer-${type} .filter-btn`).forEach(b => {
             b.classList.remove('active');
