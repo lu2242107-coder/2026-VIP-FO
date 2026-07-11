@@ -5161,11 +5161,43 @@
     let currentLifecycle = 'all';
     let currentAsset = 'all';
     
-    window.onload = () => {
-        data_all.forEach((c, idx) => c.id = 'case_' + idx);
-        document.getElementById('searchInput').addEventListener('input', renderCases);
-        updateButtonCounts();
-        renderCases();
+window.onload = () => {
+        // 🌟 1. 啟動流量計算看板
+        if (typeof updateTrafficCounter === "function") {
+            updateTrafficCounter();
+        }
+
+        // 🌟 2. 新增：分類名稱自動校正器（自動將新資料歸類到舊按鈕）
+        data_all.forEach((c, idx) => {
+            c.id = 'case_' + idx; 
+            
+            // 自動校正資產分類
+            if (c.asset === "企業稅務與股權") {
+                c.asset = "海外資產與企業股權"; 
+            } else if (c.asset === "不動產與現金") {
+                c.asset = "現金與有價證券";
+            } else if (c.asset === "不動產與信託") {
+                c.asset = "保險與信託";
+            }
+        });
+
+        // 🌟 3. 系統主功能與更新數字
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', renderCases);
+        }
+        
+        if (typeof updateButtonCounts === "function") {
+            updateButtonCounts(); 
+        }
+        if (typeof renderCases === "function") {
+            renderCases();
+        }
+
+        // 🌟 4. 權限系統：檢查登入狀態
+        if (typeof checkAuth === "function") {
+            checkAuth(); 
+        }
     };
 
     function setFilter(type, val) {
