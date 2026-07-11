@@ -5381,18 +5381,7 @@ window.onload = () => {
             }
         }, 500);
         
-        document.querySelectorAll(`#drawer-${type} .filter-btn`).forEach(b => {
-            b.classList.remove('active');
-            if(b.dataset.val === val) {
-                b.classList.add('active');
-                b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            }
-        });
-        
-        renderCases();
-    }
-
-    function renderCases() {
+        function renderCases() {
         const container = document.getElementById('cases-container');
         container.innerHTML = '';
         const query = document.getElementById('searchInput').value.trim().toLowerCase();
