@@ -83,6 +83,94 @@
         .instruction-step h4 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.05rem; }
         .instruction-step ol { margin: 0; padding-left: 22px; color: var(--text-dark); font-size: 0.95rem; line-height: 1.7; }
         .instruction-step li { margin-bottom: 6px; }
+         /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */
+        :root {
+            --qs-green: #2B5C4F;      /* 質感綠 */
+            --qs-iron: #5C5C5E;       /* 鐵灰 */
+            --qs-rosegold: #B76E79;   /* 紅金 */
+            --qs-gold: #D4AF37;       /* 黃金 */
+            --qs-blue: #0F4C81;       /* 寶藍 */
+        }
+
+        /* 1. 流金沙動態背景 */
+        @keyframes quicksand {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 首頁版頭改為寶藍與黃金流金沙 */
+        .hero {
+            background: linear-gradient(135deg, var(--qs-blue), var(--qs-gold), var(--qs-rosegold));
+            background-size: 200% 200%;
+            animation: quicksand 6s ease infinite;
+            border: none;
+        }
+
+        /* 2. 高質感分類大標題 */
+        .category-header {
+            font-size: 1.1rem; font-weight: 900; color: white; padding: 16px 20px;
+            border-radius: 20px; margin-bottom: 12px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            background-size: 200% 200%; animation: quicksand 5s ease infinite;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-lc { background-image: linear-gradient(135deg, var(--qs-green), var(--qs-gold)); }
+        .header-as { background-image: linear-gradient(135deg, var(--qs-iron), var(--qs-rosegold)); }
+
+        /* 3. 飄浮方塊容器與單體 */
+        .options-container {
+            display: none; /* 點擊後展開 */
+            flex-wrap: wrap; gap: 12px; margin-bottom: 25px; padding: 5px;
+            animation: slideDown 0.4s ease forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-block {
+            flex: 1 1 calc(50% - 12px);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            color: var(--qs-iron); padding: 16px 10px; border-radius: 18px;
+            text-align: center; font-weight: 900; font-size: 0.95rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.06); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 4px;
+        }
+        .floating-block span { font-size: 0.8rem; color: var(--text-gray); font-weight: bold; }
+        
+        .floating-block:hover, .floating-block.active {
+            transform: translateY(-6px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--qs-gold) 0%, var(--qs-rosegold) 100%);
+            color: white; border: 1px solid transparent;
+        }
+        .floating-block:hover span, .floating-block.active span { color: #fff; opacity: 0.9; }
+
+        /* 4. 由下方滑出的資訊方塊 (Bottom Sheet) */
+        #bs-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 1000; backdrop-filter: blur(4px); }
+        #bottom-sheet {
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 85vh; background: var(--bg-color);
+            border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1001;
+            transition: bottom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.25); display: flex; flex-direction: column;
+        }
+        #bottom-sheet.open { bottom: 0; }
+        
+        .bs-header {
+            padding: 20px; text-align: center; position: relative;
+            background: linear-gradient(135deg, var(--qs-iron), var(--qs-blue));
+            background-size: 200% 200%; animation: quicksand 6s ease infinite;
+            border-top-left-radius: 30px; border-top-right-radius: 30px; color: white;
+        }
+        .bs-drag-handle { width: 40px; height: 5px; background: rgba(255,255,255,0.4); border-radius: 10px; margin: 0 auto 12px; }
+        .bs-title { font-size: 1.2rem; font-weight: 900; margin: 0; letter-spacing: 1.5px; }
+        .bs-close { position: absolute; right: 20px; top: 18px; background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
+        
+        .bs-content { flex: 1; overflow-y: auto; padding: 0; }
+        
+        /* 確保原本的詳細內容視窗在最上層 */
+        #case-modal { z-index: 99999 !important; }
     </style>
 </head>
 <body>
