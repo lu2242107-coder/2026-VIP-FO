@@ -5367,9 +5367,7 @@ window.onload = () => {
             document.querySelector('.cnt-as-2').innerText = `(${data_all.filter(c => c.asset === '保險與信託').length})`;
             document.querySelector('.cnt-as-3').innerText = `(${data_all.filter(c => c.asset === '現金與有價證券').length})`;
             document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
-        }
-
-        / // 5. 監聽搜尋框：優化滑出與收合邏輯
+       // 5. 監聽搜尋框：優化滑出與收合邏輯
         setTimeout(() => {
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
