@@ -22,7 +22,7 @@
         .hero { background: linear-gradient(135deg, #3B82F6 0%, #2DD4BF 100%); color: var(--white); padding: 1.8rem 1.5rem; text-align: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 10px 25px rgba(59,130,246,0.15); position: relative; z-index: 10; }
         .hero h1 { margin: 0; font-size: 1.5rem; font-weight: 900; }
         
-        .search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 1005; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 99; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
         .search-box { display: flex; align-items: center; background: var(--white); border-radius: 30px; padding: 10px 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; }
         .search-box input { border: none; outline: none; width: 100%; font-size: 1rem; color: var(--text-dark); background: transparent;}
         
@@ -83,7 +83,7 @@
         .instruction-step h4 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.05rem; }
         .instruction-step ol { margin: 0; padding-left: 22px; color: var(--text-dark); font-size: 0.95rem; line-height: 1.7; }
         .instruction-step li { margin-bottom: 6px; }
-          /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */
+         /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */
         :root {
             --qs-green: #2B5C4F;      /* 質感綠 */
             --qs-iron: #5C5C5E;       /* 鐵灰 */
@@ -171,6 +171,7 @@
         
         /* 確保原本的詳細內容視窗在最上層 */
         #case-modal { z-index: 99999 !important; }
+    </style>
 </head>
 <body>
     <div id="main-app">
@@ -593,7 +594,7 @@
             layer3_script: "「陳伯伯，現在詐騙太多了，連房子都有可能被騙走過戶！趁現在健康，我們把房子做『不動產信託』交給銀行把關，誰都偷不走。」",
             layer4_solution: "【不動產自益信託】辦理不動產自益信託，落實產權保護。除了防詐騙與防爭產，還能約定未來若需住進安養機構時，將房屋出租支應照護費。",
             visual: { bad_label: "遭不當處分損失風險", bad_val: 100, good_label: "信託鎖住產權保全", good_val: 100 },
-            link: "https://money.udn.com/money/story/10664/9352717"
+            link: ""
         },
         {
             lifecycle: "財富累積期", asset: "現金與有價證券",
@@ -880,7 +881,7 @@
             layer3_script: "「陳大姐，長輩留下的舊公寓一直放著收微薄租金太可惜了！只要產權單純，我們可以走『危老改建』，沒有坪數限制，快速讓老屋變新房，資產價值直接翻倍！」",
             layer4_solution: "【危老重建與開發信託】針對產權單純的舊屋，可尋求專業團隊評估危老重建。改建期間強烈建議搭配「不動產開發信託」與建經公司，確保建商專款專用、順利完工，保障地主最大權益。",
             visual: { bad_label: "都更程序冗長耗時", bad_val: 10, good_label: "危老改建快速增值", good_val: 100 },
-            link: "https://hshsharehouse.com/%E5%BE%9E%E8%80%81%E5%88%B0%E6%96%B0%E4%B8%80%E6%AC%A1%E7%9C%8B%E6%87%82%E9%83%BD%E5%B8%82%E6%9B%B4%E6%96%B0%E8%88%87%E5%8D%B1%E8%80%81%E9%87%8D%E5%BB%BA/"
+            link: "https://udn.com/news/story/7243/8848962"
         },
         {
             lifecycle: "財富累積期", asset: "不動產",
@@ -3397,7 +3398,7 @@
             layer3_script: "「林大哥，您跟太太沒生小孩，老了萬一失智誰來幫忙管錢？趕快趁現在去法院公證『意定監護人』，並把錢放進『安養信託』，這樣以後有信任的朋友幫忙出面，銀行也會自動幫您付醫藥費。」",
             layer4_solution: "【完善頂客族安養信託與意定監護】無子女者應於意識清晰時，結合安養信託與意定監護制度，指定可信任之人擔任監護人。並透過信託專款專用確保晚年照護品質，另以預立遺囑分配身後財產。",
             visual: { bad_label: "失能無人代管財產風險", bad_val: 100, good_label: "四大護法建構安心防護", good_val: 100 },
-            link: "https://smart.businessweekly.com.tw/Reading/IndepArticle.aspx?id=6018021",
+            link: "https://udn.com/news/story/121591/8440348",
             target_client: "頂客族、單身族"
         },
         {
@@ -5366,15 +5367,15 @@ window.onload = () => {
             document.querySelector('.cnt-as-2').innerText = `(${data_all.filter(c => c.asset === '保險與信託').length})`;
             document.querySelector('.cnt-as-3').innerText = `(${data_all.filter(c => c.asset === '現金與有價證券').length})`;
             document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
-       // 5. 監聽搜尋框：優化滑出與收合邏輯
+        }
+
+        // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
         setTimeout(() => {
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.addEventListener('input', (e) => {
                     if (e.target.value.trim() !== '') {
                         openBottomSheet('search', 'all');
-                    } else {
-                        closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
                     }
                 });
             }
@@ -5502,4 +5503,3 @@ window.onload = () => {
     </script>
 </body>
 </html>
-
