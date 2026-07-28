@@ -22,7 +22,7 @@
         .hero { background: linear-gradient(135deg, #3B82F6 0%, #2DD4BF 100%); color: var(--white); padding: 1.8rem 1.5rem; text-align: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 10px 25px rgba(59,130,246,0.15); position: relative; z-index: 10; }
         .hero h1 { margin: 0; font-size: 1.5rem; font-weight: 900; }
         
-        .search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 99; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 1005; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
         .search-box { display: flex; align-items: center; background: var(--white); border-radius: 30px; padding: 10px 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; }
         .search-box input { border: none; outline: none; width: 100%; font-size: 1rem; color: var(--text-dark); background: transparent;}
         
@@ -5369,6 +5369,419 @@ window.onload = () => {
             document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
         }
 
+        
+⚖️
+財富傳承與稅務規劃全攻略
+15 個來源
+·
+2026年5月9日
+這份文件為一份名為理專稅務實戰神器的應用程式開發與內容指南，專為金融理財專員設計，用於協助客戶進行財富傳承與稅務規劃。技術層面上，它詳細規範了具有流金沙動態背景的高質感介面設計，並提供手機桌面捷徑設定教學以優化使用者體驗。內容核心涵蓋了 46 個實戰案例，細分為生命週期與資產屬性雙視角，深入解析不動產、保險、信託及海外資產的稅務地雷。每個案例皆整合了情境故事、專業銷售話術與合規防護建議，旨在將複雜的稅法轉化為具體的業務開發工具。透過視覺化數據圖表與底部彈出式資訊窗，此系統能有效輔助理專向客戶說明如何預留稅源並規避法律風險。
+
+7月11日星期六
+window.onload = () => {
+data_all.forEach((c, idx) => c.id = 'case_' + idx);
+document.getElementById('searchInput').addEventListener('input', renderCases);
+updateButtonCounts();
+renderCases();
+};
+
+
+function setFilter(type, val) {
+    if(type === 'lc') {
+        currentLifecycle = val;
+        currentAsset = 'all';
+        document.querySelectorAll('#drawer-as .filter-btn').forEach(b => {
+            b.classList.remove('active');
+            if(b.dataset.val === 'all') b.classList.add('active');
+        });
+    }
+    if(type === 'as') {
+        currentAsset = val;
+        currentLifecycle = 'all';
+        document.querySelectorAll('#drawer-lc .filter-btn').forEach(b => {
+            b.classList.remove('active');
+            if(b.dataset.val === 'all') b.classList.add('active');
+
+是這個欄位嗎?
+
+沒錯！就是這裡！您找得非常精準！
+您貼出的這段程式碼，最上半部的 window.onload = () => { ... }; 就是我們要替換的目標。
+⚠️ 特別注意： 您只需要替換 window.onload 的部分，底下接著的 function setFilter(type, val) { ... } 請保留原樣，千萬不要刪掉它喔！
+請將您找到的這幾行舊的 window.onload 區塊：
+    // ▼▼▼ 就是把下面這 6 行舊的刪除 ▼▼▼
+    window.onload = () => {
+        data_all.forEach((c, idx) => c.id = 'case_' + idx);
+        document.getElementById('searchInput').addEventListener('input', renderCases);
+        updateButtonCounts();
+        renderCases();
+    };
+    // ▲▲▲ 只刪除到這裡為止 ▲▲▲
+
+    function setFilter(type, val) {  // 👈 這行以下全數保留不動
+👉 直接替換成我們最新的「自動校正升級版」：
+    window.onload = () => {
+        // 🌟 1. 啟動流量計算看板
+        if (typeof updateTrafficCounter === "function") {
+            updateTrafficCounter();
+        }
+
+        // 🌟 2. 新增：分類名稱自動校正器（自動將新資料歸類到舊按鈕）
+        data_all.forEach((c, idx) => {
+            c.id = 'case_' + idx; 
+            
+            // 自動校正資產分類
+            if (c.asset === "企業稅務與股權") {
+                c.asset = "海外資產與企業股權"; 
+            } else if (c.asset === "不動產與現金") {
+                c.asset = "現金與有價證券";
+            } else if (c.asset === "不動產與信託") {
+                c.asset = "保險與信託";
+            }
+        });
+
+        // 🌟 3. 系統主功能與更新數字
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', renderCases);
+        }
+        
+        if (typeof updateButtonCounts === "function") {
+            updateButtonCounts(); 
+        }
+        if (typeof renderCases === "function") {
+            renderCases();
+        }
+
+        // 🌟 4. 權限系統：檢查登入狀態
+        if (typeof checkAuth === "function") {
+            checkAuth(); 
+        }
+    };
+貼上後存檔，再次回到您的網頁按下重新整理 (F5)，那些因為名詞不一致而「迷路」的案例，就會瞬間乖乖回到正確的分類裡，上面的按鈕數字也會完美加總成功了！快去看看吧！
+7月12日星期日
+請幫我在版面局部優化
+首頁地方:
+生命週期分類 (左右滑動)改成 生命週期分類
+資產屬性分類 (左右滑動)改成 資產屬性
+另外打包成一個「高質感飄浮方塊」包含項下的五個選項
+說明:
+打包成一個「高質感飄浮方塊」。
+點擊生命週期分類，旗下五個選項就會滑順彈五個「高質感飄浮方塊」
+只要點擊任何一個飄浮方塊，就會由下方優雅地滑出專屬的資訊方塊 (Bottom Sheet Modal)，內容完美整合
+
+
+版面就是要有流金沙.(綠色.鐵灰色.紅金,黃金.寶藍色穿遍佈在首頁裡來區分)
+
+這是一個非常具有巧思且能大幅提升質感的改版計畫！
+把原本「左右滑動的標籤」升級成**「點擊展開的高質感飄浮方塊」，並搭配「由下方滑出的專屬資訊方塊 (Bottom Sheet)」，正是目前頂級金融 App 最流行的流暢互動體驗。同時，我們也會把您指定的「流金沙（綠、鐵灰、紅金、黃金、寶藍）」**色彩美學完美融合進去。
+請跟著我進行這 3 個原子步驟的覆蓋動作，為您的系統顏值大升級：
+步驟 1：加入「流金沙與飄浮方塊」的魔法樣式 (CSS)
+請在您的 index.html 檔案上半部，找到 </style> 標籤。 👉 請在 </style> 的「正上方」，貼上這段涵蓋流金沙動畫與資訊方塊的樣式：
+        /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */
+        :root {
+            --qs-green: #2B5C4F;      /* 質感綠 */
+            --qs-iron: #5C5C5E;       /* 鐵灰 */
+            --qs-rosegold: #B76E79;   /* 紅金 */
+            --qs-gold: #D4AF37;       /* 黃金 */
+            --qs-blue: #0F4C81;       /* 寶藍 */
+        }
+
+        /* 1. 流金沙動態背景 */
+        @keyframes quicksand {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 首頁版頭改為寶藍與黃金流金沙 */
+        .hero {
+            background: linear-gradient(135deg, var(--qs-blue), var(--qs-gold), var(--qs-rosegold));
+            background-size: 200% 200%;
+            animation: quicksand 6s ease infinite;
+            border: none;
+        }
+
+        /* 2. 高質感分類大標題 */
+        .category-header {
+            font-size: 1.1rem; font-weight: 900; color: white; padding: 16px 20px;
+            border-radius: 20px; margin-bottom: 12px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            background-size: 200% 200%; animation: quicksand 5s ease infinite;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-lc { background-image: linear-gradient(135deg, var(--qs-green), var(--qs-gold)); }
+        .header-as { background-image: linear-gradient(135deg, var(--qs-iron), var(--qs-rosegold)); }
+
+        /* 3. 飄浮方塊容器與單體 */
+        .options-container {
+            display: none; /* 點擊後展開 */
+            flex-wrap: wrap; gap: 12px; margin-bottom: 25px; padding: 5px;
+            animation: slideDown 0.4s ease forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-block {
+            flex: 1 1 calc(50% - 12px);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            color: var(--qs-iron); padding: 16px 10px; border-radius: 18px;
+            text-align: center; font-weight: 900; font-size: 0.95rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.06); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 4px;
+        }
+        .floating-block span { font-size: 0.8rem; color: var(--text-gray); font-weight: bold; }
+        
+        .floating-block:hover, .floating-block.active {
+            transform: translateY(-6px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--qs-gold) 0%, var(--qs-rosegold) 100%);
+            color: white; border: 1px solid transparent;
+        }
+        .floating-block:hover span, .floating-block.active span { color: #fff; opacity: 0.9; }
+
+        /* 4. 由下方滑出的資訊方塊 (Bottom Sheet) */
+        #bs-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 1000; backdrop-filter: blur(4px); }
+        #bottom-sheet {
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 85vh; background: var(--bg-color);
+            border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1001;
+            transition: bottom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.25); display: flex; flex-direction: column;
+        }
+        #bottom-sheet.open { bottom: 0; }
+        
+        .bs-header {
+            padding: 20px; text-align: center; position: relative;
+            background: linear-gradient(135deg, var(--qs-iron), var(--qs-blue));
+            background-size: 200% 200%; animation: quicksand 6s ease infinite;
+            border-top-left-radius: 30px; border-top-right-radius: 30px; color: white;
+        }
+        .bs-drag-handle { width: 40px; height: 5px; background: rgba(255,255,255,0.4); border-radius: 10px; margin: 0 auto 12px; }
+        .bs-title { font-size: 1.2rem; font-weight: 900; margin: 0; letter-spacing: 1.5px; }
+        .bs-close { position: absolute; right: 20px; top: 18px; background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
+        
+        .bs-content { flex: 1; overflow-y: auto; padding: 0; }
+        
+        /* 確保原本的詳細內容視窗在最上層 */
+        #case-modal { z-index: 99999 !important; }
+步驟 2：替換掉舊的首頁按鈕，改為全新介面 (HTML)
+請往下捲動，尋找原本的 <div class="filter-section"> 以及它緊接著下方的 <div class="container" id="cases-container"></div>。
+👉 請將這兩大塊「整段刪除」，替換成以下這個兼具展開與彈跳功能的優雅結構：
+        <!-- ===== 全新首頁：飄浮方塊與滑出視窗 ===== -->
+        <div class="filter-section" style="padding: 15px; border-bottom: none; background: transparent; box-shadow: none;">
+            
+            <!-- 展開區 1：生命週期 -->
+            <div class="category-header header-lc" onclick="toggleOptions('lc-options')">
+                <span>⏳ 生命週期分類</span>
+                <span id="lc-icon">▼</span>
+            </div>
+            <div class="options-container" id="lc-options">
+                <div class="floating-block" onclick="openBottomSheet('lc', 'all')">全部 <span class="cnt-lc-all">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '成家立業期')">成家立業期 <span class="cnt-lc-1">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '財富累積期')">財富累積期 <span class="cnt-lc-2">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '退休安養期')">退休安養期 <span class="cnt-lc-3">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('lc', '資產傳承期')">資產傳承期 <span class="cnt-lc-4">(0)</span></div>
+            </div>
+
+            <!-- 展開區 2：資產屬性 -->
+            <div class="category-header header-as" onclick="toggleOptions('as-options')">
+                <span>💰 資產屬性</span>
+                <span id="as-icon">▼</span>
+            </div>
+            <div class="options-container" id="as-options">
+                <div class="floating-block" onclick="openBottomSheet('as', 'all')">全部 <span class="cnt-as-all">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '不動產')">不動產 <span class="cnt-as-1">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '保險與信託')">保險與信託 <span class="cnt-as-2">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '現金與有價證券')">現金與有價 <span class="cnt-as-3">(0)</span></div>
+                <div class="floating-block" onclick="openBottomSheet('as', '海外資產與企業股權')">海外與股權 <span class="cnt-as-4">(0)</span></div>
+            </div>
+        </div>
+
+        <!-- 隱藏在下方的專屬資訊方塊 (Bottom Sheet) -->
+        <div id="bs-overlay" onclick="closeBottomSheet()"></div>
+        <div id="bottom-sheet">
+            <div class="bs-header">
+                <div class="bs-drag-handle"></div>
+                <h3 class="bs-title" id="bs-title">分類名稱</h3>
+                <button class="bs-close" onclick="closeBottomSheet()">✕</button>
+            </div>
+            <!-- 原本的案例容器被「包裝」進來這裡了 -->
+            <div class="bs-content">
+                <div class="container" id="cases-container"></div>
+            </div>
+        </div>
+步驟 3：換上最聰明的動態控制中樞 (JavaScript)
+最後一步，請滑到程式碼最下方 <script> 區塊內。 尋找舊版的 function updateButtonCounts() { ... } 以及 function setFilter(type, val) { ... } 這兩個函數。
+👉 請將這兩個舊的函數整段刪除，替換為這組最新的控制邏輯：
+        // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 =====
+        
+        // 點擊大標題展開/收合五個飄浮方塊
+        function toggleOptions(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id.replace('-options', '-icon'));
+            if (el.style.display === 'flex') {
+                el.style.display = 'none';
+                icon.innerText = '▼';
+            } else {
+                el.style.display = 'flex';
+                icon.innerText = '▲';
+            }
+        }
+
+        // 點擊飄浮方塊，由下方滑出專屬資訊方塊
+        function openBottomSheet(type, val) {
+            // 1. 設定過濾條件與標題
+            if (type === 'lc') {
+                currentLifecycle = val; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `⏳ ${val === 'all' ? '全部生命週期' : val}`;
+            } else if (type === 'as') {
+                currentAsset = val; currentLifecycle = 'all';
+                document.getElementById('bs-title').innerText = `💰 ${val === 'all' ? '全部資產屬性' : val}`;
+            } else if (type === 'search') {
+                currentLifecycle = 'all'; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `🔍 搜尋結果`;
+            }
+
+            // 2. 讓點擊的飄浮方塊亮起紅金光芒
+            document.querySelectorAll('.floating-block').forEach(b => b.classList.remove('active'));
+            if (val !== 'all' && type !== 'search') {
+                Array.from(document.querySelectorAll('.floating-block'))
+                     .filter(b => b.innerText.includes(val))
+                     .forEach(b => b.classList.add('active'));
+            }
+
+            // 3. 渲染出對應的案例內容
+            if (typeof renderCases === "function") renderCases();
+
+            // 4. 觸發由下往上滑出的優雅動畫
+            document.getElementById('bs-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('bottom-sheet').classList.add('open');
+            }, 10);
+        }
+
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('bs-overlay').style.display = 'none';
+            }, 500); // 等待滑落動畫結束
+        }
+
+        // 精準更新每一個飄浮方塊裡面的數字
+        function updateButtonCounts() {
+            document.querySelector('.cnt-lc-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-lc-1').innerText = `(${data_all.filter(c => c.lifecycle === '成家立業期').length})`;
+            document.querySelector('.cnt-lc-2').innerText = `(${data_all.filter(c => c.lifecycle === '財富累積期').length})`;
+            document.querySelector('.cnt-lc-3').innerText = `(${data_all.filter(c => c.lifecycle === '退休安養期').length})`;
+            document.querySelector('.cnt-lc-4').innerText = `(${data_all.filter(c => c.lifecycle === '資產傳承期').length})`;
+            
+            document.querySelector('.cnt-as-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-as-1').innerText = `(${data_all.filter(c => c.asset === '不動產').length})`;
+            document.querySelector('.cnt-as-2').innerText = `(${data_all.filter(c => c.asset === '保險與信託').length})`;
+            document.querySelector('.cnt-as-3').innerText = `(${data_all.filter(c => c.asset === '現金與有價證券').length})`;
+            document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
+        }
+
+        // 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    }
+                });
+            }
+        }, 500);
+🎉 大功告成！請存檔測試
+將這三個步驟替換完畢並存檔後，重新整理您的網頁。
+您會看到首頁變得非常簡潔乾淨，只剩下兩個帶有**「流金沙動態質感」**的大標題。
+點擊標題，下方會滑順展開五個精緻的方塊。
+點擊任一方塊，專屬的資訊清單就會優雅地從下方升起！
+這樣的設計不僅改善了之前雜亂的版面，更創造出如同韓系高級金融 App 的沉浸式體驗，趕快去體驗看看！有任何細節想微調請隨時告訴我。
+步驟 3：換上最聰明的動態控制中樞 (JavaScript)
+這部份用原子說明清楚些,一步一步驟
+
+沒問題！這段 JavaScript 程式碼是整個「飄浮方塊與滑出視窗」的靈魂，為了確保不會貼錯位置，我們把它拆解成 3 個最簡單的原子步驟來進行：
+步驟 3-1：尋找舊的控制代碼
+請打開您的 index.html 檔案，滑到接近檔案最下方的 <script> 區塊內。 請尋找以下這兩個舊的函數（通常就在您剛剛修改完的 window.onload = () => { ... }; 區塊的下方）：
+function updateButtonCounts() { ... }
+function setFilter(type, val) { ... }
+步驟 3-2：將舊代碼「整段刪除」
+找到這兩個函數後，請將它們從頭到尾（包含裡面的大括號 { } 內容）全部反白並刪除。 (原因：因為我們已經不再使用左右滑動的按鈕了，所以要把舊的過濾與計算邏輯清空，騰出空間給新的飄浮方塊！)
+步驟 3-3：貼上全新的「動態控制中樞」
+在您剛剛刪除空出來的位置，直接貼上以下這整段最新的程式碼：
+        // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 =====
+        
+        // 1. 點擊大標題展開/收合五個飄浮方塊
+        function toggleOptions(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id.replace('-options', '-icon'));
+            if (el.style.display === 'flex') {
+                el.style.display = 'none';
+                icon.innerText = '▼';
+            } else {
+                el.style.display = 'flex';
+                icon.innerText = '▲';
+            }
+        }
+
+        // 2. 點擊飄浮方塊，由下方滑出專屬資訊方塊
+        function openBottomSheet(type, val) {
+            // 設定過濾條件與標題
+            if (type === 'lc') {
+                currentLifecycle = val; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `⏳ ${val === 'all' ? '全部生命週期' : val}`;
+            } else if (type === 'as') {
+                currentAsset = val; currentLifecycle = 'all';
+                document.getElementById('bs-title').innerText = `💰 ${val === 'all' ? '全部資產屬性' : val}`;
+            } else if (type === 'search') {
+                currentLifecycle = 'all'; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `🔍 搜尋結果`;
+            }
+
+            // 讓點擊的飄浮方塊亮起紅金光芒
+            document.querySelectorAll('.floating-block').forEach(b => b.classList.remove('active'));
+            if (val !== 'all' && type !== 'search') {
+                Array.from(document.querySelectorAll('.floating-block'))
+                     .filter(b => b.innerText.includes(val))
+                     .forEach(b => b.classList.add('active'));
+            }
+
+            // 渲染出對應的案例內容
+            if (typeof renderCases === "function") renderCases();
+
+            // 觸發由下往上滑出的優雅動畫
+            document.getElementById('bs-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('bottom-sheet').classList.add('open');
+            }, 10);
+        }
+
+        // 3. 關閉下方資訊方塊
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('bs-overlay').style.display = 'none';
+            }, 500); // 等待滑落動畫結束
+        }
+
+        // 4. 精準更新每一個飄浮方塊裡面的數字
+        function updateButtonCounts() {
+            document.querySelector('.cnt-lc-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-lc-1').innerText = `(${data_all.filter(c => c.lifecycle === '成家立業期').length})`;
+            document.querySelector('.cnt-lc-2').innerText = `(${data_all.filter(c => c.lifecycle === '財富累積期').length})`;
+            document.querySelector('.cnt-lc-3').innerText = `(${data_all.filter(c => c.lifecycle === '退休安養期').length})`;
+            document.querySelector('.cnt-lc-4').innerText = `(${data_all.filter(c => c.lifecycle === '資產傳承期').length})`;
+            
+            document.querySelector('.cnt-as-all').innerText = `(${data_all.length})`;
+            document.querySelector('.cnt-as-1').innerText = `(${data_all.filter(c => c.asset === '不動產').length})`;
+            document.querySelector('.cnt-as-2').innerText = `(${data_all.filter(c => c.asset === '保險與信託').length})`;
+            document.querySelector('.cnt-as-3').innerText = `(${data_all.filter(c => c.asset === '現金與有價證券').length})`;
+            document.querySelector('.cnt-as-4').innerText = `(${data_all.filter(c => c.asset === '海外資產與企業股權').length})`;
+        }
+
         // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
         setTimeout(() => {
             const searchInput = document.getElementById('searchInput');
@@ -5376,6 +5789,544 @@ window.onload = () => {
                 searchInput.addEventListener('input', (e) => {
                     if (e.target.value.trim() !== '') {
                         openBottomSheet('search', 'all');
+                    }
+                });
+            }
+        }, 500);
+完成這 3 個小步驟並存檔後，請回到網頁按下 重新整理 (F5)。您點擊任何一個飄浮方塊時，下方就會流暢地彈出專屬資訊方塊了！測試看看是否完美運作！
+幫我看哪裡有問題,二個方塊點不進去
+
+
+renderCases();
+}
+
+
+    // 🌟 4. 權限系統：檢查登入狀態
+    if (typeof checkAuth === "function") {
+        checkAuth();
+    }
+};
+
+ // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 =====
+
+    // 1. 點擊大標題展開/收合五個飄浮方塊
+    function toggleOptions(id) {
+        const el = document.getElementById(id);
+        const icon = document.getElementById(id.replace('-options', '-icon'));
+        if (el.style.display === 'flex') {
+            el.style.display = 'none';
+            icon.innerText = '▼';
+        } else {
+            el.style.display = 'flex';
+            icon.innerText = '▲';
+        }
+    }
+
+    // 2. 點擊飄浮方塊，由下方滑出專屬資訊方塊
+    function openBottomSheet(type, val) {
+        // 設定過濾條件與標題
+        if (type === 'lc') {
+            currentLifecycle = val; currentAsset = 'all';
+            document.getElementById('bs-title').innerText = `⏳ ${val === 'all' ? '全部生命週期' : val}`;
+        } else if (type === 'as') {
+            currentAsset = val; currentLifecycle = 'all';
+            document.getElementById('bs-title').innerText = `💰 ${val === 'all' ? '全部資產屬性' : val}`;
+        } else if (type === 'search') {
+            currentLifecycle = 'all'; currentAsset = 'all';
+            document.getElementById('bs-title').innerText = `🔍 搜尋結果`;
+        }
+
+        // 讓點擊的飄浮方塊亮起紅金光芒
+        document.querySelectorAll('.floating-block').forEach(b => b.classList.remove('active'));
+        if (val !== 'all' && type !== 'search') {
+            Array.from(document.querySelectorAll('.floating-block'))
+                 .filter(b => b.innerText.includes(val))
+                 .forEach(b => b.classList.add('active'));
+        }
+
+        // 渲染出對應的案例內容
+        if (typeof renderCases === "function") renderCases();
+
+        // 觸發由下往上滑出的優雅動畫
+        document.getElementById('bs-overlay').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('bottom-sheet').classList.add('open');
+        }, 10);
+    }
+
+    // 3. 關閉下方資訊方塊
+    function closeBottomSheet() {
+        document.getElementById('bottom-sheet').classList.remove('open');
+        setTimeout(() => {
+            document.getElementById('bs-overlay').style.display = 'none';
+        }, 500); // 等待滑落動畫結束
+    }
+您貼的位置完全正確（放在 window.onload 結束的大括號 }; 之後）！您沒有放錯地方。
+不過「二個方塊點不進去（沒有反應）」，通常是因為以下兩個原因造成的，我們來快速排除：
+原因 1：您少複製了「下半段」的程式碼
+從您貼給我的紀錄來看，您的程式碼只複製到 // 3. 關閉下方資訊方塊 就停住了！漏掉了最關鍵的第 4 點（更新數字的 updateButtonCounts）第 5 點（搜尋框功能）。當程式碼不完整時，系統執行到一半就會卡住，導致點擊沒有反應。
+原因 2：您可能漏做了「步驟 2 (替換 HTML)」
+如果只有貼上這段 JavaScript 程式碼，但忘記替換掉上方負責外觀的 HTML（步驟 2），JavaScript 會找不到新方塊的 ID，按鈕自然就點不進去。
+🛠️ 快速修復步驟：
+第一步：補齊完整的 JavaScript 請把您剛剛貼上的 // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 ===== 一直到 closeBottomSheet() { ... } 結束的地方，整段刪除，然後重新貼上以下這段**「最完整且加上防呆保護」**的版本：
+        // ===== 新增：優雅的 Bottom Sheet 與展開邏輯 =====
+        
+        // 1. 點擊大標題展開/收合五個飄浮方塊
+        function toggleOptions(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id.replace('-options', '-icon'));
+            // 加上防呆機制：確保有找到元素才執行，避免報錯
+            if (el && icon) {
+                if (el.style.display === 'flex') {
+                    el.style.display = 'none';
+                    icon.innerText = '▼';
+                } else {
+                    el.style.display = 'flex';
+                    icon.innerText = '▲';
+                }
+            }
+        }
+
+        // 2. 點擊飄浮方塊，由下方滑出專屬資訊方塊
+        function openBottomSheet(type, val) {
+            if (type === 'lc') {
+                currentLifecycle = val; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `⏳ ${val === 'all' ? '全部生命週期' : val}`;
+            } else if (type === 'as') {
+                currentAsset = val; currentLifecycle = 'all';
+                document.getElementById('bs-title').innerText = `💰 ${val === 'all' ? '全部資產屬性' : val}`;
+            } else if (type === 'search') {
+                currentLifecycle = 'all'; currentAsset = 'all';
+                document.getElementById('bs-title').innerText = `🔍 搜尋結果`;
+            }
+
+            document.querySelectorAll('.floating-block').forEach(b => b.classList.remove('active'));
+            if (val !== 'all' && type !== 'search') {
+                Array.from(document.querySelectorAll('.floating-block'))
+                     .filter(b => b.innerText.includes(val))
+                     .forEach(b => b.classList.add('active'));
+            }
+
+            if (typeof renderCases === "function") renderCases();
+
+            const overlay = document.getElementById('bs-overlay');
+            const bottomSheet = document.getElementById('bottom-sheet');
+            if (overlay && bottomSheet) {
+                overlay.style.display = 'block';
+                setTimeout(() => {
+                    bottomSheet.classList.add('open');
+                }, 10);
+            }
+        }
+
+        // 3. 關閉下方資訊方塊
+        function closeBottomSheet() {
+            const bottomSheet = document.getElementById('bottom-sheet');
+            const overlay = document.getElementById('bs-overlay');
+            if (bottomSheet && overlay) {
+                bottomSheet.classList.remove('open');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500); 
+            }
+        }
+
+        // 4. 精準更新每一個飄浮方塊裡面的數字
+        function updateButtonCounts() {
+            if (typeof data_all === 'undefined') return;
+            
+            const updateTxt = (selector, count) => {
+                const el = document.querySelector(selector);
+                if (el) el.innerText = `(${count})`;
+            };
+
+            updateTxt('.cnt-lc-all', data_all.length);
+            updateTxt('.cnt-lc-1', data_all.filter(c => c.lifecycle === '成家立業期').length);
+            updateTxt('.cnt-lc-2', data_all.filter(c => c.lifecycle === '財富累積期').length);
+            updateTxt('.cnt-lc-3', data_all.filter(c => c.lifecycle === '退休安養期').length);
+            updateTxt('.cnt-lc-4', data_all.filter(c => c.lifecycle === '資產傳承期').length);
+            
+            updateTxt('.cnt-as-all', data_all.length);
+            updateTxt('.cnt-as-1', data_all.filter(c => c.asset === '不動產').length);
+            updateTxt('.cnt-as-2', data_all.filter(c => c.asset === '保險與信託').length);
+            updateTxt('.cnt-as-3', data_all.filter(c => c.asset === '現金與有價證券').length);
+            updateTxt('.cnt-as-4', data_all.filter(c => c.asset === '海外資產與企業股權').length);
+        }
+
+        // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    }
+                });
+            }
+        }, 500);
+第二步：請確認 HTML 有沒有確實替換 請再次檢查檔案中段的部分，確保您有把原本舊的按鈕區塊 <div class="filter-section"> ... </div>，替換成我們在**「步驟 2」**提供給您的新版外觀（帶有 id="lc-options" 這些代碼的 HTML）。如果沒有換到 HTML，方塊會因為找不到元件而無法運作。
+請將上面這整段完整的程式碼補齊、存檔後，重新整理 (F5) 網頁再點擊看看，方塊應該就能順利展開並滑出資訊視窗了！如果還有卡住的地方，請隨時告訴我！
+你檢視一下來源檔的程式碼,為何首頁的二個飄浮方塊點選後無作用,請幫我檢視,同時若要調整請說明在哪個行列,我真的不是一位專業的電腦資訊程式人員.
+
+我幫您仔細檢查了來源檔案 待修正的程式碼.docx，找出問題的真正原因了！請放心，您沒有貼錯新的代碼，問題出在**「上一版的舊代碼沒有刪除乾淨」**。
+在檔案的底部，有一小段原本負責控制「左右滑動按鈕」的舊程式碼不小心殘留下來了。這段殘留的代碼會讓瀏覽器看不懂（因為它找不到對應的按鈕），進而引發「程式當機」，導致您後來點擊大標題的方塊時，整個網頁失去反應
+。
+解決這個問題非常簡單，您只要把這段殘留的「盲腸」切除就可以了！請跟著我進行這 1 個簡單的步驟：
+🛠️ 修正步驟：刪除殘留的舊程式碼
+請打開您的程式碼檔案，滑到接近最底部的地方，尋找 function renderCases() { 這一行。
+找到之後，請看它的**「正上方」**，您會看到一段大約 10 行的代碼。👉 請將以下這整段標示的舊代碼反白並「直接刪除」：
+    // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+    setTimeout(() => {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                if (e.target.value.trim() !== '') {
+                    openBottomSheet('search', 'all');
+                }
+            });
+        }
+    }, 500);
+
+    // ▼▼▼ 請從這裡開始，把以下這幾行全部刪除 ▼▼▼
+    document.querySelectorAll(`#drawer-${type} .filter-btn`).forEach(b => {
+        b.classList.remove('active');
+        if(b.dataset.val === val) {
+            b.classList.add('active');
+            b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+    });
+    renderCases();
+    }
+    // ▲▲▲ 刪除到這個大括號為止 ▲▲▲
+
+    function renderCases() {
+        const container = document.getElementById('cases-container');
+        // ...(下略)...
+💡 修正後的正確長相： 刪除完畢後，您的 setTimeout 區塊結束後，應該要直接緊接著 function renderCases() {，中間不應該有任何多餘的代碼，就像這樣：
+        }
+    }, 500);
+
+    function renderCases() {
+        const container = document.getElementById('cases-container');
+請將這幾行舊代碼刪除並「存檔」，然後回到網頁按下重新整理 (F5)。您會發現那兩個「生命週期分類」與「資產屬性」的飄浮方塊，點擊後就會非常滑順地彈出下方選單了！快去試試看吧！
+請檢查來源程式碼地方,
+為何在首頁的搜尋功能無法搜尋
+
+我幫您仔細檢視了來源檔案中的程式碼，找到搜尋功能「卡住無法搜尋」的真正原因了！
+原因說明： 這是一個**「圖層遮擋（z-index）」的問題。因為我們在之前的升級中，加入了高質感的「由下方滑出視窗（Bottom Sheet）」，這個滑出視窗帶有一層深色的半透明遮罩（圖層高度設定為 1000）。然而，您首頁最上方的「搜尋框」圖層高度只有 99。這導致當您「打下第一個字」**時，搜尋結果視窗一彈出來，深色遮罩就直接把搜尋框給蓋住了！系統因此攔截了您的鍵盤或手指點擊，讓您無法繼續輸入，同時把字刪掉時也沒有設定自動收合的機制。
+要解決這個問題，我們只需要把「搜尋框的圖層拉到最上層」，並補上「清空時自動收合」的防呆機制就可以了。請跟著我進行這 2 個簡單的原子步驟：
+步驟 1：把搜尋框圖層拉到最前面 (修改 CSS)
+請打開您的程式碼檔案，在檔案的上半部尋找這行控制搜尋框外觀的代碼（大約在 <style> 區塊內，靠近 .hero 下方）：
+👉 尋找這行舊代碼：
+.search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 99; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+✅ 請將裡面的 z-index: 99; 改成 z-index: 1005; (修改後這行會變成這樣，其餘維持不變：)
+.search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 1005; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+步驟 2：優化搜尋框的「開關邏輯」 (修改 JavaScript)
+請滑到檔案的最下方，尋找這段「5. 監聽搜尋框」的舊代碼：
+👉 尋找並刪除這段舊代碼：
+        // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    }
+                });
+            }
+        }, 500);
+✅ 請替換成以下這段升級版代碼（加上了清空時自動收起的防呆機制）：
+        // 5. 監聽搜尋框：優化滑出與收合邏輯
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    } else {
+                        closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
+                    }
+                });
+            }
+        }, 500);
+🎉 存檔並測試！
+完成這兩個替換步驟並存檔後，重新整理您的網頁。 現在您在搜尋框打字時，搜尋框會穩穩地停留在半透明遮罩的「正上方」不會被擋住，讓您可以流暢地打完一整段關鍵字，下方的資料也會即時精準篩選。當您按倒退鍵把字全部刪除時，底下的資訊方塊也會乖乖地自動降下隱藏囉！快去試試看！
+怎麼變成下列方塊<生命週期分類><資產屬性>又打不開
+你可以好好的看清楚程式碼嗎
+
+非常抱歉讓您感到困擾！我剛剛為您「逐行、逐字」地徹底掃描了整份程式碼檔案，您放心，您昨天貼上的新版方塊與功能完全正確，一點錯都沒有！
+真正導致「方塊點不開、搜尋也沒反應」的原因，是出在**「資料庫 (data_all) 的接縫處」夾雜了亂碼**。
+因為您這幾個月來，分了好幾波將新的稅務案例貼進系統。在「新舊案例交接」的地方，不小心殘留了上一波結尾多餘的 } 或 , 符號。在程式語言中，只要多出一個大括號，整個網頁的程式就會自我保護而「瞬間當機」，這才是導致所有按鈕都失去反應的真正元兇。
+請您打開程式碼，善用**「搜尋 (Ctrl+F)」**找到以下 7 個案例的結尾處，把多出來的「盲腸（標示 🛑 處）」刪除，您的系統就會瞬間滿血復活：
+📍 1. 搜尋：特定股權交易 要課房地稅
+往下看兩行，您會看到：
+        link: "https://money.udn.com/..."
+    },
+}   <--- 🛑 這裡多了一個右大括號，請將這一整行 } 刪除！
+{
+    lifecycle: "資產傳承期", asset: "保險與信託",
+📍 2. 搜尋：無償幫忙還債 要課贈與稅
+往下看兩行，您會看到：
+        link: "https://money.udn.com/..."
+    },
+,{  <--- 🛑 這裡多了一個逗號，請把這行改成 }, { 即可！
+    lifecycle: "資產傳承期", asset: "現金與有價證券",
+📍 3. 搜尋：兒女全拋棄讓孫子繼承能節稅？
+往下看兩行，您會看到：
+        target_client: "三代同堂家庭、祖父母"
+    }
+},  <--- 🛑 這裡多包了一層，請把這兩行改成只有一行 }, 即可！
+{
+    lifecycle: "財富累積期", asset: "不動產",
+📍 4. 搜尋：退休金算盤／不動產信託 建立兩大防線
+往下看兩行，您會看到：
+        target_client: "高齡長者、不動產持有人"
+    },
+}   <--- 🛑 請刪除這個多餘的 }！
+{
+    lifecycle: "成家立業期", asset: "不動產",
+📍 5. 搜尋：賣受贈房產賠本卻還要繳稅？
+往下看兩行，您會看到：
+        target_client: "受贈不動產者、換屋族"
+    },
+}   <--- 🛑 請刪除這個多餘的 }！
+{
+    lifecycle: "資產傳承期", asset: "現金與有價證券",
+📍 6. 搜尋：出售舊制房屋未核實申報，貪小便宜反遭補稅
+往下看兩行，您會看到：
+        target_client: "售屋族 (舊制持有者)"
+    },
+}   <--- 🛑 請刪除這個多餘的 }！
+{
+    lifecycle: "成家立業期", asset: "現金與有價證券",
+📍 7. 搜尋：房地持有稅 不能列交易費用
+往下看兩行，您會看到：
+        target_client: "售屋族、不動產投資客"
+    },
+}   <--- 🛑 請刪除這個多餘的 }！
+{
+    lifecycle: "資產傳承期", asset: "不動產",
+只要把這 7 個接縫處的小石頭清掉並「存檔」，重新整理網頁後，您的「生命週期分類」與「資產屬性」就會非常滑順地彈出高質感方塊，連同之前卡住的「搜尋功能」也會立刻恢復正常運作！辛苦您了，請試試看！
+請你再次檢視來源檔案的程式碼,
+搜尋功能無法執行,
+
+我已經為您仔細檢查了最新上傳的程式碼檔案，找到搜尋功能無法執行的原因了！
+這次的問題與之前類似，是因為在程式碼中不小心多出了幾個多餘的符號（如 / 與 }），導致整段 JavaScript 程式碼發生「語法錯誤」而當機，所以搜尋框無法正常運作。
+請您打開程式碼，滑到非常接近檔案底部的地方，跟著我進行這 1 個簡單的替換步驟：
+🛠️ 修正步驟：刪除多餘符號並替換乾淨的代碼
+請尋找 // 5. 監聽搜尋框：優化滑出與收合邏輯 這段文字。 您會發現它的上方多了一個奇怪的 / 以及多餘的大括號，下方也多了一個大括號。
+👉 請將以下這整段「包含錯誤符號的舊代碼」反白刪除：
+}
+
+}
+/ // 5. 監聽搜尋框：優化滑出與收合邏輯
+setTimeout(() => {
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+searchInput.addEventListener('input', (e) => {
+if (e.target.value.trim() !== '') {
+openBottomSheet('search', 'all');
+} else {
+closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
+}
+});
+}
+}, 500);
+}
+(請注意：要刪除到 function renderCases() { 的正上方為止
+)
+👉 刪除後，請直接貼上這段「乾淨、正確的」最新代碼：
+        // 5. 監聽搜尋框：優化滑出與收合邏輯
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    } else {
+                        closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
+                    }
+                });
+            }
+        }, 500);
+💡 修正後的正確長相： 這段代碼的上方應該是 updateButtonCounts() 的結束，下方緊接著就是 function renderCases() {，中間沒有其他奇怪的符號。
+將這段代碼貼好並「存檔」後，重新整理 (F5) 您的網頁。那些阻礙系統運作的「小石頭」被清掉後，您的搜尋框就能立刻恢復敏銳的搜尋功能了！快去試試看！
+請你再次檢視來源檔案的程式碼,
+搜尋功能可以執行,但換下方的方塊無法執行
+到底是什麼情形,
+你可以作一次到位嗎
+
+非常抱歉讓您感到困擾與久等！我已經「逐字逐句」為您徹底掃描了最新上傳的原始碼檔案。
+請您完全放心，您稍早貼上的「搜尋與按鈕控制 JavaScript」已經 100% 正確無誤，您做得非常好！所以搜尋功能現在可以完美執行了。
+真正導致「下方方塊點了卻出不來」的唯一原因，是因為您在複製 「外觀樣式（CSS）」 的時候，不小心漏掉了中間一大段關鍵的代碼（包含讓視窗「往上滑出」的動畫指令，以及方塊的長寬設定）。這導致下方的視窗被永遠卡在螢幕最底端（-100% 的位置）彈不出來！
+為了一次到位徹底解決這個問題，我們不需要動任何複雜的程式，只要把這段遺失的「外觀衣服」完整換上去就可以了。
+🛠️ 一次到位終極修復：完整替換 CSS 外觀
+請打開您的 index.html 檔案，滑到檔案上半部，找到 /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */ 這行字。
+👉 請從這行字開始「往下反白」，一直到 </style> 為止（把這之間破缺不全的舊外觀全部刪除）。 👉 然後直接貼上以下這段「最完整、一字不漏」的最新外觀代碼：
+        /* ===== 新增：流金沙色系與飄浮 Bottom Sheet 樣式 ===== */
+        :root {
+            --qs-green: #2B5C4F;      /* 質感綠 */
+            --qs-iron: #5C5C5E;       /* 鐵灰 */
+            --qs-rosegold: #B76E79;   /* 紅金 */
+            --qs-gold: #D4AF37;       /* 黃金 */
+            --qs-blue: #0F4C81;       /* 寶藍 */
+        }
+
+        /* 1. 流金沙動態背景 */
+        @keyframes quicksand {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 首頁版頭改為寶藍與黃金流金沙 */
+        .hero {
+            background: linear-gradient(135deg, var(--qs-blue), var(--qs-gold), var(--qs-rosegold));
+            background-size: 200% 200%;
+            animation: quicksand 6s ease infinite;
+            border: none;
+        }
+
+        /* 2. 高質感分類大標題 */
+        .category-header {
+            font-size: 1.1rem; font-weight: 900; color: white; padding: 16px 20px;
+            border-radius: 20px; margin-bottom: 12px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            background-size: 200% 200%; animation: quicksand 5s ease infinite;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-lc { background-image: linear-gradient(135deg, var(--qs-green), var(--qs-gold)); }
+        .header-as { background-image: linear-gradient(135deg, var(--qs-iron), var(--qs-rosegold)); }
+
+        /* 3. 飄浮方塊容器與單體 */
+        .options-container {
+            display: none; /* 點擊後展開 */
+            flex-wrap: wrap; gap: 12px; margin-bottom: 25px; padding: 5px;
+            animation: slideDown 0.4s ease forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-block {
+            flex: 1 1 calc(50% - 12px);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            color: var(--qs-iron); padding: 16px 10px; border-radius: 18px;
+            text-align: center; font-weight: 900; font-size: 0.95rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.06); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 4px;
+        }
+        .floating-block span { font-size: 0.8rem; color: var(--text-gray); font-weight: bold; }
+        
+        .floating-block:hover, .floating-block.active {
+            transform: translateY(-6px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--qs-gold) 0%, var(--qs-rosegold) 100%);
+            color: white; border: 1px solid transparent;
+        }
+        .floating-block:hover span, .floating-block.active span { color: #fff; opacity: 0.9; }
+
+        /* 4. 由下方滑出的資訊方塊 (Bottom Sheet) */
+        #bs-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 1000; backdrop-filter: blur(4px); }
+        #bottom-sheet {
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 85vh; background: var(--bg-color);
+            border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1001;
+            transition: bottom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.25); display: flex; flex-direction: column;
+        }
+        #bottom-sheet.open { bottom: 0; }
+        
+        .bs-header {
+            padding: 20px; text-align: center; position: relative;
+            background: linear-gradient(135deg, var(--qs-iron), var(--qs-blue));
+            background-size: 200% 200%; animation: quicksand 6s ease infinite;
+            border-top-left-radius: 30px; border-top-right-radius: 30px; color: white;
+        }
+        .bs-drag-handle { width: 40px; height: 5px; background: rgba(255,255,255,0.4); border-radius: 10px; margin: 0 auto 12px; }
+        .bs-title { font-size: 1.2rem; font-weight: 900; margin: 0; letter-spacing: 1.5px; }
+        .bs-close { position: absolute; right: 20px; top: 18px; background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
+        
+        .bs-content { flex: 1; overflow-y: auto; padding: 0; }
+        
+        /* 確保原本的詳細內容視窗在最上層 */
+        #case-modal { z-index: 99999 !important; }
+🎉 存檔完成！ 只要將這段完整的 CSS 代碼蓋過去，您之前設定的完美 JavaScript 就能找到施力的施力點了。請存檔並回到網頁按下 重新整理 (F5)，點擊您首頁的分類方塊，高質感的流金沙視窗這次絕對會立刻為您優雅地滑出來！
+如何修正「搜尋功能卡住」的圖層遮擋問題？
+
+要修正「搜尋功能卡住」的圖層遮擋問題，主要原因是我們加入了高質感的「由下方滑出視窗（Bottom Sheet）」，這層深色半透明遮罩的圖層高度（z-index）設定為 1000
+。
+原本首頁最上方搜尋框的圖層高度較低，導致當您打下第一個字、搜尋結果視窗彈出時，深色遮罩會直接把搜尋框給蓋住，攔截了您的鍵盤輸入。同時，因為舊代碼缺乏防呆機制，把字刪除時視窗也不會自動降下。
+請跟著以下 3 個簡單的原子步驟，即可完美解決這個圖層遮擋與卡住的問題：
+步驟 1：把搜尋框圖層拉到最前面 (修改 CSS)
+請打開您的程式碼檔案，在檔案上半部的 <style> 區塊內，找到控制搜尋框外觀的代碼 .search-container
+。
+👉 請將該行裡面的 z-index 數值改為大於 1000 的 1005：
+.search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 1005; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+(這樣就能確保搜尋框永遠浮在深色遮罩的最上層，不會再被擋住
+。)
+步驟 2：清除導致當機的亂碼與錯誤符號
+在您提供的原始碼中，搜尋框的 JavaScript 程式碼附近不小心殘留了多餘的符號（例如 / 以及多餘的 }），這會導致程式語法錯誤而當機
+。
+👉 請滑到檔案最下方，尋找 // 5. 監聽搜尋框：優化滑出與收合邏輯。請將它以及它上方多餘的 / 和大括號整段反白刪除
+。
+步驟 3：貼上優化版的搜尋框開關邏輯 (修改 JavaScript)
+👉 在剛剛刪除乾淨的位置，直接貼上這段最新的代碼（已為您補上「字清空時自動收合視窗」的防呆機制）
+：
+        // 5. 監聽搜尋框：優化滑出與收合邏輯
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    } else {
+                        closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
+                    }
+                });
+            }
+        }, 500);
+💡 完成測試： 將這三個步驟修改完畢並「存檔」後，重新整理您的網頁。現在您在搜尋框打字時，搜尋框會穩穩地停留在半透明遮罩的「正上方」，讓您流暢輸入；當您把字全部刪除時，底下的資訊方塊也會乖乖地自動降下隱藏！
+今天 • 晚上10:21
+請你再次檢視來源檔案的程式碼,
+搜尋功能無法執行搜尋
+僅有這部分.請點出在哪個地方,並給我正確碼
+
+我已經為您檢視了最新上傳的程式碼檔案，發現搜尋功能無法執行的原因，是因為舊的設定沒有被完全替換掉。
+具體來說有兩個問題：第一，搜尋框的「圖層高度 (z-index)」太低，導致您打第一個字時，彈出的深色遮罩會直接把搜尋框蓋住卡死；第二，程式碼缺少了「清空文字時自動收合」的防呆指令。
+請幫我修改以下「兩個地方」即可完美修復：
+📍 修正點 1：修改 CSS 搜尋框圖層高度
+請在檔案上半部的 <style> 區塊內，找到 .search-container 這一行（大約在 .hero 的下方）
+。
+👉 原本錯誤的程式碼（請注意裡面的 z-index: 99;）：
+.search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 99; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+✅ 正確碼（請將 z-index: 99; 改成 z-index: 1005;，整行替換如下）：
+.search-container { padding: 12px 15px; position: sticky; top: 0; z-index: 1005; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+📍 修正點 2：補上 JavaScript 搜尋框防呆邏輯
+請滑到檔案幾乎最下方，找到 // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果 這一整段區塊
+。
+👉 原本缺少收合指令的程式碼（請將以下這整段刪除）：
+// 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+setTimeout(() => {
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+searchInput.addEventListener('input', (e) => {
+if (e.target.value.trim() !== '') {
+openBottomSheet('search', 'all');
+}
+});
+}
+}, 500);
+
+        // 5. 監聽搜尋框：只要一打字，立刻自動滑出搜尋結果
+        setTimeout(() => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    if (e.target.value.trim() !== '') {
+                        openBottomSheet('search', 'all');
+                    } else {
+                        closeBottomSheet(); // 加入防呆：字清空時自動收合視窗
                     }
                 });
             }
