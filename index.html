@@ -171,10 +171,57 @@
         
         /* 確保原本的詳細內容視窗在最上層 */
         #case-modal { z-index: 99999 !important; }
+        /* ===== 新增：VIP 登入畫面專屬樣式 ===== */
+        #login-overlay {
+            position: fixed; inset: 0; z-index: 999999;
+            background: rgba(245, 247, 247, 0.85);
+            backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .login-box {
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,1);
+            border-radius: 24px;
+            padding: 45px 35px;
+            text-align: center;
+            width: 90%; max-width: 350px;
+            animation: slideDown 0.5s ease forwards;
+        }
+        .elegant-title { font-size: 1.8rem; font-weight: 900; color: var(--text-dark); margin: 0; letter-spacing: 2px; }
+        .elegant-subtitle { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 25px; letter-spacing: 1px; text-transform: uppercase; margin-top: 5px; font-weight: bold;}
+        .login-input {
+            width: 100%; padding: 14px 15px; margin-bottom: 15px;
+            background: #F8FAFC; border: 1px solid #E2E8F0;
+            border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s; box-sizing: border-box; font-size: 1rem; color: var(--text-dark);
+        }
+        .login-input:focus { background: var(--white); border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.2); outline: none;}
+        .login-btn {
+            width: 100%; padding: 14px; margin-top: 10px;
+            background: var(--text-dark); color: white; border: none;
+            border-radius: 30px; letter-spacing: 2px; font-weight: 900; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .login-btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); }
+        #login-error { color: var(--danger); font-size: 0.85rem; font-weight: bold; margin: -5px 0 15px 0; display: none; }
     </style>
 </head>
 <body>
-    <div id="main-app">
+  <!-- ===== VIP 登入畫面覆蓋層 ===== -->
+<div id="login-overlay">
+    <div class="login-box">
+        <h2 class="elegant-title">Sign In</h2>
+        <p class="elegant-subtitle">VIP Member Access</p>
+        <input type="text" id="login-username" class="login-input" placeholder="Username" autocomplete="off">
+        <input type="password" id="login-password" class="login-input" placeholder="Password">
+        <p id="login-error">⚠️ 帳號或密碼錯誤</p>
+        <button class="login-btn" onclick="verifyLogin()">LOGIN</button>
+    </div>
+</div>
+
+<!-- 將原本的主系統預設隱藏，等登入成功才顯示 -->
+<div id="main-app" style="display: none;">
         <div class="hero">
             <h1>💎 財富傳承稅務庫</h1>
             <p style="margin: 6px 0 0 0; font-size: 0.9rem; font-weight:bold;">稅稅平安《理財最錢線》app</p>
@@ -5534,6 +5581,51 @@ window.onload = () => {
                 closePwaModal(); 
             }
         }
-    </script>
+ // ===== 新增：VIP 登入驗證邏輯 =====
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const loginOverlay = document.getElementById('login-overlay');
+            const mainApp = document.getElementById('main-app');
+            
+            if (isLoggedIn === 'true') {
+                // 已登入：隱藏登入畫面，顯示主系統
+                if (loginOverlay) loginOverlay.style.display = 'none';
+                if (mainApp) mainApp.style.display = 'block';
+            } else {
+                // 未登入：顯示登入畫面，隱藏主系統
+                if (loginOverlay) loginOverlay.style.display = 'flex';
+                if (mainApp) mainApp.style.display = 'none';
+            }
+        }
+
+        function verifyLogin() {
+            const user = document.getElementById('login-username').value.trim();
+            const pass = document.getElementById('login-password').value.trim();
+            const errorMsg = document.getElementById('login-error');
+
+            // 檢查帳號密碼是否正確
+            if (user === 'vip888' && pass === 'vip1001') {
+                // 登入成功：寫入暫存並進入系統
+                sessionStorage.setItem('isLoggedIn', 'true');
+                document.getElementById('login-username').value = '';
+                document.getElementById('login-password').value = '';
+                errorMsg.style.display = 'none';
+                checkAuth(); 
+            } else {
+                // 登入失敗：顯示錯誤提示
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // 貼心設計：在密碼欄位按下 Enter 鍵也能直接登入
+        const passwordInput = document.getElementById('login-password');
+        if (passwordInput) {
+            passwordInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    verifyLogin();
+                }
+            });
+        }   
+ </script>
 </body>
 </html>
